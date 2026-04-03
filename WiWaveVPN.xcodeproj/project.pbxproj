@@ -6,14 +6,67 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8E2A72012F7E57A800903126 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2A72002F7E57A800903126 /* NetworkExtension.framework */; };
+		8E2A72092F7E57A800903126 /* luu.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8E2A71FE2F7E57A800903126 /* luu.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F0350527416421D6AA076FC9 /* Pods_WiWaveVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407A05683F7785045544A724 /* Pods_WiWaveVPN.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8E2A72072F7E57A800903126 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E2A71DE2F7D048700903126 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E2A71FD2F7E57A800903126;
+			remoteInfo = luu;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8E2A720E2F7E57A800903126 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8E2A72092F7E57A800903126 /* luu.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		01A8B2C0B6E1DDBC28BD859D /* Pods-WiWaveVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiWaveVPN.debug.xcconfig"; path = "Target Support Files/Pods-WiWaveVPN/Pods-WiWaveVPN.debug.xcconfig"; sourceTree = "<group>"; };
+		407A05683F7785045544A724 /* Pods_WiWaveVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WiWaveVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E2A71E62F7D048700903126 /* WiWaveVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiWaveVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E2A71FE2F7E57A800903126 /* luu.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = luu.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E2A72002F7E57A800903126 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		D8DF2AFEDEC0CFF206F59473 /* Pods-WiWaveVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiWaveVPN.release.xcconfig"; path = "Target Support Files/Pods-WiWaveVPN/Pods-WiWaveVPN.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8E2A720A2F7E57A800903126 /* Exceptions for "luu" folder in "luu" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8E2A71FD2F7E57A800903126 /* luu */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8E2A71E82F7D048700903126 /* WiWaveVPN */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = WiWaveVPN;
+			sourceTree = "<group>";
+		};
+		8E2A72022F7E57A800903126 /* luu */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8E2A720A2F7E57A800903126 /* Exceptions for "luu" folder in "luu" target */,
+			);
+			path = luu;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -23,17 +76,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0350527416421D6AA076FC9 /* Pods_WiWaveVPN.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E2A71FB2F7E57A800903126 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E2A72012F7E57A800903126 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8374E26274B2D9DEB0D4B660 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				01A8B2C0B6E1DDBC28BD859D /* Pods-WiWaveVPN.debug.xcconfig */,
+				D8DF2AFEDEC0CFF206F59473 /* Pods-WiWaveVPN.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8E2A71DD2F7D048700903126 = {
 			isa = PBXGroup;
 			children = (
 				8E2A71E82F7D048700903126 /* WiWaveVPN */,
+				8E2A72022F7E57A800903126 /* luu */,
+				8E2A71FF2F7E57A800903126 /* Frameworks */,
 				8E2A71E72F7D048700903126 /* Products */,
+				8374E26274B2D9DEB0D4B660 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -41,8 +115,18 @@
 			isa = PBXGroup;
 			children = (
 				8E2A71E62F7D048700903126 /* WiWaveVPN.app */,
+				8E2A71FE2F7E57A800903126 /* luu.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8E2A71FF2F7E57A800903126 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E2A72002F7E57A800903126 /* NetworkExtension.framework */,
+				407A05683F7785045544A724 /* Pods_WiWaveVPN.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -52,23 +136,45 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E2A71F12F7D048800903126 /* Build configuration list for PBXNativeTarget "WiWaveVPN" */;
 			buildPhases = (
+				9B3F7B8760FCED1053877ABC /* [CP] Check Pods Manifest.lock */,
 				8E2A71E22F7D048700903126 /* Sources */,
 				8E2A71E32F7D048700903126 /* Frameworks */,
 				8E2A71E42F7D048700903126 /* Resources */,
+				8E2A720E2F7E57A800903126 /* Embed Foundation Extensions */,
+				AC241B7DE55D1715405D9829 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E2A72082F7E57A800903126 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8E2A71E82F7D048700903126 /* WiWaveVPN */,
+			);
+			name = WiWaveVPN;
+			productName = WiWaveVPN;
+			productReference = 8E2A71E62F7D048700903126 /* WiWaveVPN.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8E2A71FD2F7E57A800903126 /* luu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E2A720B2F7E57A800903126 /* Build configuration list for PBXNativeTarget "luu" */;
+			buildPhases = (
+				8E2A71FA2F7E57A800903126 /* Sources */,
+				8E2A71FB2F7E57A800903126 /* Frameworks */,
+				8E2A71FC2F7E57A800903126 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				8E2A71E82F7D048700903126 /* WiWaveVPN */,
+				8E2A72022F7E57A800903126 /* luu */,
 			);
-			name = WiWaveVPN;
-			packageProductDependencies = (
-			);
-			productName = WiWaveVPN;
-			productReference = 8E2A71E62F7D048700903126 /* WiWaveVPN.app */;
-			productType = "com.apple.product-type.application";
+			name = luu;
+			productName = luu;
+			productReference = 8E2A71FE2F7E57A800903126 /* luu.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +187,9 @@
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					8E2A71E52F7D048700903126 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					8E2A71FD2F7E57A800903126 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 				};
@@ -100,6 +209,7 @@
 			projectRoot = "";
 			targets = (
 				8E2A71E52F7D048700903126 /* WiWaveVPN */,
+				8E2A71FD2F7E57A800903126 /* luu */,
 			);
 		};
 /* End PBXProject section */
@@ -112,7 +222,60 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8E2A71FC2F7E57A800903126 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9B3F7B8760FCED1053877ABC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WiWaveVPN-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC241B7DE55D1715405D9829 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WiWaveVPN/Pods-WiWaveVPN-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WiWaveVPN/Pods-WiWaveVPN-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WiWaveVPN/Pods-WiWaveVPN-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8E2A71E22F7D048700903126 /* Sources */ = {
@@ -122,7 +285,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8E2A71FA2F7E57A800903126 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8E2A72082F7E57A800903126 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E2A71FD2F7E57A800903126 /* luu */;
+			targetProxy = 8E2A72072F7E57A800903126 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8E2A71EF2F7D048800903126 /* Debug */ = {
@@ -243,15 +421,18 @@
 		};
 		8E2A71F22F7D048800903126 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01A8B2C0B6E1DDBC28BD859D /* Pods-WiWaveVPN.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WiWaveVPN/WiWaveVPN.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WFWY6RAV2Z;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -262,40 +443,44 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.glow.wi.wave.vpn.WiWaveVPN;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glow.wi.wave.vpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 26.2;
 			};
 			name = Debug;
 		};
 		8E2A71F32F7D048800903126 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8DF2AFEDEC0CFF206F59473 /* Pods-WiWaveVPN.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WiWaveVPN/WiWaveVPN.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WFWY6RAV2Z;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -306,26 +491,98 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.glow.wi.wave.vpn.WiWaveVPN;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glow.wi.wave.vpn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		8E2A720C2F7E57A800903126 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = luu/luu.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WFWY6RAV2Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = luu/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = luu;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glow.wi.wave.vpn.luu;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		8E2A720D2F7E57A800903126 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = luu/luu.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WFWY6RAV2Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = luu/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = luu;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glow.wi.wave.vpn.luu;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -346,6 +603,15 @@
 			buildConfigurations = (
 				8E2A71F22F7D048800903126 /* Debug */,
 				8E2A71F32F7D048800903126 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E2A720B2F7E57A800903126 /* Build configuration list for PBXNativeTarget "luu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E2A720C2F7E57A800903126 /* Debug */,
+				8E2A720D2F7E57A800903126 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
