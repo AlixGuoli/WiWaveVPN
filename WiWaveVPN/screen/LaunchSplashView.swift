@@ -6,7 +6,7 @@ struct LaunchSplashView: View {
 
     @EnvironmentObject private var appLanguage: AppLanguageStore
 
-    private let minimumDisplaySeconds: Double = 2.5
+    private let minimumDisplaySeconds: Double = 2.0
 
     var body: some View {
         ZStack {

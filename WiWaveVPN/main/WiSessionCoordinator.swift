@@ -176,8 +176,8 @@ final class WiSessionCoordinator: ObservableObject {
         }
         probeBusy = true
         Task { @MainActor in
-            AppLogger.log(.connection, tag: self.logTag, "postCheck sleep 4s")
-            try? await Task.sleep(nanoseconds: 4_000_000_000)
+            AppLogger.log(.connection, tag: self.logTag, "postCheck sleep 3s")
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
             self.probeBusy = false
             let ok = self.tunnel.currentStatus() == .connected
             AppLogger.log(.connection, tag: self.logTag, "postCheck done ok=\(ok)")
