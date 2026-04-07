@@ -255,12 +255,9 @@ struct DashboardFakeCheckCard: View {
         guard !running else { return }
         running = true
         showDone = false
-        let ms = UInt64.random(in: 780...1_420)
-        try? await Task.sleep(nanoseconds: ms * 1_000_000)
+        try? await Task.sleep(nanoseconds: 3_000_000_000)
         running = false
         showDone = true
-        try? await Task.sleep(nanoseconds: 2_200_000_000)
-        if showDone { showDone = false }
     }
 }
 

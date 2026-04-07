@@ -46,6 +46,9 @@
 "connect.alert.disconnect.confirm" = "Disconnect";
 "connect.alert.disconnect.cancel" = "Cancel";
 "connect.alert.disconnect.message" = "This will stop the current tunnel.";
+"connect.alert.routes_locked.title" = "Disconnect to switch";
+"connect.alert.routes_locked.message" = "You’re connected. Disconnect the tunnel first, then open the server list to pick another node.";
+"connect.alert.routes_locked.ok" = "OK";
 
 /* Node list */
 "nodes.nav.title" = "Choose server";

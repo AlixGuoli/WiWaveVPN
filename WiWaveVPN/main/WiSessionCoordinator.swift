@@ -78,7 +78,6 @@ final class WiSessionCoordinator: ObservableObject {
     func confirmUnplug() {
         showUnplugConfirm = false
         userWantsDisconnect = true
-        showProgressPage = true
         phase = .busy
         verdict = nil
         tunnel.stop()

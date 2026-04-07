@@ -33,6 +33,9 @@ enum L10n {
         static func alertDisconnectConfirm(_ app: AppLanguageStore) -> String { app.tr("connect.alert.disconnect.confirm") }
         static func alertDisconnectCancel(_ app: AppLanguageStore) -> String { app.tr("connect.alert.disconnect.cancel") }
         static func alertDisconnectMessage(_ app: AppLanguageStore) -> String { app.tr("connect.alert.disconnect.message") }
+        static func alertRoutesLockedTitle(_ app: AppLanguageStore) -> String { app.tr("connect.alert.routes_locked.title") }
+        static func alertRoutesLockedMessage(_ app: AppLanguageStore) -> String { app.tr("connect.alert.routes_locked.message") }
+        static func alertRoutesLockedOK(_ app: AppLanguageStore) -> String { app.tr("connect.alert.routes_locked.ok") }
         static func homeTagline(_ app: AppLanguageStore) -> String { app.tr("connect.home.tagline") }
         static func homeChangeRoute(_ app: AppLanguageStore) -> String { app.tr("connect.home.change_route") }
         static func homeOverline(_ app: AppLanguageStore) -> String { app.tr("connect.home.overline") }

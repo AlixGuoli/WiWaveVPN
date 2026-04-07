@@ -46,6 +46,9 @@
 "connect.alert.disconnect.confirm" = "断开";
 "connect.alert.disconnect.cancel" = "取消";
 "connect.alert.disconnect.message" = "将停止当前隧道。";
+"connect.alert.routes_locked.title" = "请先断开";
+"connect.alert.routes_locked.message" = "当前已连接。请先断开隧道，再进入服务器列表更换线路。";
+"connect.alert.routes_locked.ok" = "好";
 
 /* Node list */
 "nodes.nav.title" = "选择线路";

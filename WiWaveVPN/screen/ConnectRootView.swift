@@ -9,6 +9,9 @@ struct ConnectRootView: View {
     @EnvironmentObject private var coil: WiSessionCoordinator
     @EnvironmentObject private var nodes: NodeSelectionStore
 
+    /// 已连接时进入节点页前提示：需先断开。
+    @State private var showRoutesLockedWhileOnline = false
+
     private var buildStamp: String {
         let v = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
         let b = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "—"
@@ -70,6 +73,19 @@ struct ConnectRootView: View {
         } message: {
             Text(L10n.Connect.alertDisconnectMessage(appLanguage))
         }
+        .alert(L10n.Connect.alertRoutesLockedTitle(appLanguage), isPresented: $showRoutesLockedWhileOnline) {
+            Button(L10n.Connect.alertRoutesLockedOK(appLanguage), role: .cancel) {}
+        } message: {
+            Text(L10n.Connect.alertRoutesLockedMessage(appLanguage))
+        }
+    }
+
+    private func tryOpenNodeList() {
+        if coil.phase == .online {
+            showRoutesLockedWhileOnline = true
+        } else {
+            path.append(.nodeList)
+        }
     }
 
     // MARK: - Top
@@ -87,7 +103,7 @@ struct ConnectRootView: View {
             }
             Spacer()
             Button {
-                path.append(.nodeList)
+                tryOpenNodeList()
             } label: {
                 HStack(spacing: 6) {
                     Image(systemName: "list.bullet.rectangle")
@@ -264,7 +280,7 @@ struct ConnectRootView: View {
 
     private var routeSection: some View {
         Button {
-            path.append(.nodeList)
+            tryOpenNodeList()
         } label: {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(alignment: .center, spacing: 10) {
