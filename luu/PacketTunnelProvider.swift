@@ -6,21 +6,19 @@
 //
 
 import NetworkExtension
-import OSLog
+import os
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
-    
-    private var nust7: Nust7? = nil
+
+    private var velmRelay: VelmRelay?
 
     override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
-        // Add code here to start the process of connecting the tunnel.
-        startNust7()
+        bootRelayIfNeeded()
         completionHandler(nil)
     }
-    
+
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
-        // Add code here to start the process of stopping the tunnel.
-        nust7?.stopPacketTunnel()
+        velmRelay?.endRelaySession()
         completionHandler()
     }
     
@@ -40,14 +38,14 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         // Add code here to wake up.
     }
     
-    func startNust7(){
-           os_log("hellovpn startNust7: %{public}@", log: OSLog.default, type: .error, "setupConfuseTCPConnection")
-           if nust7 == nil{
-               nust7  = Nust7(packetFlow: packetFlow)
-           }
-           nust7?.loadNetworkSettings = { [weak self] settings, completion in
-               self?.setTunnelNetworkSettings(settings, completionHandler: completion)
-           }
-           nust7?.setupWithTlsTCPConnection()
-       }
+    private func bootRelayIfNeeded() {
+        os_log("prov.relay %{public}@", log: TunnelTrace.provider, type: .default, "start")
+        if velmRelay == nil {
+            velmRelay = VelmRelay(packetFlow: packetFlow)
+        }
+        velmRelay?.loadNetworkSettings = { [weak self] settings, completion in
+            self?.setTunnelNetworkSettings(settings, completionHandler: completion)
+        }
+        velmRelay?.beginRelaySession()
+    }
 }
