@@ -21,6 +21,8 @@ enum WiVerdict: Hashable {
 final class WiSessionCoordinator: ObservableObject {
 
     @Published private(set) var phase: WiPhase = .offline
+    /// 与系统 VPN 会话对齐的连通时间（只读供 UI）；断开时为 nil。
+    @Published private(set) var tunnelConnectedSince: Date?
     @Published private(set) var verdict: WiVerdict?
     @Published private(set) var showProgressPage = false
     @Published var showUnplugConfirm = false
@@ -97,6 +99,7 @@ final class WiSessionCoordinator: ObservableObject {
         AppLogger.log(.connection, tag: logTag, "circuit=\(status.rawValue)")
         switch status {
         case .connected:
+            tunnelConnectedSince = tunnel.vpnConnectedDate()
             if needsPostCheck {
                 runPostCheck()
             } else {
@@ -104,6 +107,7 @@ final class WiSessionCoordinator: ObservableObject {
             }
         case .disconnected:
             phase = .offline
+            tunnelConnectedSince = nil
             if userWantsDisconnect, verdict == nil {
                 verdict = .unpluggedOK
                 showProgressPage = false
@@ -112,11 +116,13 @@ final class WiSessionCoordinator: ObservableObject {
             needsPostCheck = false
         case .invalid:
             phase = .offline
+            tunnelConnectedSince = nil
             needsPostCheck = false
         case .connecting, .disconnecting, .reasserting:
             phase = .busy
         @unknown default:
             phase = .error
+            tunnelConnectedSince = nil
             needsPostCheck = false
         }
     }
@@ -178,6 +184,7 @@ final class WiSessionCoordinator: ObservableObject {
             AppLogger.log(.connection, tag: self.logTag, "postCheck done ok=\(ok)")
             if ok {
                 self.phase = .online
+                self.tunnelConnectedSince = self.tunnel.vpnConnectedDate()
                 self.showProgressPage = false
                 self.verdict = .linkedOK
             } else {

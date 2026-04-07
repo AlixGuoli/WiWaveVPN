@@ -67,15 +67,7 @@ final class TunnelService {
             let newManager = NETunnelProviderManager()
             let proto = NETunnelProviderProtocol()
 
-            let displayName: String = {
-                if let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String {
-                    return name
-                }
-                if let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String {
-                    return name
-                }
-                return "WiWave VPN"
-            }()
+            let displayName = AppDisplayName.fromBundle
 
             proto.serverAddress = displayName
             newManager.protocolConfiguration = proto
@@ -129,6 +121,11 @@ final class TunnelService {
 
     func currentStatus() -> NEVPNStatus {
         manager?.connection.status ?? .invalid
+    }
+
+    /// 系统为当前 VPN 会话记录的连通时刻（仅 status 为已连接时通常有值）；冷启动恢复 manager 后仍可读，适用于会话时长。
+    func vpnConnectedDate() -> Date? {
+        manager?.connection.connectedDate
     }
 
     func start(completion: @escaping (Error?) -> Void) {
