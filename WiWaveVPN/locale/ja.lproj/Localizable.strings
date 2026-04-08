@@ -1,0 +1,180 @@
+/* Tab bar */
+"tab.connect" = "接続";
+"tab.panel" = "パネル";
+"tab.settings" = "設定";
+
+/* Launch splash */
+"launch.tagline" = "安全なルーティングを、ステップごとに";
+
+/* Tab chrome titles */
+"chrome.panel" = "パネル";
+"chrome.help" = "ヘルプ";
+"chrome.settings" = "設定";
+
+/* Connect home */
+"connect.nodes.a11y" = "サーバー";
+"connect.current_line" = "現在のサーバー";
+"connect.hero.connect" = "接続";
+"connect.hero.disconnect" = "切断";
+"connect.hero.busy" = "処理中…";
+"connect.status.offline" = "未接続";
+"connect.status.busy" = "トンネルを開始または終了しています…";
+"connect.status.online" = "接続済み";
+"connect.status.error" = "前回は接続できませんでした。もう一度お試しください。";
+"connect.home.tagline" = "システムのパーソナル VPN 拡張機能で暗号化トンネルを構築します。";
+"connect.home.change_route" = "サーバー";
+"connect.home.overline" = "ローカルセッション · コントロール";
+"connect.home.console_label" = "トンネル制御";
+"connect.home.spec_line" = "暗号化トランスポート · Personal VPN";
+"connect.home.route_caption" = "出口ノード";
+"connect.home.route_foot" = "一覧から別の出口を選択";
+"connect.home.mode.auto" = "スマート選択";
+"connect.home.mode.manual" = "手動";
+"connect.home.badge.offline" = "待機";
+"connect.home.badge.busy" = "同期";
+"connect.home.badge.online" = "オンライン";
+"connect.home.badge.error" = "障害";
+"connect.home.scribble" = "状態はこのデバイスのセッションのみを反映します。";
+"connect.home.scope_label" = "リンクレベル";
+"connect.home.telemetry.up" = "上り";
+"connect.home.telemetry.down" = "下り";
+"connect.home.telemetry.unit" = "Mbit/s";
+"connect.home.telemetry.simulated" = "シミュレーション";
+
+/* Alerts — connect */
+"connect.alert.disconnect.title" = "切断しますか？";
+"connect.alert.disconnect.confirm" = "切断";
+"connect.alert.disconnect.cancel" = "キャンセル";
+"connect.alert.disconnect.message" = "現在のトンネルを停止します。";
+"connect.alert.routes_locked.title" = "切断して切り替え";
+"connect.alert.routes_locked.message" = "接続中です。先にトンネルを切断し、サーバー一覧から別のノードを選んでください。";
+"connect.alert.routes_locked.ok" = "OK";
+
+/* Node list */
+"nodes.nav.title" = "サーバーを選択";
+"nodes.section.routes" = "サーバー";
+"nodes.footer.note" = "先頭行はスマート選択、その他は手動サーバーです。選択は次回の接続に適用されます。";
+"nodes.close.a11y" = "サーバー一覧を閉じる";
+"nodes.auto.badge" = "AUTO";
+
+/* Flow screens */
+"flow.progress.title" = "接続中";
+"flow.progress.subtitle" = "システムの VPN 拡張機能と同期しています…";
+"flow.progress.section" = "トンネル同期";
+"flow.progress.steps" = "ハンドシェイク · トンネル · 準備完了";
+"flow.outcome.linked_ok" = "接続しました";
+"flow.outcome.linked_fail" = "接続できませんでした";
+"flow.outcome.unplugged" = "切断しました";
+"flow.outcome.dismiss" = "OK";
+"flow.outcome.section" = "セッション結果";
+"flow.outcome.code.ok" = "STATE · LINKED";
+"flow.outcome.code.fail" = "STATE · FAILED";
+"flow.outcome.code.unplug" = "STATE · IDLE";
+"flow.outcome.detail.exit" = "出口";
+"flow.outcome.detail.time" = "時刻";
+"flow.outcome.detail.mode" = "モード";
+"flow.outcome.summary.ok" = "トンネルは稼働中です。トラフィックはこのノード経由で出口に向かいます。";
+"flow.outcome.summary.fail" = "トンネルを確立できませんでした。ネットワークを確認するか別のサーバーをお試しください。";
+"flow.outcome.summary.unplug" = "トンネルはオフです。ルーティングは復元されています。";
+
+/* Dashboard */
+"dashboard.card.session.detail.offline" = "未接続";
+"dashboard.card.session.detail.busy" = "処理中";
+"dashboard.card.session.detail.online" = "接続済み";
+"dashboard.card.session.detail.error" = "再試行が必要";
+"dashboard.strip.session_title" = "セッション";
+"dashboard.strip.duration_caption" = "このセッション";
+"dashboard.strip.duration_idle" = "—";
+"dashboard.route.digest.title" = "ルート概要";
+"dashboard.route.latency.label" = "遅延";
+"dashboard.route.latency.value" = "約 %d ms";
+"dashboard.route.grade.label" = "リンク品質";
+"dashboard.spark.title" = "リンクの活動";
+"dashboard.check.title" = "クイックルート確認";
+"dashboard.check.button" = "確認を実行";
+"dashboard.check.running" = "確認中…";
+"dashboard.check.done" = "ルート確認が完了しました";
+"dashboard.security.title" = "セキュリティ概要";
+"dashboard.security.item1" = "接続時、このデバイス上でトラフィックは暗号化トンネルを通ります。";
+"dashboard.security.item2" = "選択したサーバーは次のルーティングセッションに適用されます。";
+"dashboard.security.item3" = "VPN の権限は「設定 › VPN」でいつでも確認できます。";
+"dashboard.security.item4" = "データの取り扱いはプライバシーポリシーをご覧ください。";
+"dashboard.tips.section_title" = "ヒント";
+"dashboard.tip.1.title" = "初回接続";
+"dashboard.tip.1.body" = "初回のみシステムが VPN 設定を求めることがあります。許可しないとトンネルは開始できません。";
+"dashboard.tip.2.title" = "外出先";
+"dashboard.tip.2.body" = "機内モードやキャプティブポータルでハンドシェイクが途切れることがあります。通信が安定してから再試行してください。";
+"dashboard.tip.3.title" = "バッテリー";
+"dashboard.tip.3.body" = "VPN はわずかにバックグラウンド負荷を増やします。必要なら充電するか低電力モードをご利用ください。";
+"dashboard.tip.4.title" = "サーバー切り替え";
+"dashboard.tip.4.body" = "接続前にサーバーを選ぶか、切断してから次のセッション用に別のサーバーを選んでください。";
+"dashboard.tip.5.title" = "言語";
+"dashboard.tip.5.body" = "このアプリの「設定」から表示言語を変更できます。";
+
+/* Help */
+"help.doc.title" = "ユーザーガイド";
+"help.close.a11y" = "ユーザーガイドを閉じる";
+"help.section.why_vpn.title" = "なぜ VPN の許可が必要ですか？";
+"help.section.why_vpn.body" = "アプリはシステムの「パーソナル VPN」拡張でトンネルを構築します。初回接続時に VPN プロファイルの追加を許可してください。許可しないとトンネルは開始できません。";
+"help.section.trouble.title" = "接続できませんか？";
+"help.section.trouble.body" = "1) VPN の許可を確認する；2) 機内モードをオフにする；3) 別のサーバーを試す；4) 組織で制限されている場合はプロファイルを再インストールする。";
+"help.section.routes.title" = "サーバーについて";
+"help.section.routes.body" = "ここでサーバーを選びます。接続タブでは使用中のものが表示されます。";
+"help.section.contact.title" = "お問い合わせ";
+"help.section.contact.body" = "サポートは App Store の製品ページに記載の方法をご利用ください。";
+
+/* Settings */
+"settings.language.section" = "言語";
+"settings.language.system" = "システムに合わせる";
+"settings.language.english" = "English";
+"settings.language.applying" = "言語を適用しています…";
+
+"settings.section.about" = "このアプリについて";
+"settings.field.version" = "バージョン";
+"settings.field.build" = "Build";
+"settings.section.legal" = "法的情報";
+"settings.link.privacy" = "プライバシーポリシー";
+"settings.link.terms" = "利用規約";
+"settings.help.entry.blurb" = "FAQ、サーバー、連絡先";
+"settings.footer.placeholder" = "上の「ユーザーガイド」をタップして全文をお読みください。";
+
+/* Onboarding */
+"onboard.welcome.title_format" = "%@ へようこそ";
+"onboard.welcome.body" = "日々のネットワーク保護と安定したルーティングのためのひと手間。";
+"onboard.next" = "次へ";
+"onboard.expect.title" = "接続の前に";
+"onboard.expect.body" = "初回接続時、システムは暗号化トンネルを作成するため「VPN 構成」の許可を求めます。拒否すると本サービスは利用できません。";
+"onboard.expect.settings_hint" = "「設定 › VPN」でこのアプリを管理できます";
+"onboard.value.title" = "できること";
+"onboard.value.bullet1" = "接続タブで保護をオンにします。";
+"onboard.value.bullet2" = "パネルでセッション概要とショートカットを確認します。";
+"onboard.value.bullet3" = "サーバーとツールは継続して更新されます。定期的にご確認ください。";
+"onboard.privacy.heading" = "プライバシー保護と\nデータ利用について";
+"onboard.privacy.intro" = "快適な VPN 体験のため、必要最小限のデータのみを収集します。主に以下の範囲です。";
+"onboard.privacy.device.title" = "デバイスに関する情報";
+"onboard.privacy.device.body" = "OS バージョン、ハードウェアモデル、デバイスの言語設定など。ネットワーク性能の最適化とサービス品質向上のために利用します。";
+"onboard.privacy.session.title" = "接続記録";
+"onboard.privacy.session.body" = "接続記録に関する情報は匿名化して集計・処理します。サービス改善、アプリの挙動把握、サイトやアプリへの安定アクセスに役立てます。";
+"onboard.privacy.usage.title" = "利用時間と帯域データ";
+"onboard.privacy.usage.body" = "帯域の利用量とセッション長などを収集します。サービスの整合性と性能、リソース配分、安定稼働のために使います。";
+"onboard.privacy.thirdparty.title" = "広告サービス関連データ";
+"onboard.privacy.thirdparty.body" = "一部の広告サービスは、各社のプライバシーポリシーに従いデータを取得する場合があります。";
+"onboard.privacy.policy_footer" = "詳しくはプライバシーポリシーをご覧ください。";
+"onboard.privacy.agree_toggle" = "「プライバシー保護およびデータ利用について」を読み、同意します。";
+"onboard.privacy.placeholder_note" = "プライバシーポリシーは設定からいつでも開けます。続行後、App のトラッキング（ATT）について尋ねられることがあります。ご回答後に進みます。";
+"onboard.privacy.agree_continue" = "同意して続行";
+"onboard.privacy.decline_quit" = "今はしない";
+
+/* Region catalog */
+"region.auto.name" = "スマート選択";
+"region.auto.subtitle" = "サーバーは自動で選ばれます";
+"region.germany" = "ドイツ";
+"region.netherlands" = "オランダ";
+"region.uk" = "イギリス";
+"region.finland" = "フィンランド";
+"region.france" = "フランス";
+"region.japan" = "日本";
+"region.singapore" = "シンガポール";
+"region.usa" = "アメリカ";
+"region.canada" = "カナダ";
+"region.australia" = "オーストラリア";

@@ -40,7 +40,7 @@ struct RelayPeerProfile {
             serverPort: "49155",
             country: "sg",
             language: "en-SG",
-            package: "com.glow.wi.wave.vpn.luu",
+            package: "com.glow.wiwave.vpn.luu",
             version: "1.0.0",
             key: "3e027e48ec6f5a9c705dfe17bed37201",
             path: "",

@@ -127,7 +127,7 @@
 "settings.language.section" = "Language";
 "settings.language.system" = "System";
 "settings.language.english" = "English";
-"settings.language.chinese" = "简体中文";
+"settings.language.applying" = "Applying language…";
 
 "settings.section.about" = "About";
 "settings.field.version" = "Version";

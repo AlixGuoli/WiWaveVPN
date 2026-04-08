@@ -8,7 +8,7 @@
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.glow.wi.wave.vpn</string>
+		<string>group.com.glow.wiwave.vpn</string>
 	</array>
 </dict>
 </plist>

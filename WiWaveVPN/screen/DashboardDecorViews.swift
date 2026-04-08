@@ -324,7 +324,7 @@ struct DashboardTipsCarousel: View {
                 HStack(spacing: 12) {
                     ForEach(tipItems, id: \.id) { item in
                         tipCard(title: item.title, body: item.body)
-                            .id("\(item.id)-\(appLanguage.preference.rawValue)")
+                            .id("\(item.id)-\(appLanguage.contentRefreshIdentity)")
                     }
                 }
                 .padding(.horizontal, 4)
@@ -348,14 +348,18 @@ struct DashboardTipsCarousel: View {
             Text(title)
                 .font(.subheadline.weight(.bold))
                 .foregroundStyle(WiTheme.textPrimary)
+                .multilineTextAlignment(.leading)
             Text(body)
                 .font(.caption)
                 .foregroundStyle(WiTheme.textSecondary)
                 .lineSpacing(3)
+                .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 0)
         }
         .padding(16)
-        .frame(width: 260, alignment: .leading)
+        .frame(width: 260)
+        .frame(minHeight: 100, alignment: .topLeading)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(WiTheme.bgElevated.opacity(0.5))

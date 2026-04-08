@@ -27,16 +27,21 @@ struct AppSettingsView: View {
                         settingsGroupHeader(L10n.Settings.languageSection(appLanguage))
                         settingsGroupedSurface {
                             settingsIconRow(icon: "globe") {
-                                Picker(L10n.Settings.languageSection(appLanguage), selection: languageBinding) {
-                                    Text(L10n.Settings.languageSystem(appLanguage))
-                                        .tag(AppLanguageStore.Preference.system)
-                                    Text(L10n.Settings.languageEnglish(appLanguage))
-                                        .tag(AppLanguageStore.Preference.english)
-                                    Text(L10n.Settings.languageChinese(appLanguage))
-                                        .tag(AppLanguageStore.Preference.simplifiedChinese)
+                                Picker(selection: languageBinding) {
+                                    ForEach(AppLanguageStore.Preference.settingsMenuOrder, id: \.self) { opt in
+                                        Text(languagePickerLabel(opt)).tag(opt)
+                                    }
+                                } label: {
+                                    HStack {
+                                        Text(languagePickerLabel(appLanguage.preference))
+                                            .font(.body)
+                                            .foregroundStyle(WiTheme.textPrimary)
+                                        Spacer(minLength: 0)
+                                    }
                                 }
                                 .pickerStyle(.menu)
                                 .tint(WiTheme.accent)
+                                .accessibilityLabel(L10n.Settings.languageSection(appLanguage))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
@@ -74,9 +79,13 @@ struct AppSettingsView: View {
                                         Text(L10n.Help.docTitle(appLanguage))
                                             .font(.body.weight(.semibold))
                                             .foregroundStyle(WiTheme.textPrimary)
+                                            .multilineTextAlignment(.leading)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
                                         Text(L10n.Settings.helpEntryBlurb(appLanguage))
                                             .font(.caption)
                                             .foregroundStyle(WiTheme.textTertiary)
+                                            .multilineTextAlignment(.leading)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
 
@@ -97,6 +106,8 @@ struct AppSettingsView: View {
                         Text(L10n.Settings.footerPlaceholder(appLanguage))
                             .font(.caption)
                             .foregroundStyle(WiTheme.textTertiary.opacity(0.95))
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             .lineSpacing(3)
                             .padding(.horizontal, 6)
                             .padding(.top, 4)
@@ -129,11 +140,15 @@ struct AppSettingsView: View {
                 Text(AppDisplayName.fromBundle)
                     .font(.headline.weight(.bold))
                     .foregroundStyle(WiTheme.textPrimary)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 Text("\(L10n.Settings.version(appLanguage)) \(version)  ·  \(L10n.Settings.build(appLanguage)) \(build)")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(WiTheme.textTertiary)
                     .monospacedDigit()
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
 
             Spacer(minLength: 0)
@@ -161,14 +176,31 @@ struct AppSettingsView: View {
         Text(title)
             .font(.caption.weight(.semibold))
             .foregroundStyle(WiTheme.textTertiary)
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, 4)
     }
 
     private var languageBinding: Binding<AppLanguageStore.Preference> {
         Binding(
             get: { appLanguage.preference },
-            set: { appLanguage.preference = $0 }
+            set: { appLanguage.applyPreference($0) }
         )
+    }
+
+    /// 语言名称用各族原文显示，避免依赖大量 `Localizable` 键。
+    private func languagePickerLabel(_ p: AppLanguageStore.Preference) -> String {
+        switch p {
+        case .system: return L10n.Settings.languageSystem(appLanguage)
+        case .english: return "English"
+        case .russian: return "Русский"
+        case .german: return "Deutsch"
+        case .french: return "Français"
+        case .spanish: return "Español"
+        case .polish: return "Polski"
+        case .japanese: return "日本語"
+        case .korean: return "한국어"
+        }
     }
 
     private func settingsIconRow<Content: View>(icon: String, @ViewBuilder content: () -> Content) -> some View {
@@ -213,11 +245,12 @@ struct AppSettingsView: View {
 
     private func linkRow(title: String, url: URL) -> some View {
         Link(destination: url) {
-            HStack {
+            HStack(alignment: .center, spacing: 8) {
                 Text(title)
                     .font(.body.weight(.medium))
                     .foregroundStyle(WiTheme.accent)
-                Spacer(minLength: 8)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Image(systemName: "arrow.up.right.circle.fill")
                     .font(.title3)
                     .symbolRenderingMode(.hierarchical)

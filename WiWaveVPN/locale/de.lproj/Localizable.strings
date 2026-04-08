@@ -1,0 +1,180 @@
+/* Tab bar */
+"tab.connect" = "Verbinden";
+"tab.panel" = "Übersicht";
+"tab.settings" = "Einstellungen";
+
+/* Launch splash */
+"launch.tagline" = "Sicheres Routing Schritt für Schritt";
+
+/* Tab chrome titles */
+"chrome.panel" = "Übersicht";
+"chrome.help" = "Hilfe";
+"chrome.settings" = "Einstellungen";
+
+/* Connect home */
+"connect.nodes.a11y" = "Server";
+"connect.current_line" = "Aktueller Server";
+"connect.hero.connect" = "Verbinden";
+"connect.hero.disconnect" = "Trennen";
+"connect.hero.busy" = "Wird ausgeführt…";
+"connect.status.offline" = "Nicht verbunden";
+"connect.status.busy" = "Tunnel wird hergestellt oder getrennt…";
+"connect.status.online" = "Verbunden";
+"connect.status.error" = "Letzter Verbindungsversuch fehlgeschlagen. Bitte erneut versuchen.";
+"connect.home.tagline" = "Verschlüsselter Tunnel über die systemeigene Personal-VPN-Erweiterung.";
+"connect.home.change_route" = "Server";
+"connect.home.overline" = "Lokale Sitzung · Bedienfläche";
+"connect.home.console_label" = "Tunnel";
+"connect.home.spec_line" = "Verschlüsselter Transport · Personal VPN";
+"connect.home.route_caption" = "Ausgangsknoten";
+"connect.home.route_foot" = "Anderen Ausgang in der Liste wählen";
+"connect.home.mode.auto" = "Automatisch";
+"connect.home.mode.manual" = "Manuell";
+"connect.home.badge.offline" = "Bereit";
+"connect.home.badge.busy" = "Sync";
+"connect.home.badge.online" = "Online";
+"connect.home.badge.error" = "Fehler";
+"connect.home.scribble" = "Status bezieht sich nur auf diese Gerätesitzung.";
+"connect.home.scope_label" = "Verbindungsstufe";
+"connect.home.telemetry.up" = "Hoch";
+"connect.home.telemetry.down" = "Runter";
+"connect.home.telemetry.unit" = "Mbit/s";
+"connect.home.telemetry.simulated" = "Simuliert";
+
+/* Alerts — connect */
+"connect.alert.disconnect.title" = "Verbindung trennen?";
+"connect.alert.disconnect.confirm" = "Trennen";
+"connect.alert.disconnect.cancel" = "Abbrechen";
+"connect.alert.disconnect.message" = "Damit wird der aktuelle Tunnel beendet.";
+"connect.alert.routes_locked.title" = "Zum Wechseln trennen";
+"connect.alert.routes_locked.message" = "Sie sind verbunden. Trennen Sie zuerst den Tunnel und öffnen Sie dann die Serverliste.";
+"connect.alert.routes_locked.ok" = "OK";
+
+/* Node list */
+"nodes.nav.title" = "Server wählen";
+"nodes.section.routes" = "Server";
+"nodes.footer.note" = "Die erste Zeile ist intelligente Auswahl; die übrigen sind manuelle Server. Ihre Wahl gilt für die nächste Verbindung.";
+"nodes.close.a11y" = "Serverliste schließen";
+"nodes.auto.badge" = "AUTO";
+
+/* Flow screens */
+"flow.progress.title" = "Verbinden";
+"flow.progress.subtitle" = "Synchronisierung mit der VPN-Erweiterung…";
+"flow.progress.section" = "Tunnel";
+"flow.progress.steps" = "Handshake · Tunnel · Bereit";
+"flow.outcome.linked_ok" = "Verbunden";
+"flow.outcome.linked_fail" = "Verbindung fehlgeschlagen";
+"flow.outcome.unplugged" = "Getrennt";
+"flow.outcome.dismiss" = "OK";
+"flow.outcome.section" = "Ergebnis";
+"flow.outcome.code.ok" = "STATUS · VERBUNDEN";
+"flow.outcome.code.fail" = "STATUS · FEHLGESCHLAGEN";
+"flow.outcome.code.unplug" = "STATUS · IDLE";
+"flow.outcome.detail.exit" = "Ausgang";
+"flow.outcome.detail.time" = "Zeit";
+"flow.outcome.detail.mode" = "Modus";
+"flow.outcome.summary.ok" = "Tunnel aktiv; Datenverkehr läuft über diesen Knoten.";
+"flow.outcome.summary.fail" = "Tunnel konnte nicht hergestellt werden. Netzwerk prüfen oder anderen Server wählen.";
+"flow.outcome.summary.unplug" = "Tunnel aus; Routing ist wieder normal.";
+
+/* Dashboard */
+"dashboard.card.session.detail.offline" = "Nicht verbunden";
+"dashboard.card.session.detail.busy" = "Aktiv";
+"dashboard.card.session.detail.online" = "Verbunden";
+"dashboard.card.session.detail.error" = "Erneut versuchen";
+"dashboard.strip.session_title" = "Sitzung";
+"dashboard.strip.duration_caption" = "Diese Sitzung";
+"dashboard.strip.duration_idle" = "—";
+"dashboard.route.digest.title" = "Route-Übersicht";
+"dashboard.route.latency.label" = "Latenz";
+"dashboard.route.latency.value" = "~%d ms";
+"dashboard.route.grade.label" = "Link-Note";
+"dashboard.spark.title" = "Link-Aktivität";
+"dashboard.check.title" = "Schnellprüfung";
+"dashboard.check.button" = "Prüfung starten";
+"dashboard.check.running" = "Prüfung…";
+"dashboard.check.done" = "Prüfung abgeschlossen";
+"dashboard.security.title" = "Sicherheit";
+"dashboard.security.item1" = "Bei Verbindung läuft der Datenverkehr in einem verschlüsselten Tunnel.";
+"dashboard.security.item2" = "Der gewählte Server gilt für die nächste Routing-Sitzung.";
+"dashboard.security.item3" = "VPN-Berechtigungen jederzeit unter Einstellungen › VPN prüfen.";
+"dashboard.security.item4" = "Details in der Datenschutzerklärung.";
+"dashboard.tips.section_title" = "Tipps";
+"dashboard.tip.1.title" = "Erstverbindung";
+"dashboard.tip.1.body" = "Das System kann einmal nach der VPN-Konfiguration fragen; ohne Zustimmung startet der Tunnel nicht.";
+"dashboard.tip.2.title" = "Unterwegs";
+"dashboard.tip.2.body" = "Flugmodus oder Portale können den Handshake stören; bei stabilerem Netz erneut versuchen.";
+"dashboard.tip.3.title" = "Akku";
+"dashboard.tip.3.body" = "Jedes VPN verursacht leichten Hintergrundverbrauch; bei Bedarf Energiesparmodus nutzen.";
+"dashboard.tip.4.title" = "Server wechseln";
+"dashboard.tip.4.body" = "Vor dem Verbinden Server wählen, oder trennen und für die nächste Sitzung einen anderen wählen.";
+"dashboard.tip.5.title" = "Sprache";
+"dashboard.tip.5.body" = "Anzeigesprache in den App-Einstellungen ändern.";
+
+/* Help */
+"help.doc.title" = "Anleitung";
+"help.close.a11y" = "Anleitung schließen";
+"help.section.why_vpn.title" = "Warum VPN-Berechtigung?";
+"help.section.why_vpn.body" = "Die App nutzt die Systemerweiterung „Personal VPN“ für den Tunnel. Beim ersten Verbinden das Hinzufügen des Profils erlauben, sonst startet der Tunnel nicht.";
+"help.section.trouble.title" = "Keine Verbindung?";
+"help.section.trouble.body" = "1) VPN-Berechtigung prüfen; 2) Flugmodus aus; 3) Anderen Server wählen; 4) Profil neu installieren, falls eingeschränkt.";
+"help.section.routes.title" = "Über Server";
+"help.section.routes.body" = "Hier Server wählen; im Tab Verbinden sehen Sie den aktiven Knoten.";
+"help.section.contact.title" = "Kontakt";
+"help.section.contact.body" = "Hilfe über die Support-Option auf der App Store-Produktseite.";
+
+/* Settings */
+"settings.language.section" = "Sprache";
+"settings.language.system" = "System";
+"settings.language.english" = "English";
+"settings.language.applying" = "Sprache wird angewendet…";
+
+"settings.section.about" = "Über";
+"settings.field.version" = "Version";
+"settings.field.build" = "Build";
+"settings.section.legal" = "Rechtliches";
+"settings.link.privacy" = "Datenschutz";
+"settings.link.terms" = "Nutzungsbedingungen";
+"settings.help.entry.blurb" = "FAQ, Server & Kontakt";
+"settings.footer.placeholder" = "Oben „Anleitung“ öffnen für die vollständige Hilfe.";
+
+/* Onboarding */
+"onboard.welcome.title_format" = "Willkommen bei %@";
+"onboard.welcome.body" = "Mehr Schutz und stabiles Routing für den Alltag.";
+"onboard.next" = "Weiter";
+"onboard.expect.title" = "Vor dem Verbinden";
+"onboard.expect.body" = "Beim ersten Verbinden fragt das System nach „VPN-Konfiguration“, um einen verschlüsselten Tunnel anzulegen. Ohne Zustimmung funktioniert der Dienst nicht.";
+"onboard.expect.settings_hint" = "Verwaltung unter Einstellungen › VPN";
+"onboard.value.title" = "Was Sie tun können";
+"onboard.value.bullet1" = "Schutz im Tab Verbinden aktivieren.";
+"onboard.value.bullet2" = "Sitzungsübersicht und Kurzinfos unter Übersicht.";
+"onboard.value.bullet3" = "Server und Funktionen werden ergänzt — regelmäßig prüfen.";
+"onboard.privacy.heading" = "Datenschutz &\nNutzungshinweis";
+"onboard.privacy.intro" = "Für ein gutes VPN-Erlebnis erfassen wir nur nötige Daten in folgenden Bereichen:";
+"onboard.privacy.device.title" = "Geräteinformationen";
+"onboard.privacy.device.body" = "Z. B. Betriebssystemversion, Gerätemodell und Spracheinstellungen — zur Optimierung des Netzwerks und der Qualität.";
+"onboard.privacy.session.title" = "Verbindungsaufzeichnungen";
+"onboard.privacy.session.body" = "Verbindungsdaten werden zusammengefasst und anonymisiert verarbeitet, um den Dienst zu verbessern und Stabilität zu erhöhen.";
+"onboard.privacy.usage.title" = "Nutzungsdauer & Bandbreite";
+"onboard.privacy.usage.body" = "Wir erfassen Gesamtbandbreite und Sitzungslänge für Betrieb, Performance und Ressourcenplanung.";
+"onboard.privacy.thirdparty.title" = "Werbedaten";
+"onboard.privacy.thirdparty.body" = "Einige Werbedienste können Daten gemäß deren Datenschutzrichtlinien erfassen.";
+"onboard.privacy.policy_footer" = "Mehr in unserer Datenschutzerklärung.";
+"onboard.privacy.agree_toggle" = "Ich habe den Datenschutz- und Nutzungshinweis gelesen und stimme zu.";
+"onboard.privacy.placeholder_note" = "Die Datenschutzerklärung finden Sie jederzeit in den Einstellungen. Danach kann das System zum App-Tracking (ATT) fragen.";
+"onboard.privacy.agree_continue" = "Akzeptieren & fortfahren";
+"onboard.privacy.decline_quit" = "Nicht jetzt";
+
+/* Region catalog */
+"region.auto.name" = "Automatisch";
+"region.auto.subtitle" = "Server wird gewählt";
+"region.germany" = "Deutschland";
+"region.netherlands" = "Niederlande";
+"region.uk" = "Vereinigtes Königreich";
+"region.finland" = "Finnland";
+"region.france" = "Frankreich";
+"region.japan" = "Japan";
+"region.singapore" = "Singapur";
+"region.usa" = "USA";
+"region.canada" = "Kanada";
+"region.australia" = "Australien";

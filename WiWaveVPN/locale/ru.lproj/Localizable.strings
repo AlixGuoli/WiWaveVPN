@@ -1,0 +1,180 @@
+/* Tab bar */
+"tab.connect" = "Подключение";
+"tab.panel" = "Панель";
+"tab.settings" = "Настройки";
+
+/* Launch splash */
+"launch.tagline" = "Безопасная маршрутизация шаг за шагом";
+
+/* Tab chrome titles */
+"chrome.panel" = "Панель";
+"chrome.help" = "Справка";
+"chrome.settings" = "Настройки";
+
+/* Connect home */
+"connect.nodes.a11y" = "Серверы";
+"connect.current_line" = "Текущий сервер";
+"connect.hero.connect" = "Подключить";
+"connect.hero.disconnect" = "Отключить";
+"connect.hero.busy" = "Выполняется…";
+"connect.status.offline" = "Не подключено";
+"connect.status.busy" = "Устанавливается или закрывается туннель…";
+"connect.status.online" = "Подключено";
+"connect.status.error" = "В прошлый раз подключиться не удалось. Попробуйте снова.";
+"connect.home.tagline" = "Зашифрованный туннель через системное расширение «Личный VPN».";
+"connect.home.change_route" = "Серверы";
+"connect.home.overline" = "Локальная сессия · панель управления";
+"connect.home.console_label" = "Управление туннелем";
+"connect.home.spec_line" = "Шифрованный транспорт · Personal VPN";
+"connect.home.route_caption" = "Выходной узел";
+"connect.home.route_foot" = "Выберите другой выход в списке";
+"connect.home.mode.auto" = "Авто";
+"connect.home.mode.manual" = "Вручную";
+"connect.home.badge.offline" = "Ожидание";
+"connect.home.badge.busy" = "Синхр.";
+"connect.home.badge.online" = "Онлайн";
+"connect.home.badge.error" = "Ошибка";
+"connect.home.scribble" = "Статус относится только к сессии на этом устройстве.";
+"connect.home.scope_label" = "Уровень канала";
+"connect.home.telemetry.up" = "Вход.";
+"connect.home.telemetry.down" = "Исх.";
+"connect.home.telemetry.unit" = "Мбит/с";
+"connect.home.telemetry.simulated" = "Симуляция";
+
+/* Alerts — connect */
+"connect.alert.disconnect.title" = "Отключить?";
+"connect.alert.disconnect.confirm" = "Отключить";
+"connect.alert.disconnect.cancel" = "Отмена";
+"connect.alert.disconnect.message" = "Текущий туннель будет остановлен.";
+"connect.alert.routes_locked.title" = "Сначала отключитесь";
+"connect.alert.routes_locked.message" = "Вы в сети. Сначала отключите туннель, затем откройте список серверов и выберите узел.";
+"connect.alert.routes_locked.ok" = "OK";
+
+/* Node list */
+"nodes.nav.title" = "Выбор сервера";
+"nodes.section.routes" = "Серверы";
+"nodes.footer.note" = "Первая строка — умный выбор; остальные — ручные серверы. Выбор применится при следующем подключении.";
+"nodes.close.a11y" = "Закрыть список серверов";
+"nodes.auto.badge" = "АВТО";
+
+/* Flow screens */
+"flow.progress.title" = "Подключение";
+"flow.progress.subtitle" = "Синхронизация с системным VPN…";
+"flow.progress.section" = "Туннель";
+"flow.progress.steps" = "Рукопожатие · Туннель · Готово";
+"flow.outcome.linked_ok" = "Подключено";
+"flow.outcome.linked_fail" = "Не удалось подключиться";
+"flow.outcome.unplugged" = "Отключено";
+"flow.outcome.dismiss" = "OK";
+"flow.outcome.section" = "Результат сессии";
+"flow.outcome.code.ok" = "СОСТОЯНИЕ · СВЯЗАНО";
+"flow.outcome.code.fail" = "СОСТОЯНИЕ · ОШИБКА";
+"flow.outcome.code.unplug" = "СОСТОЯНИЕ · ОЖИДАНИЕ";
+"flow.outcome.detail.exit" = "Выход";
+"flow.outcome.detail.time" = "Время";
+"flow.outcome.detail.mode" = "Режим";
+"flow.outcome.summary.ok" = "Туннель активен; трафик идёт через этот узел.";
+"flow.outcome.summary.fail" = "Не удалось установить туннель. Проверьте сеть или выберите другой сервер.";
+"flow.outcome.summary.unplug" = "Туннель выключен; маршрутизация восстановлена.";
+
+/* Dashboard */
+"dashboard.card.session.detail.offline" = "Не подключено";
+"dashboard.card.session.detail.busy" = "Работа";
+"dashboard.card.session.detail.online" = "Подключено";
+"dashboard.card.session.detail.error" = "Нужна повторная попытка";
+"dashboard.strip.session_title" = "Сессия";
+"dashboard.strip.duration_caption" = "Эта сессия";
+"dashboard.strip.duration_idle" = "—";
+"dashboard.route.digest.title" = "Сводка маршрута";
+"dashboard.route.latency.label" = "Задержка";
+"dashboard.route.latency.value" = "~%d мс";
+"dashboard.route.grade.label" = "Оценка канала";
+"dashboard.spark.title" = "Активность канала";
+"dashboard.check.title" = "Быстрая проверка";
+"dashboard.check.button" = "Запустить проверку";
+"dashboard.check.running" = "Проверка…";
+"dashboard.check.done" = "Проверка завершена";
+"dashboard.security.title" = "Безопасность";
+"dashboard.security.item1" = "При подключении трафик идёт через зашифрованный туннель на устройстве.";
+"dashboard.security.item2" = "Выбранный сервер будет использован в следующей сессии маршрутизации.";
+"dashboard.security.item3" = "Разрешения VPN можно посмотреть в Настройки › VPN.";
+"dashboard.security.item4" = "Подробности — в Политике конфиденциальности.";
+"dashboard.tips.section_title" = "Советы";
+"dashboard.tip.1.title" = "Первое подключение";
+"dashboard.tip.1.body" = "Система может один раз запросить конфигурацию VPN; без этого туннель не запустится.";
+"dashboard.tip.2.title" = "В дороге";
+"dashboard.tip.2.body" = "Авиарежим и порталы авторизации могут срывать рукопожатие; повторите при стабильной сети.";
+"dashboard.tip.3.title" = "Батарея";
+"dashboard.tip.3.body" = "Любой VPN немного нагружает фон; при необходимости включите режим энергосбережения.";
+"dashboard.tip.4.title" = "Смена сервера";
+"dashboard.tip.4.body" = "Выберите сервер до подключения или отключитесь и выберите другой для следующей сессии.";
+"dashboard.tip.5.title" = "Язык";
+"dashboard.tip.5.body" = "Язык интерфейса можно сменить в настройках этого приложения.";
+
+/* Help */
+"help.doc.title" = "Руководство";
+"help.close.a11y" = "Закрыть руководство";
+"help.section.why_vpn.title" = "Зачем нужно разрешение VPN?";
+"help.section.why_vpn.body" = "Приложение использует системное расширение «Личный VPN» для туннеля. Разрешите добавление профиля при первом подключении, иначе туннель не запустится.";
+"help.section.trouble.title" = "Не подключается?";
+"help.section.trouble.body" = "1) Проверьте разрешение VPN; 2) Отключите авиарежим; 3) Попробуйте другой сервер; 4) Переустановите профиль при ограничениях организации.";
+"help.section.routes.title" = "О серверах";
+"help.section.routes.body" = "Здесь выбирается сервер; на вкладке «Подключение» показан активный узел.";
+"help.section.contact.title" = "Связь с нами";
+"help.section.contact.body" = "Помощь — через поддержку на странице приложения в App Store.";
+
+/* Settings */
+"settings.language.section" = "Язык";
+"settings.language.system" = "Системный";
+"settings.language.english" = "English";
+"settings.language.applying" = "Применение языка…";
+
+"settings.section.about" = "О приложении";
+"settings.field.version" = "Версия";
+"settings.field.build" = "Сборка";
+"settings.section.legal" = "Правовая информация";
+"settings.link.privacy" = "Политика конфиденциальности";
+"settings.link.terms" = "Условия использования";
+"settings.help.entry.blurb" = "FAQ, серверы и контакты";
+"settings.footer.placeholder" = "Нажмите «Руководство» выше для полного текста.";
+
+/* Onboarding */
+"onboard.welcome.title_format" = "Добро пожаловать в %@";
+"onboard.welcome.body" = "Дополнительный уровень защиты и стабильной маршрутизации в сети.";
+"onboard.next" = "Далее";
+"onboard.expect.title" = "Перед подключением";
+"onboard.expect.body" = "При первом подключении система запросит «Конфигурацию VPN» для зашифрованного туннеля. Без согласия сервис не заработает.";
+"onboard.expect.settings_hint" = "Управление: Настройки › VPN";
+"onboard.value.title" = "Что можно сделать";
+"onboard.value.bullet1" = "Включить защиту на вкладке «Подключение».";
+"onboard.value.bullet2" = "Смотреть сводку сессии и виджеты на «Панели».";
+"onboard.value.bullet3" = "Серверы и функции будут обновляться — заглядывайте снова.";
+"onboard.privacy.heading" = "Защита конфиденциальности и\nзаявление об использовании данных";
+"onboard.privacy.intro" = "Чтобы обеспечить качественный VPN, мы собираем только необходимые данные по блокам ниже:";
+"onboard.privacy.device.title" = "Сведения об устройстве";
+"onboard.privacy.device.body" = "Например, версия ОС, модель устройства и язык — для оптимизации сети и качества сервиса.";
+"onboard.privacy.session.title" = "Записи о подключениях";
+"onboard.privacy.session.body" = "Мы обобщаем и анонимно обрабатываем данные о подключениях, чтобы улучшать сервис и стабильность.";
+"onboard.privacy.usage.title" = "Длительность сессий и трафик";
+"onboard.privacy.usage.body" = "Собираемся общий объём и длина сессий для работы сервиса, производительности и планирования ресурсов.";
+"onboard.privacy.thirdparty.title" = "Данные рекламных сервисов";
+"onboard.privacy.thirdparty.body" = "Некоторые рекламные сервисы могут собирать данные по своим политикам.";
+"onboard.privacy.policy_footer" = "Подробнее — в Политике конфиденциальности.";
+"onboard.privacy.agree_toggle" = "Я прочитал(а) и согласен(на) с заявлением о защите конфиденциальности и использовании данных.";
+"onboard.privacy.placeholder_note" = "Политику конфиденциальности можно снова открыть в Настройках. После продолжения система может спросить про App Tracking (ATT).";
+"onboard.privacy.agree_continue" = "Принять и продолжить";
+"onboard.privacy.decline_quit" = "Не сейчас";
+
+/* Region catalog */
+"region.auto.name" = "Умный выбор";
+"region.auto.subtitle" = "Сервер выбирается за вас";
+"region.germany" = "Германия";
+"region.netherlands" = "Нидерланды";
+"region.uk" = "Великобритания";
+"region.finland" = "Финляндия";
+"region.france" = "Франция";
+"region.japan" = "Япония";
+"region.singapore" = "Сингапур";
+"region.usa" = "США";
+"region.canada" = "Канада";
+"region.australia" = "Австралия";

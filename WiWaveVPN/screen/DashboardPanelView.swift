@@ -37,7 +37,7 @@ struct DashboardPanelView: View {
                     .padding(.horizontal, 20)
                     .padding(.top, 6)
                     .padding(.bottom, 32)
-                    .id(appLanguage.preference.rawValue)
+                    .id(appLanguage.contentRefreshIdentity)
                 }
             }
         }

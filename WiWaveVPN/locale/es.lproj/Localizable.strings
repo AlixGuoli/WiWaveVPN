@@ -1,0 +1,180 @@
+/* Tab bar */
+"tab.connect" = "Conectar";
+"tab.panel" = "Panel";
+"tab.settings" = "Ajustes";
+
+/* Launch splash */
+"launch.tagline" = "Enrutamiento seguro, paso a paso";
+
+/* Tab chrome titles */
+"chrome.panel" = "Panel";
+"chrome.help" = "Ayuda";
+"chrome.settings" = "Ajustes";
+
+/* Connect home */
+"connect.nodes.a11y" = "Servidores";
+"connect.current_line" = "Servidor actual";
+"connect.hero.connect" = "Conectar";
+"connect.hero.disconnect" = "Desconectar";
+"connect.hero.busy" = "Trabajando…";
+"connect.status.offline" = "Sin conexión";
+"connect.status.busy" = "Estableciendo o cerrando el túnel…";
+"connect.status.online" = "Conectado";
+"connect.status.error" = "No se pudo conectar la vez anterior. Inténtalo de nuevo.";
+"connect.home.tagline" = "Túnel cifrado mediante la extensión VPN personal del sistema.";
+"connect.home.change_route" = "Servidores";
+"connect.home.overline" = "Sesión local · superficie de control";
+"connect.home.console_label" = "Control del túnel";
+"connect.home.spec_line" = "Transporte cifrado · VPN personal";
+"connect.home.route_caption" = "Nodo de salida";
+"connect.home.route_foot" = "Elige otra salida en la lista";
+"connect.home.mode.auto" = "Selección inteligente";
+"connect.home.mode.manual" = "Manual";
+"connect.home.badge.offline" = "En espera";
+"connect.home.badge.busy" = "Sinc.";
+"connect.home.badge.online" = "En línea";
+"connect.home.badge.error" = "Fallo";
+"connect.home.scribble" = "El estado refleja solo la sesión en este dispositivo.";
+"connect.home.scope_label" = "Nivel de enlace";
+"connect.home.telemetry.up" = "Subida";
+"connect.home.telemetry.down" = "Bajada";
+"connect.home.telemetry.unit" = "Mbit/s";
+"connect.home.telemetry.simulated" = "Simulado";
+
+/* Alerts — connect */
+"connect.alert.disconnect.title" = "¿Desconectar?";
+"connect.alert.disconnect.confirm" = "Desconectar";
+"connect.alert.disconnect.cancel" = "Cancelar";
+"connect.alert.disconnect.message" = "Se detendrá el túnel actual.";
+"connect.alert.routes_locked.title" = "Desconéctate para cambiar";
+"connect.alert.routes_locked.message" = "Estás conectado. Primero desconecta el túnel, abre la lista de servidores y elige otro nodo.";
+"connect.alert.routes_locked.ok" = "OK";
+
+/* Node list */
+"nodes.nav.title" = "Elegir servidor";
+"nodes.section.routes" = "Servidores";
+"nodes.footer.note" = "La primera fila es selección inteligente; el resto son servidores manuales. Tu elección aplica en la próxima conexión.";
+"nodes.close.a11y" = "Cerrar lista de servidores";
+"nodes.auto.badge" = "AUTO";
+
+/* Flow screens */
+"flow.progress.title" = "Conectando";
+"flow.progress.subtitle" = "Sincronizando con la extensión VPN del sistema…";
+"flow.progress.section" = "Túnel";
+"flow.progress.steps" = "Handshake · Túnel · Listo";
+"flow.outcome.linked_ok" = "Conectado";
+"flow.outcome.linked_fail" = "No se pudo conectar";
+"flow.outcome.unplugged" = "Desconectado";
+"flow.outcome.dismiss" = "OK";
+"flow.outcome.section" = "Resultado";
+"flow.outcome.code.ok" = "ESTADO · ENLAZADO";
+"flow.outcome.code.fail" = "ESTADO · FALLIDO";
+"flow.outcome.code.unplug" = "ESTADO · INACTIVO";
+"flow.outcome.detail.exit" = "Salida";
+"flow.outcome.detail.time" = "Hora";
+"flow.outcome.detail.mode" = "Modo";
+"flow.outcome.summary.ok" = "El túnel está activo; el tráfico sale por este nodo.";
+"flow.outcome.summary.fail" = "No se pudo establecer el túnel. Comprueba la red o prueba otro servidor.";
+"flow.outcome.summary.unplug" = "Túnel desactivado; el enrutamiento se restaura.";
+
+/* Dashboard */
+"dashboard.card.session.detail.offline" = "Sin conexión";
+"dashboard.card.session.detail.busy" = "Activo";
+"dashboard.card.session.detail.online" = "Conectado";
+"dashboard.card.session.detail.error" = "Reintentar";
+"dashboard.strip.session_title" = "Sesión";
+"dashboard.strip.duration_caption" = "Esta sesión";
+"dashboard.strip.duration_idle" = "—";
+"dashboard.route.digest.title" = "Resumen de ruta";
+"dashboard.route.latency.label" = "Latencia";
+"dashboard.route.latency.value" = "~%d ms";
+"dashboard.route.grade.label" = "Nota del enlace";
+"dashboard.spark.title" = "Actividad del enlace";
+"dashboard.check.title" = "Comprobación rápida";
+"dashboard.check.button" = "Ejecutar";
+"dashboard.check.running" = "Comprobando…";
+"dashboard.check.done" = "Comprobación terminada";
+"dashboard.security.title" = "Seguridad";
+"dashboard.security.item1" = "Al conectar, el tráfico usa un túnel cifrado en este dispositivo.";
+"dashboard.security.item2" = "El servidor elegido aplica a la próxima sesión de enrutamiento.";
+"dashboard.security.item3" = "Revisa los permisos VPN en Ajustes › VPN.";
+"dashboard.security.item4" = "Consulta la Política de privacidad sobre el uso de datos.";
+"dashboard.tips.section_title" = "Consejos";
+"dashboard.tip.1.title" = "Primera conexión";
+"dashboard.tip.1.body" = "El sistema puede pedir la configuración VPN una vez; sin ella el túnel no arranca.";
+"dashboard.tip.2.title" = "En movimiento";
+"dashboard.tip.2.body" = "Modo avión o portales cautivos pueden interrumpir el handshake; reintenta con red estable.";
+"dashboard.tip.3.title" = "Batería";
+"dashboard.tip.3.body" = "Toda VPN consume un poco en segundo plano; carga o usa Modo bajo consumo si hace falta.";
+"dashboard.tip.4.title" = "Cambiar servidor";
+"dashboard.tip.4.body" = "Elige un servidor antes de conectar, o desconéctate y elige otro para la siguiente sesión.";
+"dashboard.tip.5.title" = "Idioma";
+"dashboard.tip.5.body" = "Puedes cambiar el idioma en los ajustes de esta app.";
+
+/* Help */
+"help.doc.title" = "Guía";
+"help.close.a11y" = "Cerrar guía";
+"help.section.why_vpn.title" = "¿Por qué se necesita permiso VPN?";
+"help.section.why_vpn.body" = "La app usa la extensión «VPN personal» del sistema. Permite añadir el perfil la primera vez; si no, el túnel no inicia.";
+"help.section.trouble.title" = "¿No conecta?";
+"help.section.trouble.body" = "1) Comprueba el permiso VPN; 2) Desactiva modo avión; 3) Prueba otro servidor; 4) Reinstala el perfil si tu organización lo restringe.";
+"help.section.routes.title" = "Sobre los servidores";
+"help.section.routes.body" = "Elige un servidor aquí; la pestaña Conectar muestra el que está en uso.";
+"help.section.contact.title" = "Contacto";
+"help.section.contact.body" = "Ayuda mediante la opción de soporte en la página del producto en App Store.";
+
+/* Settings */
+"settings.language.section" = "Idioma";
+"settings.language.system" = "Sistema";
+"settings.language.english" = "English";
+"settings.language.applying" = "Aplicando el idioma…";
+
+"settings.section.about" = "Acerca de";
+"settings.field.version" = "Versión";
+"settings.field.build" = "Compilación";
+"settings.section.legal" = "Legal";
+"settings.link.privacy" = "Política de privacidad";
+"settings.link.terms" = "Términos de uso";
+"settings.help.entry.blurb" = "FAQ, servidores y contacto";
+"settings.footer.placeholder" = "Toca Guía arriba para el manual completo.";
+
+/* Onboarding */
+"onboard.welcome.title_format" = "Te damos la bienvenida a %@";
+"onboard.welcome.body" = "Una capa extra de protección y enrutamiento estable para cada día.";
+"onboard.next" = "Siguiente";
+"onboard.expect.title" = "Antes de conectar";
+"onboard.expect.body" = "La primera vez el sistema pedirá «Configuración VPN» para crear un túnel cifrado. Sin permiso el servicio no funciona.";
+"onboard.expect.settings_hint" = "Gestiona la app en Ajustes › VPN";
+"onboard.value.title" = "Qué puedes hacer";
+"onboard.value.bullet1" = "Activa la protección en la pestaña Conectar.";
+"onboard.value.bullet2" = "Ve el resumen y accesos en Panel.";
+"onboard.value.bullet3" = "Servidores y herramientas se actualizarán — vuelve pronto.";
+"onboard.privacy.heading" = "Protección de privacidad y\ndeclaración de uso de datos";
+"onboard.privacy.intro" = "Para una buena experiencia VPN solo recopilamos lo necesario, en estas áreas:";
+"onboard.privacy.device.title" = "Datos del dispositivo";
+"onboard.privacy.device.body" = "Por ejemplo sistema, modelo e idioma — para optimizar la red y la calidad del servicio.";
+"onboard.privacy.session.title" = "Registros de conexión";
+"onboard.privacy.session.body" = "Resumimos y tratamos datos de conexión de forma anónima para mejorar el servicio y la estabilidad.";
+"onboard.privacy.usage.title" = "Duración y ancho de banda";
+"onboard.privacy.usage.body" = "Recopilamos uso total y duración de sesiones para integridad, rendimiento y recursos.";
+"onboard.privacy.thirdparty.title" = "Datos publicitarios";
+"onboard.privacy.thirdparty.body" = "Algunos servicios de anuncios pueden recopilar datos según sus políticas.";
+"onboard.privacy.policy_footer" = "Más información en nuestra Política de privacidad.";
+"onboard.privacy.agree_toggle" = "He leído y acepto la declaración de protección de datos y uso.";
+"onboard.privacy.placeholder_note" = "Puedes abrir la Política de privacidad otra vez en Ajustes. Después el sistema puede preguntar por ATT.";
+"onboard.privacy.agree_continue" = "Aceptar y continuar";
+"onboard.privacy.decline_quit" = "Ahora no";
+
+/* Region catalog */
+"region.auto.name" = "Selección inteligente";
+"region.auto.subtitle" = "El servidor se elige por ti";
+"region.germany" = "Alemania";
+"region.netherlands" = "Países Bajos";
+"region.uk" = "Reino Unido";
+"region.finland" = "Finlandia";
+"region.france" = "Francia";
+"region.japan" = "Japón";
+"region.singapore" = "Singapur";
+"region.usa" = "Estados Unidos";
+"region.canada" = "Canadá";
+"region.australia" = "Australia";

@@ -160,8 +160,7 @@ enum L10n {
         static func helpEntryBlurb(_ app: AppLanguageStore) -> String { app.tr("settings.help.entry.blurb") }
         static func languageSection(_ app: AppLanguageStore) -> String { app.tr("settings.language.section") }
         static func languageSystem(_ app: AppLanguageStore) -> String { app.tr("settings.language.system") }
-        static func languageEnglish(_ app: AppLanguageStore) -> String { app.tr("settings.language.english") }
-        static func languageChinese(_ app: AppLanguageStore) -> String { app.tr("settings.language.chinese") }
+        static func languageApplying(_ app: AppLanguageStore) -> String { app.tr("settings.language.applying") }
     }
 
     enum Onboard {

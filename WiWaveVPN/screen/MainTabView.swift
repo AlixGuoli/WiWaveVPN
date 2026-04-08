@@ -60,6 +60,40 @@ struct MainTabView: View {
             }
             path.append(.verdict(v))
         }
+        .overlay {
+            Group {
+                if appLanguage.isApplyingLanguage {
+                    LanguageApplyingOverlay()
+                }
+            }
+            .animation(.easeInOut(duration: 0.22), value: appLanguage.isApplyingLanguage)
+        }
+    }
+}
+
+/// 应用内切换语言时的全屏遮罩（文案仍用切换前语言，直到 `preference` 更新）。
+private struct LanguageApplyingOverlay: View {
+    @EnvironmentObject private var appLanguage: AppLanguageStore
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.62)
+                .ignoresSafeArea()
+
+            VStack(spacing: 20) {
+                ProgressView()
+                    .controlSize(.large)
+                    .tint(.white)
+                Text(L10n.Settings.languageApplying(appLanguage))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.white.opacity(0.95))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 28)
+            }
+        }
+        .allowsHitTesting(true)
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.updatesFrequently)
     }
 }
 
