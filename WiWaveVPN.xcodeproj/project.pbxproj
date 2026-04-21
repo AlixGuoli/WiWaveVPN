@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8E2A72012F7E57A800903126 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2A72002F7E57A800903126 /* NetworkExtension.framework */; };
 		8E2A72092F7E57A800903126 /* luu.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8E2A71FE2F7E57A800903126 /* luu.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8EC43A592F9632F400FE53A6 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC43A582F9632F400FE53A6 /* libresolv.tbd */; };
 		F0350527416421D6AA076FC9 /* Pods_WiWaveVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407A05683F7785045544A724 /* Pods_WiWaveVPN.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 		8E2A71E62F7D048700903126 /* WiWaveVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiWaveVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E2A71FE2F7E57A800903126 /* luu.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = luu.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E2A72002F7E57A800903126 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		8EC43A582F9632F400FE53A6 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/usr/lib/libresolv.tbd; sourceTree = DEVELOPER_DIR; };
 		D8DF2AFEDEC0CFF206F59473 /* Pods-WiWaveVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiWaveVPN.release.xcconfig"; path = "Target Support Files/Pods-WiWaveVPN/Pods-WiWaveVPN.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,11 +55,29 @@
 			);
 			target = 8E2A71FD2F7E57A800903126 /* luu */;
 		};
+		8EC43A572F96328D00FE53A6 /* Exceptions for "WiWaveVPN" folder in "luu" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				main/FluxLatch.swift,
+			);
+			target = 8E2A71FD2F7E57A800903126 /* luu */;
+		};
+		8ED11BF92F8E43B3009ACB89 /* Exceptions for "WiWaveVPN" folder in "WiWaveVPN" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8E2A71E52F7D048700903126 /* WiWaveVPN */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8E2A71E82F7D048700903126 /* WiWaveVPN */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8ED11BF92F8E43B3009ACB89 /* Exceptions for "WiWaveVPN" folder in "WiWaveVPN" target */,
+				8EC43A572F96328D00FE53A6 /* Exceptions for "WiWaveVPN" folder in "luu" target */,
+			);
 			path = WiWaveVPN;
 			sourceTree = "<group>";
 		};
@@ -84,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EC43A592F9632F400FE53A6 /* libresolv.tbd in Frameworks */,
 				8E2A72012F7E57A800903126 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +144,7 @@
 		8E2A71FF2F7E57A800903126 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8EC43A582F9632F400FE53A6 /* libresolv.tbd */,
 				8E2A72002F7E57A800903126 /* NetworkExtension.framework */,
 				407A05683F7785045544A724 /* Pods_WiWaveVPN.framework */,
 			);
@@ -442,7 +464,9 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WiWaveVPN/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Fast Secure VPN";
+				INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsArbitraryLoads = YES;
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This helps us collect aggregated usage and performance information to improve the app.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -492,7 +516,9 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WiWaveVPN/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Fast Secure VPN";
+				INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsArbitraryLoads = YES;
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This helps us collect aggregated usage and performance information to improve the app.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -533,6 +559,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WFWY6RAV2Z;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = luu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = luu;
@@ -542,6 +569,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/luu/yu",
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.glow.wiwave.vpn.luu;
@@ -555,6 +586,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = /Users/ersao/Documents/WiWaveVPN/luu/seed_Header.h;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -568,6 +600,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WFWY6RAV2Z;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = luu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = luu;
@@ -577,6 +610,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/luu/yu",
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.glow.wiwave.vpn.luu;
@@ -590,6 +627,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = /Users/ersao/Documents/WiWaveVPN/luu/seed_Header.h;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

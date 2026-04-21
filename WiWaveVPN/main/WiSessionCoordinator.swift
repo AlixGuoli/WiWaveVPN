@@ -36,6 +36,9 @@ final class WiSessionCoordinator: ObservableObject {
 
     private let tunnel = TunnelService.shared
     private let logTag = "WiSession"
+    private let selectedNodeIDKey = "WiWaveVPN.SelectedServerNodeID"
+    private let reporter = QuillPulseReporter.shared
+    private var connectSessionID: String?
 
     private var needsPostCheck = false
     private var userWantsDisconnect = false
@@ -56,7 +59,7 @@ final class WiSessionCoordinator: ObservableObject {
         tunnel.restoreExistingConfiguration { [weak self] _, error in
             guard let self else { return }
             if let error = error {
-                AppLogger.log(.connection, tag: self.logTag, "boot restore: \(error.localizedDescription)")
+                AppLogger.log(.connection, tag: self.logTag, "启动恢复失败 boot restore failed: \(error.localizedDescription)")
             }
             DispatchQueue.main.async {
                 self.circuitStatus = self.tunnel.currentStatus()
@@ -151,15 +154,56 @@ final class WiSessionCoordinator: ObservableObject {
                     self.showProgressPage = true
                     self.phase = .busy
                 }
-                self.tunnel.start { [weak self] startError in
+                Task { [weak self] in
                     guard let self else { return }
-                    if let startError = startError {
-                        AppLogger.log(.connection, tag: self.logTag, "start: \(startError.localizedDescription)")
-                        DispatchQueue.main.async {
+                    self.connectSessionID = nil
+                    let groupID = self.currentSelectedServerNodeID()
+                    let hasServiceCipher = await QuillServicePreludeFlow().prepare(groupID: groupID, vip: 0)
+                    guard hasServiceCipher else {
+                        self.reporter.reportServiceStatus(isLive: false)
+                        await MainActor.run {
                             self.phase = .error
                             self.verdict = .linkedFail
                             self.showProgressPage = false
                             self.needsPostCheck = false
+                        }
+                        return
+                    }
+                    self.reporter.reportServiceStatus(isLive: QuillServiceCipherDepot.shared.origin == .live)
+                    guard let routeJSON = QuillServiceCipherDepot.shared.activeRouteJSON, !routeJSON.isEmpty else {
+                        AppLogger.log(.connection, tag: self.logTag, "路由配置缺失 route json missing，终止连接")
+                        await MainActor.run {
+                            self.phase = .error
+                            self.verdict = .linkedFail
+                            self.showProgressPage = false
+                            self.needsPostCheck = false
+                        }
+                        return
+                    }
+                    let pushed = WiTunnelBridge.shared.pushRouteConfig(routeJSON)
+                    guard pushed else {
+                        AppLogger.log(.connection, tag: self.logTag, "桥接下发失败 bridge push failed，终止连接")
+                        await MainActor.run {
+                            self.phase = .error
+                            self.verdict = .linkedFail
+                            self.showProgressPage = false
+                            self.needsPostCheck = false
+                        }
+                        return
+                    }
+                    let sid = QuillPulseReporter.makeSessionToken()
+                    self.connectSessionID = sid
+                    self.reporter.reportConnectStart(sessionId: sid)
+                    self.tunnel.start { [weak self] startError in
+                        guard let self else { return }
+                        if let startError = startError {
+                            AppLogger.log(.connection, tag: self.logTag, "start: \(startError.localizedDescription)")
+                            DispatchQueue.main.async {
+                                self.phase = .error
+                                self.verdict = .linkedFail
+                                self.showProgressPage = false
+                                self.needsPostCheck = false
+                            }
                         }
                     }
                 }
@@ -167,32 +211,100 @@ final class WiSessionCoordinator: ObservableObject {
         }
     }
 
-    // MARK: - 占位探测（第二版换真探测）
+    private func currentSelectedServerNodeID() -> Int {
+        if UserDefaults.standard.object(forKey: selectedNodeIDKey) == nil {
+            return -1
+        }
+        return UserDefaults.standard.integer(forKey: selectedNodeIDKey)
+    }
+
+    // MARK: - 连接后真实探测
 
     private func runPostCheck() {
         guard !probeBusy else {
-            AppLogger.log(.connection, tag: logTag, "postCheck skip (busy)")
+            AppLogger.log(.connection, tag: logTag, "探测跳过 postCheck skip（busy）")
             return
         }
         probeBusy = true
         Task { @MainActor in
-            AppLogger.log(.connection, tag: self.logTag, "postCheck sleep 3s")
-            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            AppLogger.log(.connection, tag: self.logTag, "探测开始 postCheck begin（real probe）")
+            let ok = await self.probeConnectivity(timeout: 10)
             self.probeBusy = false
-            let ok = self.tunnel.currentStatus() == .connected
-            AppLogger.log(.connection, tag: self.logTag, "postCheck done ok=\(ok)")
+            AppLogger.log(.connection, tag: self.logTag, "探测完成 postCheck done, ok=\(ok)")
             if ok {
                 self.phase = .online
                 self.tunnelConnectedSince = self.tunnel.vpnConnectedDate()
                 self.showProgressPage = false
                 self.verdict = .linkedOK
+                QuillServiceCipherDepot.shared.storeLiveCipherIfNeeded()
+                AppLogger.log(.connection, tag: self.logTag, "连接成功后已处理密文缓存 live cipher persisted if needed")
+                self.reporter.reportConnectSuccess(sessionId: self.connectSessionID)
             } else {
+                self.reporter.reportConnectFailure(sessionId: self.connectSessionID)
                 self.tunnel.stop()
                 self.phase = .error
                 self.showProgressPage = false
                 self.verdict = .linkedFail
             }
             self.needsPostCheck = false
+        }
+    }
+
+    /// 并行探测：任一成功即返回成功；其余请求不取消、自然结束并忽略结果。
+    private func probeConnectivity(timeout: TimeInterval) async -> Bool {
+        var targets = QuillAppConfigCache.shared.detectionServers() ?? []
+        targets = targets.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
+        if targets.isEmpty {
+            targets = [
+                "https://www.google.com/generate_204",
+                "http://cp.cloudflare.com/generate_204",
+            ]
+            AppLogger.log(.connection, tag: logTag, "探测目标回退 probe targets fallback in use")
+        }
+        let urls = targets.compactMap(URL.init(string:))
+        guard !urls.isEmpty else {
+            AppLogger.log(.connection, tag: logTag, "探测目标无效 probe targets invalid")
+            return false
+        }
+        AppLogger.log(.connection, tag: logTag, "探测目标数量 probe targets count=\(urls.count)")
+
+        let stateQueue = DispatchQueue(label: "com.wiwave.probe.state")
+        var resolved = false
+        var completed = 0
+        let total = urls.count
+
+        return await withCheckedContinuation { continuation in
+            for url in urls {
+                var req = URLRequest(url: url)
+                req.timeoutInterval = timeout
+                URLSession.shared.dataTask(with: req) { _, response, error in
+                    stateQueue.sync {
+                        if resolved { return }
+                        if error == nil, let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) {
+                            resolved = true
+                            AppLogger.log(.connection, tag: self.logTag, "探测成功 probe success, url=\(url.absoluteString)")
+                            continuation.resume(returning: true)
+                            return
+                        }
+                        completed += 1
+                        if completed >= total {
+                            resolved = true
+                            AppLogger.log(.connection, tag: self.logTag, "探测全失败 probe all failed")
+                            continuation.resume(returning: false)
+                        }
+                    }
+                }.resume()
+            }
+
+            DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+                stateQueue.sync {
+                    if !resolved {
+                        resolved = true
+                        AppLogger.log(.connection, tag: self.logTag, "探测超时 probe timeout \(Int(timeout))s")
+                        continuation.resume(returning: false)
+                    }
+                }
+            }
         }
     }
 }

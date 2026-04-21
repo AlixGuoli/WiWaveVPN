@@ -23,8 +23,9 @@ struct NodeItemDTO: Decodable {
 
 /// 单条线路。`serverNodeId == -1` 为自动（随机）；连后台时只传这个 id 即可。
 struct WiNode: Identifiable, Hashable {
+    let uiID: UUID
     let serverNodeId: Int
-    var id: Int { serverNodeId }
+    var id: UUID { uiID }
 
     let name: String
     let country: String?
@@ -44,6 +45,7 @@ struct WiNode: Identifiable, Hashable {
     }
 
     init(serverNodeId: Int, name: String, country: String?, subtitle: String = "") {
+        self.uiID = UUID()
         self.serverNodeId = serverNodeId
         self.name = name
         self.country = country
@@ -51,6 +53,7 @@ struct WiNode: Identifiable, Hashable {
     }
 
     init(apiItem: NodeItemDTO) {
+        self.uiID = UUID()
         self.serverNodeId = apiItem.id
         self.name = apiItem.name
         self.country = apiItem.country
@@ -70,16 +73,16 @@ struct WiNode: Identifiable, Hashable {
     static func bundledNodes(using app: AppLanguageStore) -> [WiNode] {
         [
             autoDefault(using: app),
-            WiNode(serverNodeId: 201, name: L10n.Nodes.germany(app), country: "DE"),
-            WiNode(serverNodeId: 202, name: L10n.Nodes.netherlands(app), country: "NL"),
-            WiNode(serverNodeId: 203, name: L10n.Nodes.uk(app), country: "GB"),
-            WiNode(serverNodeId: 204, name: L10n.Nodes.finland(app), country: "FI"),
-            WiNode(serverNodeId: 205, name: L10n.Nodes.france(app), country: "FR"),
-            WiNode(serverNodeId: 206, name: L10n.Nodes.japan(app), country: "JP"),
-            WiNode(serverNodeId: 207, name: L10n.Nodes.singapore(app), country: "SG"),
-            WiNode(serverNodeId: 208, name: L10n.Nodes.usa(app), country: "US"),
-            WiNode(serverNodeId: 209, name: L10n.Nodes.canada(app), country: "CA"),
-            WiNode(serverNodeId: 210, name: L10n.Nodes.australia(app), country: "AU"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.germany(app), country: "DE"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.netherlands(app), country: "NL"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.uk(app), country: "GB"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.finland(app), country: "FI"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.france(app), country: "FR"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.japan(app), country: "JP"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.singapore(app), country: "SG"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.usa(app), country: "US"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.canada(app), country: "CA"),
+            WiNode(serverNodeId: autoServerNodeId, name: L10n.Nodes.australia(app), country: "AU"),
         ]
     }
 }
@@ -87,34 +90,116 @@ struct WiNode: Identifiable, Hashable {
 // MARK: - Store
 
 final class NodeSelectionStore: ObservableObject {
+    private let selectedNodeIDKey = "WiWaveVPN.SelectedServerNodeID"
+    private let selectedNodeSnapshotKey = "WiWaveVPN.SelectedServerNodeSnapshot"
     @Published var nodes: [WiNode]
     @Published var selected: WiNode
+    private var pendingServerNodeID: Int?
 
     init(appLanguage: AppLanguageStore = AppLanguageStore()) {
         let n = WiNode.bundledNodes(using: appLanguage)
         self.nodes = n
-        self.selected = n.first(where: { $0.isAuto }) ?? n.first ?? WiNode.autoDefault(using: appLanguage)
+        let savedID = UserDefaults.standard.object(forKey: selectedNodeIDKey) as? Int
+        if let savedID,
+           let localMatch = n.first(where: { $0.serverNodeId == savedID }) {
+            self.selected = localMatch
+        } else if let snapshot = Self.loadPersistedSelection(from: UserDefaults.standard, key: selectedNodeSnapshotKey),
+                  let savedID,
+                  snapshot.serverNodeId == savedID {
+            self.selected = snapshot
+            self.pendingServerNodeID = savedID
+        } else {
+            self.selected = n.first(where: { $0.isAuto })
+                ?? n.first
+                ?? WiNode.autoDefault(using: appLanguage)
+            if let savedID, savedID != WiNode.autoServerNodeId {
+                self.pendingServerNodeID = savedID
+            }
+        }
     }
 
     /// 切换应用内语言后刷新内置目录文案，并尽量保持同一 `serverNodeId`。
     func applyLocalization(_ app: AppLanguageStore) {
         let next = WiNode.bundledNodes(using: app)
-        let id = selected.serverNodeId
+        let serverID = selected.serverNodeId
         nodes = next
-        selected = next.first(where: { $0.serverNodeId == id })
-            ?? next.first(where: { $0.isAuto }) ?? next[0]
+        if let matched = next.first(where: { $0.serverNodeId == serverID }) {
+            selected = matched
+            persistSelection(matched)
+            pendingServerNodeID = nil
+            return
+        }
+        if serverID != WiNode.autoServerNodeId {
+            pendingServerNodeID = serverID
+            return
+        }
+        let auto = next.first(where: { $0.isAuto }) ?? next[0]
+        selected = auto
+        persistSelection(auto)
+        pendingServerNodeID = nil
     }
 
     func pick(_ node: WiNode) {
         selected = node
+        pendingServerNodeID = nil
+        persistSelection(node)
     }
 
     func applyCatalog(_ dto: NodeCatalogDTO) {
+        let targetServerID = pendingServerNodeID ?? selected.serverNodeId
         nodes = WiNode.flattenedNodes(from: dto)
-        if !nodes.contains(where: { $0.serverNodeId == selected.serverNodeId }) {
-            let app = AppLanguageStore()
-            selected = nodes.first(where: { $0.isAuto }) ?? nodes.first ?? WiNode.autoDefault(using: app)
+        let app = AppLanguageStore()
+        selected = nodes.first(where: { $0.serverNodeId == targetServerID })
+            ?? nodes.first(where: { $0.isAuto })
+            ?? nodes.first
+            ?? WiNode.autoDefault(using: app)
+        pendingServerNodeID = nil
+        persistSelection(selected)
+    }
+
+    func applyCatalogJSON(_ jsonText: String) {
+        guard let data = jsonText.data(using: .utf8) else {
+            AppLogger.log(.connection, tag: "Quill", "节点列表 JSON 编码失败")
+            return
         }
+        guard let dto = try? JSONDecoder().decode(NodeCatalogDTO.self, from: data) else {
+            AppLogger.log(.connection, tag: "Quill", "节点列表 JSON 解析失败（结构不匹配）")
+            return
+        }
+        applyCatalog(dto)
+        AppLogger.log(.connection, tag: "Quill", "节点列表已应用 total=\(nodes.count)")
+    }
+
+    private struct PersistedNodeSnapshot: Codable {
+        let serverNodeId: Int
+        let name: String
+        let country: String?
+        let subtitle: String
+    }
+
+    private func persistSelection(_ node: WiNode) {
+        UserDefaults.standard.set(node.serverNodeId, forKey: selectedNodeIDKey)
+        let snapshot = PersistedNodeSnapshot(
+            serverNodeId: node.serverNodeId,
+            name: node.name,
+            country: node.country,
+            subtitle: node.subtitle
+        )
+        guard let data = try? JSONEncoder().encode(snapshot) else { return }
+        UserDefaults.standard.set(data, forKey: selectedNodeSnapshotKey)
+    }
+
+    private static func loadPersistedSelection(from defaults: UserDefaults, key: String) -> WiNode? {
+        guard let data = defaults.data(forKey: key),
+              let snapshot = try? JSONDecoder().decode(PersistedNodeSnapshot.self, from: data) else {
+            return nil
+        }
+        return WiNode(
+            serverNodeId: snapshot.serverNodeId,
+            name: snapshot.name,
+            country: snapshot.country,
+            subtitle: snapshot.subtitle
+        )
     }
 }
 
@@ -206,7 +291,7 @@ struct WiNodeListView: View {
                                                     .background(Capsule().fill(WiTheme.bgElevated.opacity(0.5)))
                                             )
                                     }
-                                    if store.selected.serverNodeId == node.serverNodeId {
+                                    if store.selected.id == node.id {
                                         Image(systemName: "checkmark.circle.fill")
                                             .font(.title3)
                                             .foregroundStyle(WiTheme.success)
@@ -229,5 +314,8 @@ struct WiNodeListView: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden(true)
+        .task {
+            await QuillNodeCatalogFlow().refresh(into: store)
+        }
     }
 }
