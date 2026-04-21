@@ -1,9 +1,9 @@
-import AppTrackingTransparency
 import Darwin
 import SwiftUI
 
 /// 首装引导：不可跳过；须同意隐私后再请求 ATT。
 struct OnboardingFlowView: View {
+    var onPrivacyAccepted: (@escaping () -> Void) -> Void
     var onFlowFinished: () -> Void
 
     @EnvironmentObject private var appLanguage: AppLanguageStore
@@ -349,7 +349,7 @@ struct OnboardingFlowView: View {
     private func proceedAfterPrivacyAccepted() {
         guard agreedPrivacy, !isRequestingATT else { return }
         isRequestingATT = true
-        ATTrackingManager.requestTrackingAuthorization { _ in
+        onPrivacyAccepted {
             DispatchQueue.main.async {
                 isRequestingATT = false
                 onFlowFinished()
