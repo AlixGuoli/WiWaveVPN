@@ -1,0 +1,12 @@
+# Xcode
+xcuserdata/
+build/
+DerivedData/
+*.xccheckout
+*.xcscmblueprint
+
+# CocoaPods - ignore vendored dependencies
+Pods/
+
+# macOS
+.DS_Store

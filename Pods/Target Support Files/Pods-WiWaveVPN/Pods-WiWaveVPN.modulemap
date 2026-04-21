@@ -1,6 +1,0 @@
-framework module Pods_WiWaveVPN {
-  umbrella header "Pods-WiWaveVPN-umbrella.h"
-
-  export *
-  module * { export * }
-}
