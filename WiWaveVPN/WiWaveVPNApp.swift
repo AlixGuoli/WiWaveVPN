@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct WiWaveVPNApp: App {
+    @UIApplicationDelegateAdaptor(WiAppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
     @StateObject private var coil = WiSessionCoordinator()
     @StateObject private var launchGate = AppLaunchGate()

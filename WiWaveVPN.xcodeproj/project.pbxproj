@@ -10,6 +10,12 @@
 		8E2A72012F7E57A800903126 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2A72002F7E57A800903126 /* NetworkExtension.framework */; };
 		8E2A72092F7E57A800903126 /* luu.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8E2A71FE2F7E57A800903126 /* luu.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8EC43A592F9632F400FE53A6 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC43A582F9632F400FE53A6 /* libresolv.tbd */; };
+		8EC43CBB2F9768E700FE53A6 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC43CBA2F9768E700FE53A6 /* AppTrackingTransparency.framework */; };
+		8EC43CBD2F9768F100FE53A6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC43CBC2F9768F100FE53A6 /* AdSupport.framework */; };
+		8EC43CBF2F9768F800FE53A6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC43CBE2F9768F800FE53A6 /* SystemConfiguration.framework */; };
+		8EC43CC12F9768FE00FE53A6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC43CC02F9768FE00FE53A6 /* libsqlite3.tbd */; };
+		8EC43CC32F97690600FE53A6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC43CC22F97690600FE53A6 /* libz.tbd */; };
+		8EC43CC52F97691C00FE53A6 /* GameAnalytics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC43CC42F97691C00FE53A6 /* GameAnalytics.xcframework */; };
 		F0350527416421D6AA076FC9 /* Pods_WiWaveVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407A05683F7785045544A724 /* Pods_WiWaveVPN.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +50,12 @@
 		8E2A71FE2F7E57A800903126 /* luu.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = luu.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E2A72002F7E57A800903126 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		8EC43A582F9632F400FE53A6 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/usr/lib/libresolv.tbd; sourceTree = DEVELOPER_DIR; };
+		8EC43CBA2F9768E700FE53A6 /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = DEVELOPER_DIR; };
+		8EC43CBC2F9768F100FE53A6 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
+		8EC43CBE2F9768F800FE53A6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		8EC43CC02F9768FE00FE53A6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		8EC43CC22F97690600FE53A6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		8EC43CC42F97691C00FE53A6 /* GameAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GameAnalytics.xcframework; path = "Pods/GA-SDK-IOS/GameAnalytics.xcframework"; sourceTree = "<group>"; };
 		D8DF2AFEDEC0CFF206F59473 /* Pods-WiWaveVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WiWaveVPN.release.xcconfig"; path = "Target Support Files/Pods-WiWaveVPN/Pods-WiWaveVPN.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +108,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EC43CC52F97691C00FE53A6 /* GameAnalytics.xcframework in Frameworks */,
+				8EC43CC32F97690600FE53A6 /* libz.tbd in Frameworks */,
+				8EC43CC12F9768FE00FE53A6 /* libsqlite3.tbd in Frameworks */,
+				8EC43CBF2F9768F800FE53A6 /* SystemConfiguration.framework in Frameworks */,
+				8EC43CBD2F9768F100FE53A6 /* AdSupport.framework in Frameworks */,
+				8EC43CBB2F9768E700FE53A6 /* AppTrackingTransparency.framework in Frameworks */,
 				F0350527416421D6AA076FC9 /* Pods_WiWaveVPN.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +162,12 @@
 		8E2A71FF2F7E57A800903126 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8EC43CC42F97691C00FE53A6 /* GameAnalytics.xcframework */,
+				8EC43CC22F97690600FE53A6 /* libz.tbd */,
+				8EC43CC02F9768FE00FE53A6 /* libsqlite3.tbd */,
+				8EC43CBE2F9768F800FE53A6 /* SystemConfiguration.framework */,
+				8EC43CBC2F9768F100FE53A6 /* AdSupport.framework */,
+				8EC43CBA2F9768E700FE53A6 /* AppTrackingTransparency.framework */,
 				8EC43A582F9632F400FE53A6 /* libresolv.tbd */,
 				8E2A72002F7E57A800903126 /* NetworkExtension.framework */,
 				407A05683F7785045544A724 /* Pods_WiWaveVPN.framework */,
@@ -493,6 +517,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ersao/Documents/WiWaveVPN/WiWaveVPN/GameAnalytics-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -545,6 +570,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/ersao/Documents/WiWaveVPN/WiWaveVPN/GameAnalytics-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

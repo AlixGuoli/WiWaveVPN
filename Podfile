@@ -7,5 +7,7 @@ target 'WiWaveVPN' do
 
   # Pods for WiWaveVPN
   pod 'Alamofire'
+  
+  pod 'GA-SDK-IOS', '~> 4.11.0'
 
 end
