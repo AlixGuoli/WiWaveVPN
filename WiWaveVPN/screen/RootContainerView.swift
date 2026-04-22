@@ -3,7 +3,8 @@ import SwiftUI
 /// 根容器：冷启动页 →（首装）引导 → 主页；老用户冷启动页 → 主页。
 struct RootContainerView: View {
     var onPrivacyAccepted: (@escaping () -> Void) -> Void = { done in done() }
-    var onExistingUserLaunch: () -> Void = {}
+    var onExistingUserSplashFinish: () -> Void = {}
+    var onColdSplashVisibilityChanged: (Bool) -> Void = { _ in }
 
     @EnvironmentObject private var launchGate: AppLaunchGate
     @State private var stage: LaunchStage = .coldSplash
@@ -20,6 +21,9 @@ struct RootContainerView: View {
             case .coldSplash:
                 LaunchSplashView {
                     finishColdSplash()
+                }
+                .onAppear {
+                    onColdSplashVisibilityChanged(true)
                 }
             case .onboarding:
                 OnboardingFlowView(onPrivacyAccepted: onPrivacyAccepted) {
@@ -39,8 +43,9 @@ struct RootContainerView: View {
     }
 
     private func finishColdSplash() {
+        onColdSplashVisibilityChanged(false)
         if launchGate.hasCompletedOnboarding {
-            onExistingUserLaunch()
+            onExistingUserSplashFinish()
             stage = .main
         } else {
             stage = .onboarding

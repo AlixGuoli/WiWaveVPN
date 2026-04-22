@@ -3,24 +3,24 @@ import GameAnalytics
 import YandexMobileAds
 
 final class WiAppDelegate: NSObject, UIApplicationDelegate {
-    private var hasActivatedThirdPartyStack = false
+    private var didInitializeThirdParty = false
 
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        AppLogger.log(.system, tag: "Startup", "等待 ATT 回调后再初始化第三方 SDK")
+        initializeThirdPartyStacksIfNeeded()
         return true
     }
 
-    /// 在 ATT 回调后调用；无论授权结果如何都初始化，但整个生命周期仅执行一次。
-    func activateThirdPartyStackIfNeeded(trigger: String) {
-        guard !hasActivatedThirdPartyStack else {
-            AppLogger.log(.system, tag: "Startup", "第三方 SDK 已初始化，跳过重复触发 trigger=\(trigger)")
+    func initializeThirdPartyStacksIfNeeded() {
+        guard !didInitializeThirdParty else { return }
+        guard WiATTGate.shared.canInitializeThirdParty else {
+            AppLogger.log(.system, tag: "Startup", "等待 ATT 结果后再初始化第三方 SDK（新用户）")
             return
         }
-        hasActivatedThirdPartyStack = true
-        AppLogger.log(.system, tag: "Startup", "开始初始化第三方 SDK trigger=\(trigger)")
+        didInitializeThirdParty = true
+        AppLogger.log(.system, tag: "Startup", "应用启动：初始化第三方 SDK")
         activateSignalStack()
         activateAdMatrix()
     }

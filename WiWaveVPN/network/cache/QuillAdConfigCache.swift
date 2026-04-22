@@ -56,14 +56,19 @@ final class QuillAdConfigCache {
 
     func slotIDs(for group: QuillAdSlotGroup) -> [String] {
         let key: String
+        let defaultRaw: String
         switch group {
         case .yandexInterstitial:
             key = yandexIntKey
+            defaultRaw = "R-M-19141988-1;R-M-19141988-2;R-M-19141988-3"
         case .emInterstitial:
             key = emIntKey
+            defaultRaw = "R-M-19141610-1"
         }
-        let raw = UserDefaults.standard.string(forKey: key) ?? ""
-        return raw.split(separator: ";").map { String($0) }.filter { !$0.isEmpty }
+        let raw = UserDefaults.standard.string(forKey: key) ?? defaultRaw
+        let slots = raw.split(separator: ";").map { String($0) }.filter { !$0.isEmpty }
+        if !slots.isEmpty { return slots }
+        return defaultRaw.split(separator: ";").map { String($0) }.filter { !$0.isEmpty }
     }
 
     func lastUpdateTime() -> Date? {

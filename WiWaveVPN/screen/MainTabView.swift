@@ -5,6 +5,9 @@ struct MainTabView: View {
     @EnvironmentObject private var nodes: NodeSelectionStore
     @EnvironmentObject private var coil: WiSessionCoordinator
     @State private var path: [WiRoute] = []
+    @State private var progressTimeoutTask: DispatchWorkItem?
+    @State private var didPrimeOnMainEnter = false
+    private let progressAutoCloseSeconds: TimeInterval = 30
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -41,13 +44,26 @@ struct MainTabView: View {
         .onChange(of: appLanguage.preference) { _ in
             nodes.applyLocalization(appLanguage)
         }
+        .onAppear {
+            guard !didPrimeOnMainEnter else { return }
+            didPrimeOnMainEnter = true
+            FluxAdManager.shared.primeInt(trigger: .manual)
+        }
         .onChange(of: coil.showProgressPage) { show in
             if show {
                 if path.last != .progress {
                     path.append(.progress)
                 }
+                progressTimeoutTask?.cancel()
+                let task = DispatchWorkItem { [weak coil] in
+                    coil?.handleProgressPageTimeout()
+                }
+                progressTimeoutTask = task
+                DispatchQueue.main.asyncAfter(deadline: .now() + progressAutoCloseSeconds, execute: task)
             } else if path.last == .progress {
                 path.removeLast()
+                progressTimeoutTask?.cancel()
+                progressTimeoutTask = nil
             }
         }
         .onChange(of: coil.verdict) { newVal in
@@ -59,6 +75,14 @@ struct MainTabView: View {
                 path.removeLast()
             }
             path.append(.verdict(v))
+            switch v {
+            case .linkedOK:
+                _ = FluxAdManager.shared.presentIntIfReady(trigger: .connect)
+            case .unpluggedOK:
+                _ = FluxAdManager.shared.presentIntIfReady(trigger: .disconnect)
+            case .linkedFail:
+                break
+            }
         }
         .overlay {
             Group {
@@ -67,6 +91,10 @@ struct MainTabView: View {
                 }
             }
             .animation(.easeInOut(duration: 0.22), value: appLanguage.isApplyingLanguage)
+        }
+        .onDisappear {
+            progressTimeoutTask?.cancel()
+            progressTimeoutTask = nil
         }
     }
 }

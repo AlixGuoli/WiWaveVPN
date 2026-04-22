@@ -81,9 +81,27 @@ final class WiSessionCoordinator: ObservableObject {
     func confirmUnplug() {
         showUnplugConfirm = false
         userWantsDisconnect = true
-        phase = .busy
-        verdict = nil
-        tunnel.stop()
+        if phase == .online {
+            // 旧项目一致：先出断开结果页，再给广告一个短窗口（有缓存时 3s）后再真正断开。
+            verdict = .unpluggedOK
+            showProgressPage = false
+            if FluxAdManager.shared.hasAnyPayload() {
+                AppLogger.log(.system, tag: "Ads", "断开流程：检测到广告缓存，延迟 3 秒后断开")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+                    guard let self, self.userWantsDisconnect else { return }
+                    self.phase = .busy
+                    self.tunnel.stop()
+                }
+            } else {
+                AppLogger.log(.system, tag: "Ads", "断开流程：无广告缓存，立即断开")
+                phase = .busy
+                tunnel.stop()
+            }
+        } else {
+            phase = .busy
+            verdict = nil
+            tunnel.stop()
+        }
     }
 
     func cancelUnplug() {
@@ -93,6 +111,12 @@ final class WiSessionCoordinator: ObservableObject {
 
     func clearVerdict() {
         verdict = nil
+    }
+
+    /// 进度页兜底超时：仅关闭页面，不影响底层连接流程。
+    func handleProgressPageTimeout() {
+        AppLogger.log(.connection, tag: logTag, "进度页兜底超时（30s），仅关闭页面，不中断连接")
+        showProgressPage = false
     }
 
     // MARK: - 系统 → 界面

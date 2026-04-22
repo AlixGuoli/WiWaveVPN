@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import AppTrackingTransparency
 
 @main
 struct WiWaveVPNApp: App {
@@ -17,18 +16,24 @@ struct WiWaveVPNApp: App {
     @StateObject private var appLanguage = AppLanguageStore()
     @StateObject private var nodes = NodeSelectionStore()
     @State private var backgroundFlag = false
-    @State private var didResolveATTGate = false
+    @State private var resumeOverlayActive = false
+    @State private var isColdSplashVisible = true
+    @State private var didAttemptLaunchAdPresent = false
 
     var body: some Scene {
         WindowGroup {
-            RootContainerView(
-                onPrivacyAccepted: { completion in
-                    resolveATTGateAndBootstrap(trigger: "onboarding_agree", completion: completion)
-                },
-                onExistingUserLaunch: {
-                    resolveATTGateAndBootstrap(trigger: "existing_user_launch")
-                }
-            )
+            ZStack {
+                RootContainerView(
+                    onPrivacyAccepted: { completion in
+                        resolveTrackingGateAfterPrivacy(completion: completion)
+                    },
+                    onExistingUserSplashFinish: {
+                        presentLaunchAdAtSplashExit()
+                    },
+                    onColdSplashVisibilityChanged: { visible in
+                        isColdSplashVisible = visible
+                    }
+                )
                 .environmentObject(coil)
                 .environmentObject(launchGate)
                 .environmentObject(nodes)
@@ -38,6 +43,24 @@ struct WiWaveVPNApp: App {
                 .onChange(of: scenePhase) { newPhase in
                     processScenePhaseChange(newPhase)
                 }
+
+                if resumeOverlayActive {
+                    ForegroundResumeMaskView()
+                        .environmentObject(appLanguage)
+                        .background(Color(UIColor.systemBackground).opacity(1.0))
+                        .ignoresSafeArea()
+                        .onAppear {
+                            AppLogger.log(.system, tag: "Ads", "后台覆盖页显示")
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                presentReturnOverlayAd()
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                resumeOverlayActive = false
+                            }
+                        }
+                        .zIndex(9999)
+                }
+            }
         }
     }
 
@@ -58,43 +81,77 @@ struct WiWaveVPNApp: App {
     /// 仅在后台回前台时按旧规则检查配置过期并触发刷新。
     private func handleForegroundReturn() {
         guard backgroundFlag else { return }
-        QuillForegroundRefreshScheduler.shared.refreshIfNeeded()
-        backgroundFlag = false
+        guard !isColdSplashVisible else {
+            AppLogger.log(.system, tag: "Ads", "启动页阶段回前台，跳过 foreground 广告链路")
+            backgroundFlag = false
+            return
+        }
+        Task {
+            QuillForegroundRefreshScheduler.shared.refreshIfNeeded()
+            if FluxAdManager.shared.mediaVisible {
+                AppLogger.log(.system, tag: "Ads", "已有广告展示中，回前台跳过 foreground 预加载与覆盖页")
+                backgroundFlag = false
+                return
+            }
+            FluxAdManager.shared.primeInt(trigger: .foreground)
+            if shouldShowReturnOverlay() {
+                AppLogger.log(.system, tag: "Ads", "显示后台覆盖页")
+                resumeOverlayActive = true
+            }
+            backgroundFlag = false
+        }
     }
 
-    /// ATT 是初始化前置闸门：隐私同意后调用；无论授权结果如何都继续初始化。
-    private func resolveATTGateAndBootstrap(trigger: String, completion: (() -> Void)? = nil) {
-        guard !didResolveATTGate else {
-            appDelegate.activateThirdPartyStackIfNeeded(trigger: "\(trigger)_reenter")
-            completion?()
+    /// 启动页切主页时尝试展示：与旧项目时机一致，没缓存则直接进主页。
+    private func presentLaunchAdAtSplashExit() {
+        guard !didAttemptLaunchAdPresent else { return }
+        didAttemptLaunchAdPresent = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            let shown = FluxAdManager.shared.presentIntIfReady(trigger: .launch)
+            AppLogger.log(.system, tag: "Ads", "启动页切主页展示结果 shown=\(shown)")
+        }
+    }
+
+    private func shouldShowReturnOverlay() -> Bool {
+        guard launchGate.hasCompletedOnboarding else {
+            AppLogger.log(.system, tag: "Ads", "首装未完成，跳过后台覆盖页")
+            return false
+        }
+        if coil.phase == .busy {
+            AppLogger.log(.system, tag: "Ads", "当前连接流程忙碌，跳过后台覆盖页")
+            return false
+        }
+        if FluxAdManager.shared.mediaVisible {
+            AppLogger.log(.system, tag: "Ads", "已有广告在展示，跳过后台覆盖页")
+            return false
+        }
+        guard FluxAdManager.shared.hasIntPayload() else {
+            AppLogger.log(.system, tag: "Ads", "无可用广告缓存，跳过后台覆盖页")
+            return false
+        }
+        return true
+    }
+
+    private func presentReturnOverlayAd() {
+        guard launchGate.hasCompletedOnboarding else {
+            AppLogger.log(.system, tag: "Ads", "首装未完成，跳过后台覆盖页广告展示")
             return
         }
-
-        didResolveATTGate = true
-
-        let finalize: (_ attStatus: String) -> Void = { attStatus in
-            AppLogger.log(.system, tag: "ATT", "ATT resolved status=\(attStatus), trigger=\(trigger)")
-            appDelegate.activateThirdPartyStackIfNeeded(trigger: trigger)
-            completion?()
-        }
-
-        guard #available(iOS 14, *) else {
-            finalize("unavailable")
-            return
-        }
-
-        ATTrackingManager.requestTrackingAuthorization { status in
-            DispatchQueue.main.async {
-                let label: String
-                switch status {
-                case .authorized: label = "authorized"
-                case .denied: label = "denied"
-                case .restricted: label = "restricted"
-                case .notDetermined: label = "notDetermined"
-                @unknown default: label = "unknown"
-                }
-                finalize(label)
+        let shown = FluxAdManager.shared.presentIntIfReady(trigger: .foreground)
+        if shown {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                resumeOverlayActive = false
             }
+        } else {
+            AppLogger.log(.system, tag: "Ads", "后台覆盖页无广告可展示，等待兜底关闭")
+        }
+    }
+
+    private func resolveTrackingGateAfterPrivacy(completion: @escaping () -> Void) {
+        WiATTGate.shared.resolveTrackingIfNeededForFreshUser {
+            appDelegate.initializeThirdPartyStacksIfNeeded()
+            completion()
         }
     }
 }
+
