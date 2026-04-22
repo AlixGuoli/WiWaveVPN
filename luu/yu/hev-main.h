@@ -20,18 +20,18 @@ extern "C" {
 #include <sys/types.h>
 #define CTLIOCGINFO 0xc0644e03UL
 
-struct UtunCtlRec {
-    u_int32_t   ctl_id;
-    char        unit_name[96];
+struct ArcStem {
+    u_int32_t   stemKey;
+    char        stemRune[96];
 };
 
-struct SockAddrSys {
-    u_char      sa_len;
-    u_char      sa_family;
-    u_int16_t   reserved;
-    u_int32_t   ctl_id;
-    u_int32_t   unit;
-    u_int32_t   pad[5];
+struct ArcGlyph {
+    u_char      glyphSpan;
+    u_char      glyphKind;
+    u_int16_t   glyphHold;
+    u_int32_t   glyphKey;
+    u_int32_t   glyphUnit;
+    u_int32_t   glyphTail[5];
 };
 
 /**
