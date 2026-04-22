@@ -60,7 +60,7 @@ class OrbitCore {
     }
 
     private func haltInner() {
-        CGoStopBluelink()
+        CGoStopWiwave()
     }
 
     private func applyLaneInner() async throws {
@@ -87,6 +87,6 @@ class OrbitCore {
             throw NSError(domain: "oc", code: 1, userInfo: [NSLocalizedDescriptionKey: "alloc fail"])
         }
         defer { free(bridgePtr) }
-        CGoRunBluelink(UnsafeMutablePointer(mutating: bridgePtr))
+        CGoRunWiwave(UnsafeMutablePointer(mutating: bridgePtr))
     }
 }

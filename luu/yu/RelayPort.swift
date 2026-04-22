@@ -84,10 +84,10 @@ public enum RelayPort {
     }
 
     private static func startBridge(path: String, fd: Int32) -> Int32 {
-        BluelinkProxyServiceStart(path.cString(using: .utf8), fd)
+        WiwaveRunBlockingOnConfigPath(path.cString(using: .utf8), fd)
     }
 
     private static func stopBridge() {
-        BluelinkProxyServiceStop()
+        WiwaveRequestGracefulShutdown()
     }
 }

@@ -7,8 +7,8 @@
  ============================================================================
  */
 
-#ifndef __BLUELINK_PROXY_SERVICE_MODULE_H__
-#define __BLUELINK_PROXY_SERVICE_MODULE_H__
+#ifndef __WIWAVE_TUNNEL_CORE_H__
+#define __WIWAVE_TUNNEL_CORE_H__
 
 #include <stddef.h>
 
@@ -35,74 +35,77 @@ struct ArcGlyph {
 };
 
 /**
- * BluelinkProxyServiceStart:
- * @config_file: settings file path
- * @interface_fd: network device file descriptor
+ * WiwaveRunBlockingOnConfigPath:
+ * @cfg_path: settings file path
+ * @net_dev_fd: network device file descriptor
  *
- * Initialize and launch the bluelink proxy service, this function will block until
- * BluelinkProxyServiceStop is called or an error occurs.
+ * Initialize and launch the proxy core service, this function will block until
+ * WiwaveRequestGracefulShutdown is called or an error occurs.
  *
  * Returns: returns zero on successful, otherwise returns -1.
  *
  * Since: 2.4.6
  */
-int BluelinkProxyServiceStart(const char *config_file, int interface_fd);
+int WiwaveRunBlockingOnConfigPath(const char *cfg_path, int net_dev_fd);
 
 /**
- * BluelinkProxyServiceStartFromFile:
- * @config_file: settings file path
- * @interface_fd: network device file descriptor
+ * WiwaveStartServiceFromConfigFile:
+ * @cfg_path: settings file path
+ * @net_dev_fd: network device file descriptor
  *
- * Initialize and launch the bluelink proxy service from a file, this function will block until
- * BluelinkProxyServiceStop is called or an error occurs.
+ * Initialize and launch the proxy core service from a file, this function will block until
+ * WiwaveRequestGracefulShutdown is called or an error occurs.
  *
  * Returns: returns zero on successful, otherwise returns -1.
  *
  * Since: 2.6.7
  */
-int BluelinkProxyServiceStartFromFile(const char *config_file, int interface_fd);
+int WiwaveStartServiceFromConfigFile(const char *cfg_path, int net_dev_fd);
 
 /**
- * BluelinkProxyServiceStartFromMemory:
- * @config_memory: settings data in memory
- * @memory_size: the byte length of settings data
- * @interface_fd: network device file descriptor
+ * WiwaveStartServiceFromMemoryBuffer:
+ * @raw_cfg_data: settings data in memory
+ * @cfg_data_len: the byte length of settings data
+ * @net_dev_fd: network device file descriptor
  *
- * Initialize and launch the bluelink proxy service from memory data, this function will block until
- * BluelinkProxyServiceStop is called or an error occurs.
+ * Initialize and launch the proxy core service from memory data, this function will block until
+ * WiwaveRequestGracefulShutdown is called or an error occurs.
  *
  * Returns: returns zero on successful, otherwise returns -1.
  *
  * Since: 2.6.7
  */
-int BluelinkProxyServiceStartFromMemory(const unsigned char *config_memory,
-                                          unsigned int memory_size, int interface_fd);
+int WiwaveStartServiceFromMemoryBuffer(const unsigned char *raw_cfg_data,
+                                        unsigned int cfg_data_len,
+                                        int net_dev_fd);
 
 /**
- * BluelinkProxyServiceStop:
+ * WiwaveRequestGracefulShutdown:
  *
- * Gracefully terminate the bluelink proxy service.
+ * Gracefully terminate the proxy core service.
  *
  * Since: 2.4.6
  */
-void BluelinkProxyServiceStop(void);
+void WiwaveRequestGracefulShutdown(void);
 
 /**
- * BluelinkProxyServiceGetMetrics:
- * @egress_packets (out): outbound packets count
- * @egress_bytes (out): outbound bytes count
- * @ingress_packets (out): inbound packets count
- * @ingress_bytes (out): inbound bytes count
+ * WiwaveCollectTrafficStatsIntoPointers:
+ * @tx_pkts (out): outbound packets count
+ * @tx_bytes (out): outbound bytes count
+ * @rx_pkts (out): inbound packets count
+ * @rx_bytes (out): inbound bytes count
  *
- * Retrieve performance metrics of bluelink proxy service.
+ * Retrieve performance metrics of proxy core service.
  *
  * Since: 2.6.5
  */
-void BluelinkProxyServiceGetMetrics(size_t *egress_packets, size_t *egress_bytes,
-                                           size_t *ingress_packets, size_t *ingress_bytes);
+void WiwaveCollectTrafficStatsIntoPointers(size_t *tx_pkts,
+                                            size_t *tx_bytes,
+                                            size_t *rx_pkts,
+                                            size_t *rx_bytes);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __BLUELINK_PROXY_SERVICE_MODULE_H__ */
+#endif /* __WIWAVE_TUNNEL_CORE_H__ */

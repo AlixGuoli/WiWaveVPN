@@ -9,6 +9,6 @@
 #define seed_Header_h
 
 #import "hev-main.h"
-#import "libBluelink.h"
+#import "libWiwave.h"
 
 #endif /* seed_Header_h */
