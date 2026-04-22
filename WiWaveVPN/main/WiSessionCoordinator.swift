@@ -1,6 +1,7 @@
 import Foundation
 import NetworkExtension
 import Combine
+import Network
 
 /// 主界面四种阶段
 enum WiPhase {
@@ -26,6 +27,7 @@ final class WiSessionCoordinator: ObservableObject {
     @Published private(set) var verdict: WiVerdict?
     @Published private(set) var showProgressPage = false
     @Published var showUnplugConfirm = false
+    @Published var showNoNetworkAlert = false
 
     @Published private(set) var circuitStatus: NEVPNStatus = .invalid {
         didSet {
@@ -43,6 +45,8 @@ final class WiSessionCoordinator: ObservableObject {
     private var needsPostCheck = false
     private var userWantsDisconnect = false
     private var probeBusy = false
+    private var reachabilityChecking = false
+    private let reachabilityQueue = DispatchQueue(label: "com.wiwave.connect.path")
 
     init() {
         tunnel.observeStatusChanges { [weak self] status in
@@ -70,7 +74,18 @@ final class WiSessionCoordinator: ObservableObject {
     func tapHero() {
         switch phase {
         case .offline, .error:
-            startUserLink()
+            guard !reachabilityChecking else { return }
+            reachabilityChecking = true
+            probeNetworkAvailability { [weak self] available in
+                guard let self else { return }
+                self.reachabilityChecking = false
+                if available {
+                    self.startUserLink()
+                } else {
+                    self.showNoNetworkAlert = true
+                    AppLogger.log(.connection, tag: self.logTag, "检测到无网络，阻止连接流程")
+                }
+            }
         case .online:
             showUnplugConfirm = true
         case .busy:
@@ -240,6 +255,29 @@ final class WiSessionCoordinator: ObservableObject {
             return -1
         }
         return UserDefaults.standard.integer(forKey: selectedNodeIDKey)
+    }
+
+    private func probeNetworkAvailability(completion: @escaping (Bool) -> Void) {
+        let monitor = NWPathMonitor()
+        var finished = false
+
+        func finish(_ ok: Bool) {
+            guard !finished else { return }
+            finished = true
+            monitor.cancel()
+            DispatchQueue.main.async {
+                completion(ok)
+            }
+        }
+
+        monitor.pathUpdateHandler = { path in
+            finish(path.status == .satisfied)
+        }
+        monitor.start(queue: reachabilityQueue)
+
+        reachabilityQueue.asyncAfter(deadline: .now() + 1.0) {
+            finish(false)
+        }
     }
 
     // MARK: - 连接后真实探测

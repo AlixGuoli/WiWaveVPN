@@ -49,6 +49,9 @@
 "connect.alert.routes_locked.title" = "Disconnect to switch";
 "connect.alert.routes_locked.message" = "You’re connected. Disconnect the tunnel first, then open the server list to pick another node.";
 "connect.alert.routes_locked.ok" = "OK";
+"connect.alert.no_network.title" = "No network";
+"connect.alert.no_network.message" = "No network connection is available. Check your network and try again.";
+"connect.alert.no_network.ok" = "OK";
 
 /* Node list */
 "nodes.nav.title" = "Choose server";
@@ -137,6 +140,9 @@
 "settings.link.terms" = "Terms of Use";
 "settings.help.entry.blurb" = "FAQ, servers & contact";
 "settings.footer.placeholder" = "Tap User guide above to read the full manual.";
+"settings.debug.uuid.title" = "Debug UUID";
+"settings.debug.uuid.copy" = "Copy UUID";
+"settings.debug.uuid.cancel" = "Close";
 
 /* Onboarding */
 "onboard.welcome.title_format" = "Welcome to %@";

@@ -49,6 +49,9 @@
 "connect.alert.routes_locked.title" = "Zum Wechseln trennen";
 "connect.alert.routes_locked.message" = "Sie sind verbunden. Trennen Sie zuerst den Tunnel und öffnen Sie dann die Serverliste.";
 "connect.alert.routes_locked.ok" = "OK";
+"connect.alert.no_network.title" = "Kein Netzwerk";
+"connect.alert.no_network.message" = "Keine Netzwerkverbindung verfügbar. Prüfen Sie Ihr Netzwerk und versuchen Sie es erneut.";
+"connect.alert.no_network.ok" = "OK";
 
 /* Node list */
 "nodes.nav.title" = "Server wählen";
@@ -137,6 +140,9 @@
 "settings.link.terms" = "Nutzungsbedingungen";
 "settings.help.entry.blurb" = "FAQ, Server & Kontakt";
 "settings.footer.placeholder" = "Oben „Anleitung“ öffnen für die vollständige Hilfe.";
+"settings.debug.uuid.title" = "Debug-UUID";
+"settings.debug.uuid.copy" = "UUID kopieren";
+"settings.debug.uuid.cancel" = "Schließen";
 
 /* Onboarding */
 "onboard.welcome.title_format" = "Willkommen bei %@";

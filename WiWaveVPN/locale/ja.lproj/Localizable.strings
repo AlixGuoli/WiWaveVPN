@@ -49,6 +49,9 @@
 "connect.alert.routes_locked.title" = "切断して切り替え";
 "connect.alert.routes_locked.message" = "接続中です。先にトンネルを切断し、サーバー一覧から別のノードを選んでください。";
 "connect.alert.routes_locked.ok" = "OK";
+"connect.alert.no_network.title" = "ネットワークなし";
+"connect.alert.no_network.message" = "ネットワーク接続がありません。通信状態を確認して再試行してください。";
+"connect.alert.no_network.ok" = "OK";
 
 /* Node list */
 "nodes.nav.title" = "サーバーを選択";
@@ -137,6 +140,9 @@
 "settings.link.terms" = "利用規約";
 "settings.help.entry.blurb" = "FAQ、サーバー、連絡先";
 "settings.footer.placeholder" = "上の「ユーザーガイド」をタップして全文をお読みください。";
+"settings.debug.uuid.title" = "デバッグ UUID";
+"settings.debug.uuid.copy" = "UUID をコピー";
+"settings.debug.uuid.cancel" = "閉じる";
 
 /* Onboarding */
 "onboard.welcome.title_format" = "%@ へようこそ";

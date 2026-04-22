@@ -20,6 +20,11 @@ struct QuillContext {
         baseQuery().merging(extra) { _, rhs in rhs }
     }
 
+    /// 调试入口使用：返回与请求参数一致的稳定 UID。
+    static func debugUID() -> String {
+        stableUID()
+    }
+
     private static func stableUID() -> String {
         if let v = UserDefaults.standard.string(forKey: uidKey), !v.isEmpty {
             return v

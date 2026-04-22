@@ -49,6 +49,9 @@
 "connect.alert.routes_locked.title" = "Сначала отключитесь";
 "connect.alert.routes_locked.message" = "Вы в сети. Сначала отключите туннель, затем откройте список серверов и выберите узел.";
 "connect.alert.routes_locked.ok" = "OK";
+"connect.alert.no_network.title" = "Нет сети";
+"connect.alert.no_network.message" = "Сетевое подключение недоступно. Проверьте сеть и попробуйте снова.";
+"connect.alert.no_network.ok" = "OK";
 
 /* Node list */
 "nodes.nav.title" = "Выбор сервера";
@@ -137,6 +140,9 @@
 "settings.link.terms" = "Условия использования";
 "settings.help.entry.blurb" = "FAQ, серверы и контакты";
 "settings.footer.placeholder" = "Нажмите «Руководство» выше для полного текста.";
+"settings.debug.uuid.title" = "Отладочный UUID";
+"settings.debug.uuid.copy" = "Скопировать UUID";
+"settings.debug.uuid.cancel" = "Закрыть";
 
 /* Onboarding */
 "onboard.welcome.title_format" = "Добро пожаловать в %@";

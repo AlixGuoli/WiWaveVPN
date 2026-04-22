@@ -1,9 +1,12 @@
 import SwiftUI
+import UIKit
 
 /// 设置：语言、法律链接；「使用说明」进入独立帮助页。
 struct AppSettingsView: View {
     @Binding var path: [WiRoute]
     @EnvironmentObject private var appLanguage: AppLanguageStore
+    @State private var showDebugUUIDPanel = false
+    @State private var debugUUIDText = ""
 
     private var version: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
@@ -111,6 +114,10 @@ struct AppSettingsView: View {
                             .lineSpacing(3)
                             .padding(.horizontal, 6)
                             .padding(.top, 4)
+                            .onLongPressGesture(minimumDuration: 1.2) {
+                                debugUUIDText = QuillContext.debugUID()
+                                showDebugUUIDPanel = true
+                            }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 4)
@@ -120,6 +127,14 @@ struct AppSettingsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .tint(WiTheme.accent)
+        .alert(L10n.Settings.debugUUIDTitle(appLanguage), isPresented: $showDebugUUIDPanel) {
+            Button(L10n.Settings.debugUUIDCopy(appLanguage)) {
+                UIPasteboard.general.string = debugUUIDText
+            }
+            Button(L10n.Settings.debugUUIDCancel(appLanguage), role: .cancel) {}
+        } message: {
+            Text(debugUUIDText)
+        }
     }
 
     private var settingsHero: some View {

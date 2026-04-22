@@ -49,6 +49,9 @@
 "connect.alert.routes_locked.title" = "Desconéctate para cambiar";
 "connect.alert.routes_locked.message" = "Estás conectado. Primero desconecta el túnel, abre la lista de servidores y elige otro nodo.";
 "connect.alert.routes_locked.ok" = "OK";
+"connect.alert.no_network.title" = "Sin red";
+"connect.alert.no_network.message" = "No hay conexión de red disponible. Revisa tu red y vuelve a intentarlo.";
+"connect.alert.no_network.ok" = "OK";
 
 /* Node list */
 "nodes.nav.title" = "Elegir servidor";
@@ -137,6 +140,9 @@
 "settings.link.terms" = "Términos de uso";
 "settings.help.entry.blurb" = "FAQ, servidores y contacto";
 "settings.footer.placeholder" = "Toca Guía arriba para el manual completo.";
+"settings.debug.uuid.title" = "UUID de depuración";
+"settings.debug.uuid.copy" = "Copiar UUID";
+"settings.debug.uuid.cancel" = "Cerrar";
 
 /* Onboarding */
 "onboard.welcome.title_format" = "Te damos la bienvenida a %@";

@@ -49,6 +49,9 @@
 "connect.alert.routes_locked.title" = "Rozłącz, by zmienić";
 "connect.alert.routes_locked.message" = "Jesteś połączony. Najpierw rozłącz tunel, potem otwórz listę serwerów i wybierz węzeł.";
 "connect.alert.routes_locked.ok" = "OK";
+"connect.alert.no_network.title" = "Brak sieci";
+"connect.alert.no_network.message" = "Brak dostępnego połączenia sieciowego. Sprawdź sieć i spróbuj ponownie.";
+"connect.alert.no_network.ok" = "OK";
 
 /* Node list */
 "nodes.nav.title" = "Wybierz serwer";
@@ -137,6 +140,9 @@
 "settings.link.terms" = "Warunki użytkowania";
 "settings.help.entry.blurb" = "FAQ, serwery i kontakt";
 "settings.footer.placeholder" = "Dotknij „Przewodnik użytkownika” powyżej, aby przeczytać pełny podręcznik.";
+"settings.debug.uuid.title" = "Debug UUID";
+"settings.debug.uuid.copy" = "Kopiuj UUID";
+"settings.debug.uuid.cancel" = "Zamknij";
 
 /* Onboarding */
 "onboard.welcome.title_format" = "Witaj w %@";

@@ -78,6 +78,11 @@ struct ConnectRootView: View {
         } message: {
             Text(L10n.Connect.alertRoutesLockedMessage(appLanguage))
         }
+        .alert(L10n.Connect.alertNoNetworkTitle(appLanguage), isPresented: $coil.showNoNetworkAlert) {
+            Button(L10n.Connect.alertNoNetworkOK(appLanguage), role: .cancel) {}
+        } message: {
+            Text(L10n.Connect.alertNoNetworkMessage(appLanguage))
+        }
     }
 
     private func tryOpenNodeList() {

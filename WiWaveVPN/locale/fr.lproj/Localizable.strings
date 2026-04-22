@@ -49,6 +49,9 @@
 "connect.alert.routes_locked.title" = "Déconnecter pour changer";
 "connect.alert.routes_locked.message" = "Vous êtes connecté. Déconnectez d’abord le tunnel, ouvrez la liste des serveurs puis choisissez un nœud.";
 "connect.alert.routes_locked.ok" = "OK";
+"connect.alert.no_network.title" = "Pas de réseau";
+"connect.alert.no_network.message" = "Aucune connexion réseau disponible. Vérifiez votre réseau puis réessayez.";
+"connect.alert.no_network.ok" = "OK";
 
 /* Node list */
 "nodes.nav.title" = "Choisir un serveur";
@@ -137,6 +140,9 @@
 "settings.link.terms" = "Conditions d’utilisation";
 "settings.help.entry.blurb" = "FAQ, serveurs et contact";
 "settings.footer.placeholder" = "Appuyez sur Guide ci-dessus pour le manuel complet.";
+"settings.debug.uuid.title" = "UUID de débogage";
+"settings.debug.uuid.copy" = "Copier l’UUID";
+"settings.debug.uuid.cancel" = "Fermer";
 
 /* Onboarding */
 "onboard.welcome.title_format" = "Bienvenue dans %@";

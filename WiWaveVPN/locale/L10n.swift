@@ -36,6 +36,9 @@ enum L10n {
         static func alertRoutesLockedTitle(_ app: AppLanguageStore) -> String { app.tr("connect.alert.routes_locked.title") }
         static func alertRoutesLockedMessage(_ app: AppLanguageStore) -> String { app.tr("connect.alert.routes_locked.message") }
         static func alertRoutesLockedOK(_ app: AppLanguageStore) -> String { app.tr("connect.alert.routes_locked.ok") }
+        static func alertNoNetworkTitle(_ app: AppLanguageStore) -> String { app.tr("connect.alert.no_network.title") }
+        static func alertNoNetworkMessage(_ app: AppLanguageStore) -> String { app.tr("connect.alert.no_network.message") }
+        static func alertNoNetworkOK(_ app: AppLanguageStore) -> String { app.tr("connect.alert.no_network.ok") }
         static func homeTagline(_ app: AppLanguageStore) -> String { app.tr("connect.home.tagline") }
         static func homeChangeRoute(_ app: AppLanguageStore) -> String { app.tr("connect.home.change_route") }
         static func homeOverline(_ app: AppLanguageStore) -> String { app.tr("connect.home.overline") }
@@ -158,6 +161,9 @@ enum L10n {
         static func termsLink(_ app: AppLanguageStore) -> String { app.tr("settings.link.terms") }
         static func footerPlaceholder(_ app: AppLanguageStore) -> String { app.tr("settings.footer.placeholder") }
         static func helpEntryBlurb(_ app: AppLanguageStore) -> String { app.tr("settings.help.entry.blurb") }
+        static func debugUUIDTitle(_ app: AppLanguageStore) -> String { app.tr("settings.debug.uuid.title") }
+        static func debugUUIDCopy(_ app: AppLanguageStore) -> String { app.tr("settings.debug.uuid.copy") }
+        static func debugUUIDCancel(_ app: AppLanguageStore) -> String { app.tr("settings.debug.uuid.cancel") }
         static func languageSection(_ app: AppLanguageStore) -> String { app.tr("settings.language.section") }
         static func languageSystem(_ app: AppLanguageStore) -> String { app.tr("settings.language.system") }
         static func languageApplying(_ app: AppLanguageStore) -> String { app.tr("settings.language.applying") }
