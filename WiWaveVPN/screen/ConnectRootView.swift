@@ -108,6 +108,15 @@ struct ConnectRootView: View {
             }
             Spacer()
             Button {
+                path.append(.membership)
+            } label: {
+                Image("vip")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+            }
+            .buttonStyle(.plain)
+            Button {
                 tryOpenNodeList()
             } label: {
                 HStack(spacing: 6) {

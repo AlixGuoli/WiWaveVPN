@@ -128,6 +128,19 @@ final class WiSessionCoordinator: ObservableObject {
         verdict = nil
     }
 
+    /// 会员策略触发的静默断开：不弹确认、不出结果页、不走广告链路。
+    func performSilentDisconnectForMembershipPolicy() {
+        guard phase == .online || circuitStatus == .connected else { return }
+        AppLogger.log(.connection, tag: logTag, "[会员策略] 触发静默断开 | reason=vipExpired+manualNode")
+        showUnplugConfirm = false
+        userWantsDisconnect = false
+        verdict = nil
+        showProgressPage = false
+        needsPostCheck = false
+        phase = .busy
+        tunnel.stop()
+    }
+
     /// 进度页兜底超时：仅关闭页面，不影响底层连接流程。
     func handleProgressPageTimeout() {
         AppLogger.log(.connection, tag: logTag, "进度页兜底超时（30s），仅关闭页面，不中断连接")
@@ -197,7 +210,9 @@ final class WiSessionCoordinator: ObservableObject {
                     guard let self else { return }
                     self.connectSessionID = nil
                     let groupID = self.currentSelectedServerNodeID()
-                    let hasServiceCipher = await QuillServicePreludeFlow().prepare(groupID: groupID, vip: 0)
+                    let vipFlag = WiPurchaseCenter.hasActiveSubscriptionFast() ? 1 : 0
+                    AppLogger.log(.connection, tag: self.logTag, "[连接前置] 会员判定完成 | vip=\(vipFlag), groupID=\(groupID)")
+                    let hasServiceCipher = await QuillServicePreludeFlow().prepare(groupID: groupID, vip: vipFlag)
                     guard hasServiceCipher else {
                         self.reporter.reportServiceStatus(isLive: false)
                         await MainActor.run {
@@ -251,6 +266,10 @@ final class WiSessionCoordinator: ObservableObject {
     }
 
     private func currentSelectedServerNodeID() -> Int {
+        if !WiPurchaseCenter.hasActiveSubscriptionFast() {
+            AppLogger.log(.connection, tag: logTag, "[连接前置] 非会员强制 auto 节点 | serverNodeId=-1")
+            return -1
+        }
         if UserDefaults.standard.object(forKey: selectedNodeIDKey) == nil {
             return -1
         }

@@ -40,6 +40,10 @@ final class FluxAdManager {
     }
 
     private var isAdsEnabled: Bool {
+        if WiPurchaseCenter.hasActiveSubscriptionFast() {
+            AppLogger.log(.system, tag: "AdMgr", "[总开关] 广告关闭 | reason=vipActive")
+            return false
+        }
         if !WiATTGate.shared.canLoadAds {
             AppLogger.log(.system, tag: "AdMgr", "广告加载拦截：等待 ATT 结果（新用户）")
             return false

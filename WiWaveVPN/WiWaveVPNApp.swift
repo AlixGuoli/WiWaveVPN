@@ -15,6 +15,7 @@ struct WiWaveVPNApp: App {
     @StateObject private var launchGate = AppLaunchGate()
     @StateObject private var appLanguage = AppLanguageStore()
     @StateObject private var nodes = NodeSelectionStore()
+    @StateObject private var purchaseCenter = WiPurchaseCenter.shared
     @State private var backgroundFlag = false
     @State private var resumeOverlayActive = false
     @State private var isColdSplashVisible = true
@@ -38,6 +39,7 @@ struct WiWaveVPNApp: App {
                 .environmentObject(launchGate)
                 .environmentObject(nodes)
                 .environmentObject(appLanguage)
+                .environmentObject(purchaseCenter)
                 .environment(\.locale, appLanguage.localeForSwiftUI)
                 .onAppear { coil.boot() }
                 .onChange(of: scenePhase) { newPhase in
@@ -67,6 +69,7 @@ struct WiWaveVPNApp: App {
     private func processScenePhaseChange(_ newPhase: ScenePhase) {
         switch newPhase {
         case .active:
+            enforceMembershipPolicyOnActive()
             handleForegroundReturn()
         case .inactive:
             break
@@ -75,6 +78,27 @@ struct WiWaveVPNApp: App {
             backgroundFlag = true
         @unknown default:
             break
+        }
+    }
+
+    /// active 事件第一时间执行：刷新会员态，并按策略处理非会员的手动节点与在线状态。
+    private func enforceMembershipPolicyOnActive() {
+        Task {
+            AppLogger.log(.system, tag: "IAP", "[前台] 会员策略检查开始 | step=refreshThenEnforce")
+            await purchaseCenter.refreshSubscriptionState()
+            let isMember = purchaseCenter.hasActiveSubscription
+            guard !isMember else {
+                AppLogger.log(.system, tag: "IAP", "[前台] 会员策略检查完成 | member=true, noAction")
+                return
+            }
+            let switchedToAuto = nodes.forceAutoSelectionIfPossible()
+            if switchedToAuto {
+                AppLogger.log(.system, tag: "IAP", "[前台] 非会员策略：节点已强制切回 auto")
+            }
+            if switchedToAuto && coil.phase == .online {
+                AppLogger.log(.system, tag: "IAP", "[前台] 非会员策略：当前在线且原手动节点，执行静默断开")
+                coil.performSilentDisconnectForMembershipPolicy()
+            }
         }
     }
 
@@ -87,6 +111,8 @@ struct WiWaveVPNApp: App {
             return
         }
         Task {
+            AppLogger.log(.system, tag: "IAP", "[前台] 开始前台链路 | step=refreshSubscriptionFirst")
+            await purchaseCenter.refreshSubscriptionState()
             QuillForegroundRefreshScheduler.shared.refreshIfNeeded()
             if FluxAdManager.shared.mediaVisible {
                 AppLogger.log(.system, tag: "Ads", "已有广告展示中，回前台跳过 foreground 预加载与覆盖页")

@@ -7,6 +7,8 @@ enum WiRoute: Hashable {
     case nodeList
     /// 设置 → 使用说明：必须走同一条 path，禁止在 Tab 内再嵌 `NavigationStack`（否则返回后切换 Tab 再 push 易崩溃）。
     case helpManual
+    /// 设置 → 会员页（当前先静态 UI 预览）。
+    case membership
 }
 
 struct WiProgressScreen: View {

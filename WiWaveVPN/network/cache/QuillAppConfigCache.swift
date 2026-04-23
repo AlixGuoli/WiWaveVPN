@@ -56,7 +56,7 @@ final class QuillAppConfigCache {
 
     func isAdsOff() -> Bool? {
         // 测试服
-        //return false
+        return false
         if UserDefaults.standard.object(forKey: adsOffKey) != nil {
             return UserDefaults.standard.bool(forKey: adsOffKey)
         }

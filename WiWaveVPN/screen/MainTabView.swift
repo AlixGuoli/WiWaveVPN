@@ -37,6 +37,8 @@ struct MainTabView: View {
                     WiNodeListView()
                 case .helpManual:
                     HelpManualScreen()
+                case .membership:
+                    WiMembershipScreen()
                 }
             }
             .tint(WiTheme.accent)

@@ -5,6 +5,7 @@ import UIKit
 struct AppSettingsView: View {
     @Binding var path: [WiRoute]
     @EnvironmentObject private var appLanguage: AppLanguageStore
+    @EnvironmentObject private var purchaseCenter: WiPurchaseCenter
     @State private var showDebugUUIDPanel = false
     @State private var debugUUIDText = ""
 
@@ -26,6 +27,50 @@ struct AppSettingsView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 22) {
                         settingsHero
+
+                        settingsGroupedSurface {
+                            Button {
+                                path.append(.membership)
+                            } label: {
+                                HStack(alignment: .center, spacing: 14) {
+                                    ZStack {
+                                        Circle()
+                                            .fill(WiTheme.bgElevated.opacity(0.75))
+                                            .overlay(Circle().stroke(WiTheme.borderSubtle.opacity(0.9), lineWidth: 1))
+                                        Image("vip")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .padding(8)
+                                    }
+                                    .frame(width: 38, height: 38)
+
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Membership")
+                                            .font(.body.weight(.semibold))
+                                            .foregroundStyle(WiTheme.textPrimary)
+                                            .multilineTextAlignment(.leading)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        Text(membershipSubtitle)
+                                            .font(.caption)
+                                            .foregroundStyle(WiTheme.textTertiary)
+                                            .multilineTextAlignment(.leading)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+
+                                    Spacer(minLength: 8)
+
+                                    Image(systemName: "chevron.right")
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(WiTheme.textTertiary)
+                                }
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 14)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .contentShape(Rectangle())
+                            }
+                            .buttonStyle(.plain)
+                        }
 
                         settingsGroupHeader(L10n.Settings.languageSection(appLanguage))
                         settingsGroupedSurface {
@@ -185,6 +230,24 @@ struct AppSettingsView: View {
                 )
         )
         .shadow(color: WiTheme.glowTeal.opacity(0.45), radius: 16, y: 7)
+    }
+
+    private var membershipSubtitle: String {
+        guard purchaseCenter.hasActiveSubscription else {
+            return "Not Subscribed"
+        }
+        if let expiry = purchaseCenter.activeExpiration {
+            return "Expires at \(formatMembershipExpiryToSecond(expiry))"
+        }
+        return "Subscription Active"
+    }
+
+    private func formatMembershipExpiryToSecond(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter.string(from: date)
     }
 
     private func settingsGroupHeader(_ title: String) -> some View {

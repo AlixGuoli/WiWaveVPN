@@ -145,6 +145,16 @@ final class NodeSelectionStore: ObservableObject {
         persistSelection(node)
     }
 
+    @discardableResult
+    func forceAutoSelectionIfPossible() -> Bool {
+        guard !selected.isAuto else { return false }
+        guard let auto = nodes.first(where: { $0.isAuto }) else { return false }
+        selected = auto
+        pendingServerNodeID = nil
+        persistSelection(auto)
+        return true
+    }
+
     func applyCatalog(_ dto: NodeCatalogDTO) {
         let targetServerID = pendingServerNodeID ?? selected.serverNodeId
         nodes = WiNode.flattenedNodes(from: dto)
@@ -208,7 +218,9 @@ final class NodeSelectionStore: ObservableObject {
 struct WiNodeListView: View {
     @EnvironmentObject private var store: NodeSelectionStore
     @EnvironmentObject private var appLanguage: AppLanguageStore
+    @EnvironmentObject private var purchaseCenter: WiPurchaseCenter
     @Environment(\.dismiss) private var dismiss
+    @State private var routeToMembership = false
 
     var body: some View {
         ZStack {
@@ -253,8 +265,12 @@ struct WiNodeListView: View {
                     Section {
                         ForEach(store.nodes) { node in
                             Button {
-                                store.pick(node)
-                                dismiss()
+                                if !purchaseCenter.hasActiveSubscription && !node.isAuto {
+                                    routeToMembership = true
+                                } else {
+                                    store.pick(node)
+                                    dismiss()
+                                }
                             } label: {
                                 HStack(alignment: .top, spacing: 12) {
                                     VStack(alignment: .leading, spacing: 4) {
@@ -295,6 +311,10 @@ struct WiNodeListView: View {
                                         Image(systemName: "checkmark.circle.fill")
                                             .font(.title3)
                                             .foregroundStyle(WiTheme.success)
+                                    } else if !purchaseCenter.hasActiveSubscription && !node.isAuto {
+                                        Image(systemName: "lock.fill")
+                                            .font(.subheadline.weight(.semibold))
+                                            .foregroundStyle(WiTheme.textTertiary)
                                     }
                                 }
                             }
@@ -314,8 +334,27 @@ struct WiNodeListView: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden(true)
+        .background(
+            NavigationLink(
+                destination: WiMembershipScreen(),
+                isActive: $routeToMembership
+            ) {
+                EmptyView()
+            }
+            .hidden()
+        )
         .task {
+            if !purchaseCenter.hasActiveSubscription,
+               !store.selected.isAuto,
+               let auto = store.nodes.first(where: { $0.isAuto }) {
+                store.pick(auto)
+            }
             await QuillNodeCatalogFlow().refresh(into: store)
+            if !purchaseCenter.hasActiveSubscription,
+               !store.selected.isAuto,
+               let auto = store.nodes.first(where: { $0.isAuto }) {
+                store.pick(auto)
+            }
         }
     }
 }
