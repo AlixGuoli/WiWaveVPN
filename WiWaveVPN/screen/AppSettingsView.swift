@@ -45,7 +45,7 @@ struct AppSettingsView: View {
                                     .frame(width: 38, height: 38)
 
                                     VStack(alignment: .leading, spacing: 4) {
-                                        Text("Membership")
+                                        Text(L10n.Settings.membershipTitle(appLanguage))
                                             .font(.body.weight(.semibold))
                                             .foregroundStyle(WiTheme.textPrimary)
                                             .multilineTextAlignment(.leading)
@@ -234,17 +234,17 @@ struct AppSettingsView: View {
 
     private var membershipSubtitle: String {
         guard purchaseCenter.hasActiveSubscription else {
-            return "Not Subscribed"
+            return L10n.Settings.membershipStatusNone(appLanguage)
         }
         if let expiry = purchaseCenter.activeExpiration {
-            return "Expires at \(formatMembershipExpiryToSecond(expiry))"
+            return L10n.Settings.membershipStatusExpires(appLanguage, formatMembershipExpiryToSecond(expiry))
         }
-        return "Subscription Active"
+        return L10n.Settings.membershipStatusActive(appLanguage)
     }
 
     private func formatMembershipExpiryToSecond(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.locale = Locale.current
+        formatter.locale = appLanguage.localeForSwiftUI
         formatter.timeZone = TimeZone.current
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter.string(from: date)

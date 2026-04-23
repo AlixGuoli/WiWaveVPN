@@ -184,3 +184,44 @@
 "region.usa" = "Stany Zjednoczone";
 "region.canada" = "Kanada";
 "region.australia" = "Australia";
+
+/* Settings membership */
+"settings.membership.title" = "Subskrypcja";
+"settings.membership.status.none" = "Brak subskrypcji";
+"settings.membership.status.active" = "Subskrypcja aktywna";
+"settings.membership.status.expires_format" = "Wygasa: %@";
+
+/* Flow success cards & rating */
+"flow.outcome.success.connected_headline" = "POŁĄCZONO!";
+"flow.outcome.success.disconnected_headline" = "ROZŁĄCZONO!";
+"flow.success.share.title" = "Poleć znajomym";
+"flow.success.share.subtitle" = "Podoba Ci się aplikacja? Udostępnij ją znajomym!";
+"flow.success.follow.title" = "Obserwuj nas";
+"flow.success.follow.subtitle" = "Bądź na bieżąco! Subskrybuj nasz kanał.";
+"flow.rating.title" = "Oceń nas";
+"flow.rating.subtitle" = "Każda pozytywna opinia pomaga nam ulepszać usługę.";
+
+/* Membership */
+"membership.action.processing" = "Przetwarzanie zakupu...";
+"membership.header.active_title" = "Subskrypcja aktywna";
+"membership.header.get_premium_title" = "Przejdź na Premium";
+"membership.header.expires_format" = "Wygasa: %@";
+"membership.header.default_subtitle" = "Usuń reklamy i odblokuj wszystkie lokalizacje.";
+"membership.benefit.speed.title" = "Najwyższa prędkość";
+"membership.benefit.speed.subtitle" = "Wyższy priorytet na naszych najszybszych trasach.";
+"membership.benefit.nodes.title" = "Szybsze serwery";
+"membership.benefit.nodes.subtitle" = "Połącz się z pełną listą serwerów na świecie.";
+"membership.benefit.priority.title" = "Priorytetowe przejście";
+"membership.benefit.priority.subtitle" = "Priorytet przy każdym połączeniu bez opóźnień.";
+"membership.benefit.adfree.title" = "100%% bez reklam";
+"membership.benefit.adfree.subtitle" = "Korzystaj z aplikacji bez przerw reklamowych.";
+"membership.agreement.format" = "Umowa %@, %@";
+"membership.agreement.auto_title" = "《Warunki automatycznego odnowienia》";
+"membership.agreement.member_title" = "《Warunki członkostwa》";
+"membership.policy.text" = "Płatność zostanie pobrana z konta Apple ID po potwierdzeniu zakupu. Subskrypcja odnawia się automatycznie, chyba że zostanie anulowana co najmniej 24 godziny przed końcem bieżącego okresu. Opłata za odnowienie zostanie naliczona w ciągu 24 godzin przed końcem bieżącego okresu. Subskrypcją możesz zarządzać lub ją anulować w ustawieniach konta App Store.";
+"membership.plan.weekly" = "Tygodniowy";
+"membership.plan.monthly" = "Miesięczny";
+"membership.plan.annual" = "Roczny";
+"membership.action.agree_pay" = "Akceptuję i płacę";
+"membership.action.restore" = "Przywróć zakupy";
+"membership.action.restoring" = "Przywracanie...";

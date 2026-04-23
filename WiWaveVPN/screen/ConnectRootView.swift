@@ -220,18 +220,27 @@ struct ConnectRootView: View {
         Button(action: { coil.tapHero() }) {
             HStack(alignment: .center, spacing: 16) {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(WiTheme.heroGradient(for: coil.phase))
+                    .fill(connectButtonBadgeFill)
                     .frame(width: 52, height: 52)
                     .overlay {
-                        Image(systemName: heroSymbol)
-                            .font(.system(size: 21, weight: .semibold))
-                            .foregroundStyle(WiTheme.textPrimary.opacity(0.95))
-                            .id(heroSymbol)
-                            .transition(.scale.combined(with: .opacity))
+                        if coil.phase == .offline {
+                            Image("disconnect")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 52, height: 52)
+                                .id("disconnect.asset")
+                                .transition(.scale.combined(with: .opacity))
+                        } else {
+                            Image(systemName: heroSymbol)
+                                .font(.system(size: 21, weight: .semibold))
+                                .foregroundStyle(WiTheme.textPrimary.opacity(0.95))
+                                .id(heroSymbol)
+                                .transition(.scale.combined(with: .opacity))
+                        }
                     }
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(WiTheme.borderSubtle, lineWidth: 1)
+                            .stroke(connectButtonBadgeStroke, lineWidth: 1)
                     )
                     .accessibilityHidden(true)
                     .animation(.spring(response: 0.38, dampingFraction: 0.78), value: coil.phase)
@@ -259,7 +268,7 @@ struct ConnectRootView: View {
                     } else {
                         Image(systemName: sessionTrailingGlyph)
                             .font(.system(size: 18, weight: .semibold))
-                            .foregroundStyle(WiTheme.accent.opacity(0.9))
+                            .foregroundStyle(sessionTrailingTint)
                             .id(sessionTrailingGlyph)
                             .transition(.scale.combined(with: .opacity))
                     }
@@ -279,7 +288,7 @@ struct ConnectRootView: View {
             )
             .overlay(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 2, style: .continuous)
-                    .fill(WiTheme.statusTint(for: coil.phase))
+                    .fill(connectButtonStatusTint)
                     .frame(width: 3)
                     .padding(.vertical, 16)
                     .animation(.easeInOut(duration: 0.4), value: coil.phase)
@@ -288,6 +297,33 @@ struct ConnectRootView: View {
         .buttonStyle(ConnectPressCardButtonStyle())
         .disabled(coil.phase == .busy && !coil.showUnplugConfirm)
         .accessibilityLabel("\(heroTitle)，\(statusLine)")
+    }
+
+    private var connectOfflineTint: Color {
+        Color(red: 232 / 255, green: 179 / 255, blue: 73 / 255)
+    }
+
+    private var connectButtonStatusTint: Color {
+        coil.phase == .offline ? connectOfflineTint : WiTheme.statusTint(for: coil.phase)
+    }
+
+    private var connectButtonBadgeFill: LinearGradient {
+        if coil.phase == .offline {
+            return LinearGradient(
+                colors: [.clear, .clear],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+        return WiTheme.heroGradient(for: coil.phase)
+    }
+
+    private var connectButtonBadgeStroke: Color {
+        coil.phase == .offline ? .clear : WiTheme.borderSubtle
+    }
+
+    private var sessionTrailingTint: Color {
+        coil.phase == .offline ? connectOfflineTint : WiTheme.accent.opacity(0.9)
     }
 
     // MARK: - Route

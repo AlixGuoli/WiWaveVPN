@@ -99,6 +99,14 @@ enum L10n {
         static func outcomeSummaryOk(_ app: AppLanguageStore) -> String { app.tr("flow.outcome.summary.ok") }
         static func outcomeSummaryFail(_ app: AppLanguageStore) -> String { app.tr("flow.outcome.summary.fail") }
         static func outcomeSummaryUnplug(_ app: AppLanguageStore) -> String { app.tr("flow.outcome.summary.unplug") }
+        static func successHeadlineConnected(_ app: AppLanguageStore) -> String { app.tr("flow.outcome.success.connected_headline") }
+        static func successHeadlineDisconnected(_ app: AppLanguageStore) -> String { app.tr("flow.outcome.success.disconnected_headline") }
+        static func successShareTitle(_ app: AppLanguageStore) -> String { app.tr("flow.success.share.title") }
+        static func successShareSubtitle(_ app: AppLanguageStore) -> String { app.tr("flow.success.share.subtitle") }
+        static func successFollowTitle(_ app: AppLanguageStore) -> String { app.tr("flow.success.follow.title") }
+        static func successFollowSubtitle(_ app: AppLanguageStore) -> String { app.tr("flow.success.follow.subtitle") }
+        static func ratingTitle(_ app: AppLanguageStore) -> String { app.tr("flow.rating.title") }
+        static func ratingSubtitle(_ app: AppLanguageStore) -> String { app.tr("flow.rating.subtitle") }
     }
 
     enum Dashboard {
@@ -167,6 +175,40 @@ enum L10n {
         static func languageSection(_ app: AppLanguageStore) -> String { app.tr("settings.language.section") }
         static func languageSystem(_ app: AppLanguageStore) -> String { app.tr("settings.language.system") }
         static func languageApplying(_ app: AppLanguageStore) -> String { app.tr("settings.language.applying") }
+        static func membershipTitle(_ app: AppLanguageStore) -> String { app.tr("settings.membership.title") }
+        static func membershipStatusNone(_ app: AppLanguageStore) -> String { app.tr("settings.membership.status.none") }
+        static func membershipStatusActive(_ app: AppLanguageStore) -> String { app.tr("settings.membership.status.active") }
+        static func membershipStatusExpires(_ app: AppLanguageStore, _ expiry: String) -> String {
+            String(format: app.tr("settings.membership.status.expires_format"), locale: app.localeForSwiftUI, expiry)
+        }
+    }
+
+    enum Membership {
+        static func processing(_ app: AppLanguageStore) -> String { app.tr("membership.action.processing") }
+        static func headerActive(_ app: AppLanguageStore) -> String { app.tr("membership.header.active_title") }
+        static func headerGetPremium(_ app: AppLanguageStore) -> String { app.tr("membership.header.get_premium_title") }
+        static func headerDefaultSubtitle(_ app: AppLanguageStore) -> String { app.tr("membership.header.default_subtitle") }
+        static func headerExpires(_ app: AppLanguageStore, _ expiry: String) -> String {
+            String(format: app.tr("membership.header.expires_format"), locale: app.localeForSwiftUI, expiry)
+        }
+        static func benefitSpeedTitle(_ app: AppLanguageStore) -> String { app.tr("membership.benefit.speed.title") }
+        static func benefitSpeedSubtitle(_ app: AppLanguageStore) -> String { app.tr("membership.benefit.speed.subtitle") }
+        static func benefitNodesTitle(_ app: AppLanguageStore) -> String { app.tr("membership.benefit.nodes.title") }
+        static func benefitNodesSubtitle(_ app: AppLanguageStore) -> String { app.tr("membership.benefit.nodes.subtitle") }
+        static func benefitPriorityTitle(_ app: AppLanguageStore) -> String { app.tr("membership.benefit.priority.title") }
+        static func benefitPrioritySubtitle(_ app: AppLanguageStore) -> String { app.tr("membership.benefit.priority.subtitle") }
+        static func benefitAdFreeTitle(_ app: AppLanguageStore) -> String { app.tr("membership.benefit.adfree.title") }
+        static func benefitAdFreeSubtitle(_ app: AppLanguageStore) -> String { app.tr("membership.benefit.adfree.subtitle") }
+        static func agreementFormat(_ app: AppLanguageStore) -> String { app.tr("membership.agreement.format") }
+        static func agreementAutoTitle(_ app: AppLanguageStore) -> String { app.tr("membership.agreement.auto_title") }
+        static func agreementMemberTitle(_ app: AppLanguageStore) -> String { app.tr("membership.agreement.member_title") }
+        static func policyText(_ app: AppLanguageStore) -> String { app.tr("membership.policy.text") }
+        static func planWeekly(_ app: AppLanguageStore) -> String { app.tr("membership.plan.weekly") }
+        static func planMonthly(_ app: AppLanguageStore) -> String { app.tr("membership.plan.monthly") }
+        static func planAnnual(_ app: AppLanguageStore) -> String { app.tr("membership.plan.annual") }
+        static func actionAgreePay(_ app: AppLanguageStore) -> String { app.tr("membership.action.agree_pay") }
+        static func actionRestore(_ app: AppLanguageStore) -> String { app.tr("membership.action.restore") }
+        static func actionRestoring(_ app: AppLanguageStore) -> String { app.tr("membership.action.restoring") }
     }
 
     enum Onboard {

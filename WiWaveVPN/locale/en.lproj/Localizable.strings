@@ -184,3 +184,44 @@
 "region.usa" = "United States";
 "region.canada" = "Canada";
 "region.australia" = "Australia";
+
+/* Settings membership */
+"settings.membership.title" = "Membership";
+"settings.membership.status.none" = "Not Subscribed";
+"settings.membership.status.active" = "Subscription Active";
+"settings.membership.status.expires_format" = "Expires at %@";
+
+/* Flow success cards & rating */
+"flow.outcome.success.connected_headline" = "CONNECTED!";
+"flow.outcome.success.disconnected_headline" = "DISCONNECTED!";
+"flow.success.share.title" = "Tell Friends";
+"flow.success.share.subtitle" = "Love our app? Share it and invite your friends!";
+"flow.success.follow.title" = "Follow Us";
+"flow.success.follow.subtitle" = "Stay updated! Subscribe to our channel now.";
+"flow.rating.title" = "Rate Us";
+"flow.rating.subtitle" = "Every positive review helps us keep improving the service experience.";
+
+/* Membership */
+"membership.action.processing" = "Processing purchase...";
+"membership.header.active_title" = "Membership Active";
+"membership.header.get_premium_title" = "Get Premium Today";
+"membership.header.expires_format" = "Expires at %@";
+"membership.header.default_subtitle" = "Remove ads and unlock all locations.";
+"membership.benefit.speed.title" = "Top Speed";
+"membership.benefit.speed.subtitle" = "Get higher priority on our fastest routes.";
+"membership.benefit.nodes.title" = "Faster Servers";
+"membership.benefit.nodes.subtitle" = "Connect to full server list worldwide.";
+"membership.benefit.priority.title" = "Priority Passage";
+"membership.benefit.priority.subtitle" = "Priority in every connection without delay.";
+"membership.benefit.adfree.title" = "100%% Ad-Free";
+"membership.benefit.adfree.subtitle" = "Use the app with zero ad interruptions.";
+"membership.agreement.format" = "Agreement %@, %@";
+"membership.agreement.auto_title" = "《Auto Renewal Terms》";
+"membership.agreement.member_title" = "《Membership Terms》";
+"membership.policy.text" = "Payment will be charged to your Apple ID account at confirmation of purchase. Subscription renews automatically unless canceled at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage or cancel your subscription anytime in App Store Account Settings.";
+"membership.plan.weekly" = "Weekly";
+"membership.plan.monthly" = "Monthly";
+"membership.plan.annual" = "Annual";
+"membership.action.agree_pay" = "Agree and Pay";
+"membership.action.restore" = "Restore Purchases";
+"membership.action.restoring" = "Restoring...";

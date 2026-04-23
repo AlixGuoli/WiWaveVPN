@@ -3,6 +3,7 @@ import SwiftUI
 /// 会员页（静态 UI 预览版）：先对齐视觉，不接内购逻辑。
 struct WiMembershipScreen: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var appLanguage: AppLanguageStore
     @EnvironmentObject private var purchaseCenter: WiPurchaseCenter
     @State private var selectedPlan: MembershipPlan = .monthly
     @State private var hasAgreedTerms = true
@@ -57,7 +58,7 @@ struct WiMembershipScreen: View {
                     ProgressView()
                         .controlSize(.large)
                         .tint(.white)
-                    Text("Processing purchase...")
+                    Text(L10n.Membership.processing(appLanguage))
                         .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(.white.opacity(0.92))
                 }
@@ -78,7 +79,7 @@ struct WiMembershipScreen: View {
                 Image("back")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 35, height: 35)
+                    .frame(width: 40, height: 40)
             }
             .buttonStyle(.plain)
             Spacer(minLength: 0)
@@ -93,7 +94,9 @@ struct WiMembershipScreen: View {
                 .frame(width: 60, height: 60)
                 .shadow(color: WiTheme.accent.opacity(0.2), radius: 14, y: 6)
 
-            Text(purchaseCenter.hasActiveSubscription ? "Membership Active" : "Get Premium Today")
+            Text(purchaseCenter.hasActiveSubscription
+                 ? L10n.Membership.headerActive(appLanguage)
+                 : L10n.Membership.headerGetPremium(appLanguage))
                 .font(.system(size: 22, weight: .bold))
                 .foregroundStyle(WiTheme.textPrimary)
                 .multilineTextAlignment(.center)
@@ -110,31 +113,47 @@ struct WiMembershipScreen: View {
 
     private var headerSubtitle: String {
         if purchaseCenter.hasActiveSubscription, let expiry = purchaseCenter.activeExpiration {
-            return "Expires at \(formatExpiryToSecond(expiry))"
+            return L10n.Membership.headerExpires(appLanguage, formatExpiryToSecond(expiry))
         }
-        return "Remove ads and unlock all locations."
+        return L10n.Membership.headerDefaultSubtitle(appLanguage)
     }
 
     private func formatExpiryToSecond(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.locale = Locale.current
+        formatter.locale = appLanguage.localeForSwiftUI
         formatter.timeZone = TimeZone.current
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: date)
     }
 
     private var benefitsCard: some View {
         VStack(spacing: 0) {
             HStack(alignment: .top, spacing: 0) {
-                benefitCell(icon: "vipSpeed", title: "Top Speed", subtitle: "Get higher priority on our fastest routes.")
+                benefitCell(
+                    icon: "vipSpeed",
+                    title: L10n.Membership.benefitSpeedTitle(appLanguage),
+                    subtitle: L10n.Membership.benefitSpeedSubtitle(appLanguage)
+                )
                 dividerVertical
-                benefitCell(icon: "vipNode", title: "Faster Servers", subtitle: "Connect to full server list worldwide.")
+                benefitCell(
+                    icon: "vipNode",
+                    title: L10n.Membership.benefitNodesTitle(appLanguage),
+                    subtitle: L10n.Membership.benefitNodesSubtitle(appLanguage)
+                )
             }
             dividerHorizontalSplit
             HStack(alignment: .top, spacing: 0) {
-                benefitCell(icon: "vipPriority", title: "Priority Passage", subtitle: "Priority in every connection without delay.")
+                benefitCell(
+                    icon: "vipPriority",
+                    title: L10n.Membership.benefitPriorityTitle(appLanguage),
+                    subtitle: L10n.Membership.benefitPrioritySubtitle(appLanguage)
+                )
                 dividerVertical
-                benefitCell(icon: "vipAd", title: "100% Ad-Free", subtitle: "Use the app with zero ad interruptions.")
+                benefitCell(
+                    icon: "vipAd",
+                    title: L10n.Membership.benefitAdFreeTitle(appLanguage),
+                    subtitle: L10n.Membership.benefitAdFreeSubtitle(appLanguage)
+                )
             }
         }
         .padding(.horizontal, -10)
@@ -178,7 +197,7 @@ struct WiMembershipScreen: View {
                 Text(title)
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundStyle(WiTheme.textPrimary)
-                    .lineLimit(1)
+                    .lineLimit(2)
                     .minimumScaleFactor(0.8)
             }
             Text(subtitle)
@@ -199,7 +218,7 @@ struct WiMembershipScreen: View {
                     selectedPlan = plan
                 } label: {
                     HStack(spacing: 10) {
-                        Text(plan.title)
+                        Text(plan.title(appLanguage))
                             .font(.system(size: 20, weight: .semibold))
                             .foregroundStyle(WiTheme.textPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -242,7 +261,7 @@ struct WiMembershipScreen: View {
                 _ = await purchaseCenter.purchase(productID: selectedPlan.productID)
             }
         } label: {
-            Text(purchaseCenter.isPurchasing ? "Processing purchase..." : "Agree and Pay")
+            Text(purchaseCenter.isPurchasing ? L10n.Membership.processing(appLanguage) : L10n.Membership.actionAgreePay(appLanguage))
                 .font(.system(size: 17, weight: .bold))
                 .foregroundStyle(Color.black.opacity(0.78))
                 .frame(maxWidth: .infinity)
@@ -268,7 +287,7 @@ struct WiMembershipScreen: View {
             }
             .buttonStyle(.plain)
 
-            Text("Agreement [《Auto Renewal Terms》](https://tunnelnova.xyz/m.html) , [《Membership Terms》](https://tunnelnova.xyz/m.html)")
+            Text(agreementAttributedText)
                 .font(.system(size: 12, weight: .regular))
                 .foregroundStyle(WiTheme.textSecondary)
                 .tint(WiTheme.accent)
@@ -285,7 +304,7 @@ struct WiMembershipScreen: View {
                 _ = await purchaseCenter.restorePurchases()
             }
         } label: {
-            Text(purchaseCenter.isRestoring ? "Restoring..." : "Restore Purchases")
+            Text(purchaseCenter.isRestoring ? L10n.Membership.actionRestoring(appLanguage) : L10n.Membership.actionRestore(appLanguage))
                 .font(.system(size: 14, weight: .medium))
                 .foregroundStyle(WiTheme.textPrimary.opacity(0.88))
         }
@@ -294,7 +313,7 @@ struct WiMembershipScreen: View {
     }
 
     private var policyText: some View {
-        Text("Payment will be charged to your Apple ID account at confirmation of purchase. Subscription renews automatically unless canceled at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage or cancel your subscription anytime in App Store Account Settings.")
+        Text(L10n.Membership.policyText(appLanguage))
             .font(.system(size: 11, weight: .regular))
             .foregroundStyle(WiTheme.textTertiary)
             .multilineTextAlignment(.center)
@@ -302,6 +321,22 @@ struct WiMembershipScreen: View {
             .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 8)
             .padding(.top, 2)
+    }
+
+    private var agreementAttributedText: AttributedString {
+        let t1 = L10n.Membership.agreementAutoTitle(appLanguage)
+        let t2 = L10n.Membership.agreementMemberTitle(appLanguage)
+        let format = L10n.Membership.agreementFormat(appLanguage)
+        let plain = String(format: format, locale: appLanguage.localeForSwiftUI, t1, t2)
+
+        var attr = AttributedString(plain)
+        if let r1 = attr.range(of: t1) {
+            attr[r1].link = membershipTermsURL
+        }
+        if let r2 = attr.range(of: t2) {
+            attr[r2].link = membershipTermsURL
+        }
+        return attr
     }
 }
 
@@ -318,11 +353,11 @@ private enum MembershipPlan: CaseIterable {
         }
     }
 
-    var title: String {
+    func title(_ appLanguage: AppLanguageStore) -> String {
         switch self {
-        case .weekly: return "Weekly"
-        case .monthly: return "Monthly"
-        case .annual: return "Annual"
+        case .weekly: return L10n.Membership.planWeekly(appLanguage)
+        case .monthly: return L10n.Membership.planMonthly(appLanguage)
+        case .annual: return L10n.Membership.planAnnual(appLanguage)
         }
     }
 

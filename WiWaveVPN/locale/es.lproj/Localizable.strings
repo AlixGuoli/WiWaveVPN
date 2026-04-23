@@ -184,3 +184,44 @@
 "region.usa" = "Estados Unidos";
 "region.canada" = "Canadá";
 "region.australia" = "Australia";
+
+/* Settings membership */
+"settings.membership.title" = "Suscripción";
+"settings.membership.status.none" = "Sin suscripción";
+"settings.membership.status.active" = "Suscripción activa";
+"settings.membership.status.expires_format" = "Vence el %@";
+
+/* Flow success cards & rating */
+"flow.outcome.success.connected_headline" = "¡CONECTADO!";
+"flow.outcome.success.disconnected_headline" = "¡DESCONECTADO!";
+"flow.success.share.title" = "Compartir con amigos";
+"flow.success.share.subtitle" = "¿Te gusta la app? ¡Compártela e invita a tus amigos!";
+"flow.success.follow.title" = "Síguenos";
+"flow.success.follow.subtitle" = "¡Mantente al día! Suscríbete a nuestro canal.";
+"flow.rating.title" = "Califícanos";
+"flow.rating.subtitle" = "Cada reseña positiva nos ayuda a mejorar el servicio.";
+
+/* Membership */
+"membership.action.processing" = "Procesando compra...";
+"membership.header.active_title" = "Suscripción activa";
+"membership.header.get_premium_title" = "Hazte Premium";
+"membership.header.expires_format" = "Vence el %@";
+"membership.header.default_subtitle" = "Quita anuncios y desbloquea todas las ubicaciones.";
+"membership.benefit.speed.title" = "Máxima velocidad";
+"membership.benefit.speed.subtitle" = "Mayor prioridad en nuestras rutas más rápidas.";
+"membership.benefit.nodes.title" = "Servidores más rápidos";
+"membership.benefit.nodes.subtitle" = "Conéctate a toda la lista de servidores del mundo.";
+"membership.benefit.priority.title" = "Paso prioritario";
+"membership.benefit.priority.subtitle" = "Prioridad en cada conexión sin demoras.";
+"membership.benefit.adfree.title" = "100%% sin anuncios";
+"membership.benefit.adfree.subtitle" = "Usa la app sin interrupciones publicitarias.";
+"membership.agreement.format" = "Acuerdo %@, %@";
+"membership.agreement.auto_title" = "《Términos de renovación automática》";
+"membership.agreement.member_title" = "《Términos de membresía》";
+"membership.policy.text" = "El pago se cargará a tu cuenta de Apple ID al confirmar la compra. La suscripción se renueva automáticamente a menos que se cancele al menos 24 horas antes de que finalice el periodo actual. El cobro de la renovación se realizará dentro de las 24 horas previas al final del periodo actual. Puedes gestionar o cancelar tu suscripción en cualquier momento en los ajustes de cuenta de App Store.";
+"membership.plan.weekly" = "Semanal";
+"membership.plan.monthly" = "Mensual";
+"membership.plan.annual" = "Anual";
+"membership.action.agree_pay" = "Aceptar y pagar";
+"membership.action.restore" = "Restaurar compras";
+"membership.action.restoring" = "Restaurando...";

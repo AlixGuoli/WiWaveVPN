@@ -184,3 +184,44 @@
 "region.usa" = "США";
 "region.canada" = "Канада";
 "region.australia" = "Австралия";
+
+/* Settings membership */
+"settings.membership.title" = "Подписка";
+"settings.membership.status.none" = "Подписка не активна";
+"settings.membership.status.active" = "Подписка активна";
+"settings.membership.status.expires_format" = "Истекает %@";
+
+/* Flow success cards & rating */
+"flow.outcome.success.connected_headline" = "ПОДКЛЮЧЕНО!";
+"flow.outcome.success.disconnected_headline" = "ОТКЛЮЧЕНО!";
+"flow.success.share.title" = "Поделиться с друзьями";
+"flow.success.share.subtitle" = "Нравится приложение? Поделитесь им и пригласите друзей!";
+"flow.success.follow.title" = "Подписаться на нас";
+"flow.success.follow.subtitle" = "Будьте в курсе! Подпишитесь на наш канал.";
+"flow.rating.title" = "Оцените нас";
+"flow.rating.subtitle" = "Каждый положительный отзыв помогает нам улучшать сервис.";
+
+/* Membership */
+"membership.action.processing" = "Обработка покупки...";
+"membership.header.active_title" = "Подписка активна";
+"membership.header.get_premium_title" = "Получите Premium";
+"membership.header.expires_format" = "Истекает %@";
+"membership.header.default_subtitle" = "Отключите рекламу и откройте все локации.";
+"membership.benefit.speed.title" = "Максимальная скорость";
+"membership.benefit.speed.subtitle" = "Более высокий приоритет на самых быстрых маршрутах.";
+"membership.benefit.nodes.title" = "Быстрые серверы";
+"membership.benefit.nodes.subtitle" = "Подключение ко всем серверам по всему миру.";
+"membership.benefit.priority.title" = "Приоритетный доступ";
+"membership.benefit.priority.subtitle" = "Приоритет при каждом подключении без задержек.";
+"membership.benefit.adfree.title" = "100%% без рекламы";
+"membership.benefit.adfree.subtitle" = "Пользуйтесь приложением без рекламных прерываний.";
+"membership.agreement.format" = "Соглашение %@, %@";
+"membership.agreement.auto_title" = "《Условия автопродления》";
+"membership.agreement.member_title" = "《Условия подписки》";
+"membership.policy.text" = "Оплата будет списана с вашей учетной записи Apple ID при подтверждении покупки. Подписка продлевается автоматически, если не отменить ее не позднее чем за 24 часа до окончания текущего периода. Списание за продление производится в течение 24 часов до окончания текущего периода. Управлять подпиской или отменить ее можно в настройках учетной записи App Store.";
+"membership.plan.weekly" = "Неделя";
+"membership.plan.monthly" = "Месяц";
+"membership.plan.annual" = "Год";
+"membership.action.agree_pay" = "Согласиться и оплатить";
+"membership.action.restore" = "Восстановить покупки";
+"membership.action.restoring" = "Восстановление...";

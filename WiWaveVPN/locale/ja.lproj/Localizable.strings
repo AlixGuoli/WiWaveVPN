@@ -184,3 +184,44 @@
 "region.usa" = "アメリカ";
 "region.canada" = "カナダ";
 "region.australia" = "オーストラリア";
+
+/* Settings membership */
+"settings.membership.title" = "メンバーシップ";
+"settings.membership.status.none" = "未加入";
+"settings.membership.status.active" = "サブスクリプション有効";
+"settings.membership.status.expires_format" = "有効期限 %@";
+
+/* Flow success cards & rating */
+"flow.outcome.success.connected_headline" = "接続完了！";
+"flow.outcome.success.disconnected_headline" = "切断しました！";
+"flow.success.share.title" = "友達にシェア";
+"flow.success.share.subtitle" = "このアプリが気に入ったら、友達に共有してください！";
+"flow.success.follow.title" = "フォローする";
+"flow.success.follow.subtitle" = "最新情報を受け取るには、チャンネルをフォローしてください。";
+"flow.rating.title" = "評価する";
+"flow.rating.subtitle" = "高評価はサービス改善の大きな助けになります。";
+
+/* Membership */
+"membership.action.processing" = "購入を処理中...";
+"membership.header.active_title" = "メンバーシップ有効";
+"membership.header.get_premium_title" = "今すぐプレミアム";
+"membership.header.expires_format" = "有効期限 %@";
+"membership.header.default_subtitle" = "広告を削除して、すべてのロケーションを解放。";
+"membership.benefit.speed.title" = "最高速度";
+"membership.benefit.speed.subtitle" = "最速ルートでより高い優先度を取得。";
+"membership.benefit.nodes.title" = "高速サーバー";
+"membership.benefit.nodes.subtitle" = "世界中の全サーバーに接続可能。";
+"membership.benefit.priority.title" = "優先接続";
+"membership.benefit.priority.subtitle" = "毎回の接続で遅延なく優先処理。";
+"membership.benefit.adfree.title" = "100%% 広告なし";
+"membership.benefit.adfree.subtitle" = "広告の中断なしでアプリを利用。";
+"membership.agreement.format" = "同意事項 %@、%@";
+"membership.agreement.auto_title" = "《自動更新条件》";
+"membership.agreement.member_title" = "《メンバーシップ規約》";
+"membership.policy.text" = "購入確定時に Apple ID アカウントへ請求されます。現在の期間終了の24時間前までに解約しない限り、サブスクリプションは自動更新されます。更新料金は期間終了前24時間以内に請求されます。サブスクリプションの管理または解約は、App Store のアカウント設定からいつでも行えます。";
+"membership.plan.weekly" = "週間";
+"membership.plan.monthly" = "月間";
+"membership.plan.annual" = "年間";
+"membership.action.agree_pay" = "同意して支払う";
+"membership.action.restore" = "購入を復元";
+"membership.action.restoring" = "復元中...";

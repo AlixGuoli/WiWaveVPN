@@ -184,3 +184,44 @@
 "region.usa" = "USA";
 "region.canada" = "Kanada";
 "region.australia" = "Australien";
+
+/* Settings membership */
+"settings.membership.title" = "Mitgliedschaft";
+"settings.membership.status.none" = "Nicht abonniert";
+"settings.membership.status.active" = "Abonnement aktiv";
+"settings.membership.status.expires_format" = "Läuft ab am %@";
+
+/* Flow success cards & rating */
+"flow.outcome.success.connected_headline" = "VERBUNDEN!";
+"flow.outcome.success.disconnected_headline" = "GETRENNT!";
+"flow.success.share.title" = "Mit Freunden teilen";
+"flow.success.share.subtitle" = "Gefällt dir die App? Teile sie mit deinen Freunden!";
+"flow.success.follow.title" = "Folge uns";
+"flow.success.follow.subtitle" = "Bleib auf dem Laufenden! Jetzt unseren Kanal abonnieren.";
+"flow.rating.title" = "Bewerte uns";
+"flow.rating.subtitle" = "Jede positive Bewertung hilft uns, den Service weiter zu verbessern.";
+
+/* Membership */
+"membership.action.processing" = "Kauf wird verarbeitet...";
+"membership.header.active_title" = "Mitgliedschaft aktiv";
+"membership.header.get_premium_title" = "Jetzt Premium holen";
+"membership.header.expires_format" = "Läuft ab am %@";
+"membership.header.default_subtitle" = "Werbung entfernen und alle Standorte freischalten.";
+"membership.benefit.speed.title" = "Top-Geschwindigkeit";
+"membership.benefit.speed.subtitle" = "Höhere Priorität auf unseren schnellsten Routen.";
+"membership.benefit.nodes.title" = "Schnellere Server";
+"membership.benefit.nodes.subtitle" = "Mit der vollständigen Serverliste weltweit verbinden.";
+"membership.benefit.priority.title" = "Prioritätszugang";
+"membership.benefit.priority.subtitle" = "Priorität bei jeder Verbindung ohne Verzögerung.";
+"membership.benefit.adfree.title" = "100%% werbefrei";
+"membership.benefit.adfree.subtitle" = "Nutze die App ohne Werbeunterbrechungen.";
+"membership.agreement.format" = "Vereinbarung %@, %@";
+"membership.agreement.auto_title" = "《Bedingungen zur automatischen Verlängerung》";
+"membership.agreement.member_title" = "《Mitgliedschaftsbedingungen》";
+"membership.policy.text" = "Die Zahlung wird nach Kaufbestätigung deinem Apple-ID-Konto belastet. Das Abo verlängert sich automatisch, sofern es nicht mindestens 24 Stunden vor Ablauf des aktuellen Zeitraums gekündigt wird. Die Verlängerung wird innerhalb von 24 Stunden vor Ablauf berechnet. Du kannst dein Abo jederzeit in den App-Store-Kontoeinstellungen verwalten oder kündigen.";
+"membership.plan.weekly" = "Wöchentlich";
+"membership.plan.monthly" = "Monatlich";
+"membership.plan.annual" = "Jährlich";
+"membership.action.agree_pay" = "Zustimmen und zahlen";
+"membership.action.restore" = "Käufe wiederherstellen";
+"membership.action.restoring" = "Wiederherstellung...";

@@ -1,4 +1,12 @@
 import SwiftUI
+import UIKit
+
+private enum WiFlowLinks {
+    static let appID = "6761802049"
+    static let appStoreURL = URL(string: "https://apps.apple.com/app/id\(appID)")!
+    static let appStoreReviewURL = URL(string: "https://apps.apple.com/app/id\(appID)?action=write-review")!
+    static let telegramURL = URL(string: "https://t.me/+lL7WwrUdUxY3YmJl")!
+}
 
 enum WiRoute: Hashable {
     case progress
@@ -42,7 +50,10 @@ struct WiProgressScreen: View {
                             .frame(width: 120, height: 2)
                             .padding(.top, 24)
 
-                        Spacer(minLength: max(56, (geo.size.height - 360) * 0.2))
+                        Spacer()
+                        
+                        WiRatingPromoCard()
+                            .padding(.horizontal, -24)
                     }
                     .frame(minHeight: geo.size.height)
                     .padding(.horizontal, 24)
@@ -51,6 +62,7 @@ struct WiProgressScreen: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden(true)
+        .ignoresSafeArea(edges: .bottom)
     }
 
     private func pillHeader(title: String, tint: Color) -> some View {
@@ -110,8 +122,10 @@ struct WiOutcomeScreen: View {
     @EnvironmentObject private var coil: WiSessionCoordinator
     @EnvironmentObject private var nodes: NodeSelectionStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
 
     @State private var reportAt = Date()
+    @State private var showShareSheet = false
 
     var body: some View {
         ZStack {
@@ -120,19 +134,42 @@ struct WiOutcomeScreen: View {
             GeometryReader { geo in
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
-                        Spacer(minLength: max(40, (geo.size.height - 520) * 0.16))
+                        if usesEnhancedSuccessLayout {
+                            successTopBackBar
+                                .padding(.horizontal, 8)
+                                .padding(.top, 8)
 
-                        pillHeader(title: L10n.Flow.outcomeSection(appLanguage), tint: verdictBarColor)
+                            Spacer(minLength: max(18, (geo.size.height - 520) * 0.06))
 
-                        outcomeCard
-                            .padding(.top, 20)
-                            .padding(.horizontal, 8)
+                            outcomeCard
+                                .padding(.top, 10)
+                                .padding(.horizontal, 8)
 
-                        flowDismissButton
-                            .padding(.top, 24)
-                            .padding(.horizontal, 8)
+                            successActionCards
+                                .padding(.top, 14)
+                                .padding(.horizontal, 4)
+                            
+                            Spacer()
 
-                        Spacer(minLength: max(48, (geo.size.height - 520) * 0.14))
+                            WiRatingPromoCard()
+                                .padding(.horizontal, -24)
+
+                            
+                        } else {
+                            Spacer(minLength: max(40, (geo.size.height - 520) * 0.16))
+
+                            pillHeader(title: L10n.Flow.outcomeSection(appLanguage), tint: verdictBarColor)
+
+                            outcomeCard
+                                .padding(.top, 20)
+                                .padding(.horizontal, 8)
+
+                            flowDismissButton
+                                .padding(.top, 24)
+                                .padding(.horizontal, 8)
+
+                            Spacer(minLength: max(48, (geo.size.height - 520) * 0.14))
+                        }
                     }
                     .frame(minHeight: geo.size.height)
                     .padding(.horizontal, 24)
@@ -141,11 +178,15 @@ struct WiOutcomeScreen: View {
         }
         .toolbar(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden(true)
+        .ignoresSafeArea(edges: .bottom)
         .onAppear {
             reportAt = Date()
         }
         .onDisappear {
             coil.clearVerdict()
+        }
+        .sheet(isPresented: $showShareSheet) {
+            WiActivityShareSheet(activityItems: [WiFlowLinks.appStoreURL])
         }
     }
 
@@ -162,6 +203,16 @@ struct WiOutcomeScreen: View {
     }
 
     private var outcomeCard: some View {
+        Group {
+            if usesEnhancedSuccessLayout {
+                modernSuccessHeaderCard
+            } else {
+                legacyOutcomeCard
+            }
+        }
+    }
+
+    private var legacyOutcomeCard: some View {
         VStack(alignment: .center, spacing: 0) {
             RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .fill(WiTheme.heroGradient(for: verdictPhase))
@@ -239,6 +290,132 @@ struct WiOutcomeScreen: View {
         }
     }
 
+    private var modernSuccessHeaderCard: some View {
+        VStack(spacing: 12) {
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(successBadgeFill)
+                .frame(width: 70, height: 70)
+                .overlay {
+                    statusHeaderIcon
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(successBadgeStroke, lineWidth: 1)
+                )
+
+            Text(successHeadline)
+                .font(.system(size: 34, weight: .medium, design: .default))
+                .foregroundStyle(WiTheme.textPrimary)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 18)
+    }
+
+    private var successTopBackBar: some View {
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                Image("back")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 40, height: 40)
+            }
+            .buttonStyle(.plain)
+            Spacer(minLength: 0)
+        }
+    }
+
+    private var statusHeaderIcon: some View {
+        Group {
+            if verdict == .unpluggedOK {
+                Image("disconnect")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 70, height: 70)
+            } else {
+                Image(systemName: "checkmark.shield.fill")
+                    .font(.system(size: 26, weight: .semibold))
+                    .foregroundStyle(.white.opacity(0.95))
+            }
+        }
+    }
+
+    private var successBadgeFill: LinearGradient {
+        if verdict == .unpluggedOK {
+            return LinearGradient(
+                colors: [.clear, .clear],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+        return WiTheme.heroGradient(for: .online)
+    }
+
+    private var successBadgeStroke: Color {
+        verdict == .unpluggedOK ? .clear : WiTheme.borderSubtle
+    }
+
+    private var successActionCards: some View {
+        VStack(spacing: 14) {
+            successActionRow(
+                icon: "share",
+                title: L10n.Flow.successShareTitle(appLanguage),
+                subtitle: L10n.Flow.successShareSubtitle(appLanguage),
+                action: handleShareTap
+            )
+            successActionRow(
+                icon: "follow",
+                title: L10n.Flow.successFollowTitle(appLanguage),
+                subtitle: L10n.Flow.successFollowSubtitle(appLanguage),
+                action: handleFollowTap
+            )
+        }
+    }
+
+    private func successActionRow(icon: String, title: String, subtitle: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(alignment: .center, spacing: 14) {
+                Image(icon)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(title)
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundStyle(WiTheme.textPrimary)
+                    Text(subtitle)
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundStyle(WiTheme.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(WiTheme.bgTile.opacity(0.92))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(WiTheme.borderSubtle, lineWidth: 1)
+                    )
+            )
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func handleShareTap() {
+        showShareSheet = true
+    }
+
+    private func handleFollowTap() {
+        openURL(WiFlowLinks.telegramURL)
+    }
+
     private var outcomeExitValue: String {
         let name = nodes.selected.name
         if let cc = nodes.selected.country, !cc.isEmpty {
@@ -283,6 +460,21 @@ struct WiOutcomeScreen: View {
         case .linkedOK: return L10n.Flow.outcomeSummaryOk(appLanguage)
         case .linkedFail: return L10n.Flow.outcomeSummaryFail(appLanguage)
         case .unpluggedOK: return L10n.Flow.outcomeSummaryUnplug(appLanguage)
+        }
+    }
+
+    private var usesEnhancedSuccessLayout: Bool {
+        verdict == .linkedOK || verdict == .unpluggedOK
+    }
+
+    private var successHeadline: String {
+        switch verdict {
+        case .linkedOK:
+            return L10n.Flow.successHeadlineConnected(appLanguage)
+        case .unpluggedOK:
+            return L10n.Flow.successHeadlineDisconnected(appLanguage)
+        case .linkedFail:
+            return title
         }
     }
 
@@ -344,4 +536,129 @@ struct WiOutcomeScreen: View {
         }
     }
 
+}
+
+private struct WiActivityShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+private struct WiRatingPromoCard: View {
+    @Environment(\.openURL) private var openURL
+    @EnvironmentObject private var appLanguage: AppLanguageStore
+    @State private var filledCount = 4
+    @State private var sweepHighlightIndex = 0
+    @State private var tapFeedbackIndex = 0
+
+    var body: some View {
+        ZStack(alignment: .top) {
+            Image("bgRate")
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity)
+                
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text(L10n.Flow.ratingTitle(appLanguage))
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundStyle(WiTheme.textPrimary)
+                    .padding(.top, 40)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        openReview()
+                    }
+
+                Text(L10n.Flow.ratingSubtitle(appLanguage))
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundStyle(WiTheme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        openReview()
+                    }
+
+                HStack(alignment: .center, spacing: 26) {
+                    ForEach(1...5, id: \.self) { index in
+                        Button {
+                            onStarTapped(index)
+                        } label: {
+                            Image(index <= filledCount ? "starYes" : "starNo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .scaleEffect(starScale(for: index))
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.top, 20)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            openReview()
+        }
+        .task {
+            await runSweepLoop()
+        }
+    }
+
+    private func onStarTapped(_ index: Int) {
+        withAnimation(.spring(response: 0.28, dampingFraction: 0.58)) {
+            filledCount = index
+            tapFeedbackIndex = index
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
+            withAnimation(.easeOut(duration: 0.16)) {
+                tapFeedbackIndex = 0
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            openReview()
+        }
+    }
+
+    private func starScale(for index: Int) -> CGFloat {
+        var scale: CGFloat = 1.0
+        if sweepHighlightIndex == index {
+            scale *= 1.14
+        }
+        if tapFeedbackIndex == index {
+            scale *= 1.16
+        }
+        return scale
+    }
+
+    private func runSweepLoop() async {
+        while !Task.isCancelled {
+            await runSingleSweep()
+            try? await Task.sleep(nanoseconds: 1_700_000_000)
+        }
+    }
+
+    @MainActor
+    private func runSingleSweep() async {
+        for index in 1...5 {
+            withAnimation(.spring(response: 0.24, dampingFraction: 0.62)) {
+                sweepHighlightIndex = index
+            }
+            try? await Task.sleep(nanoseconds: 80_000_000)
+        }
+        withAnimation(.easeOut(duration: 0.16)) {
+            sweepHighlightIndex = 0
+        }
+    }
+
+    private func openReview() {
+        openURL(WiFlowLinks.appStoreReviewURL)
+    }
 }

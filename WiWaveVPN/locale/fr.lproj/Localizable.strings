@@ -184,3 +184,44 @@
 "region.usa" = "États-Unis";
 "region.canada" = "Canada";
 "region.australia" = "Australie";
+
+/* Settings membership */
+"settings.membership.title" = "Abonnement";
+"settings.membership.status.none" = "Non abonné";
+"settings.membership.status.active" = "Abonnement actif";
+"settings.membership.status.expires_format" = "Expire le %@";
+
+/* Flow success cards & rating */
+"flow.outcome.success.connected_headline" = "CONNECTÉ !";
+"flow.outcome.success.disconnected_headline" = "DÉCONNECTÉ !";
+"flow.success.share.title" = "Partager avec des amis";
+"flow.success.share.subtitle" = "Vous aimez l’app ? Partagez-la et invitez vos amis !";
+"flow.success.follow.title" = "Suivez-nous";
+"flow.success.follow.subtitle" = "Restez informé ! Abonnez-vous à notre canal.";
+"flow.rating.title" = "Notez-nous";
+"flow.rating.subtitle" = "Chaque avis positif nous aide à améliorer le service.";
+
+/* Membership */
+"membership.action.processing" = "Traitement de l’achat...";
+"membership.header.active_title" = "Abonnement actif";
+"membership.header.get_premium_title" = "Passez en Premium";
+"membership.header.expires_format" = "Expire le %@";
+"membership.header.default_subtitle" = "Supprimez les pubs et débloquez tous les emplacements.";
+"membership.benefit.speed.title" = "Vitesse maximale";
+"membership.benefit.speed.subtitle" = "Priorité plus élevée sur nos routes les plus rapides.";
+"membership.benefit.nodes.title" = "Serveurs plus rapides";
+"membership.benefit.nodes.subtitle" = "Connectez-vous à la liste complète des serveurs mondiaux.";
+"membership.benefit.priority.title" = "Passage prioritaire";
+"membership.benefit.priority.subtitle" = "Priorité à chaque connexion sans attente.";
+"membership.benefit.adfree.title" = "100%% sans pub";
+"membership.benefit.adfree.subtitle" = "Utilisez l’app sans interruption publicitaire.";
+"membership.agreement.format" = "Accord %@, %@";
+"membership.agreement.auto_title" = "《Conditions de renouvellement automatique》";
+"membership.agreement.member_title" = "《Conditions d’abonnement》";
+"membership.policy.text" = "Le paiement sera facturé sur votre identifiant Apple lors de la confirmation de l’achat. L’abonnement se renouvelle automatiquement sauf annulation au moins 24 heures avant la fin de la période en cours. Le renouvellement est facturé dans les 24 heures précédant la fin de la période en cours. Vous pouvez gérer ou annuler votre abonnement à tout moment dans les réglages du compte App Store.";
+"membership.plan.weekly" = "Hebdomadaire";
+"membership.plan.monthly" = "Mensuel";
+"membership.plan.annual" = "Annuel";
+"membership.action.agree_pay" = "Accepter et payer";
+"membership.action.restore" = "Restaurer les achats";
+"membership.action.restoring" = "Restauration...";
