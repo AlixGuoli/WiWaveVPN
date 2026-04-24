@@ -8,10 +8,9 @@ struct QuillContext {
             "uid": stableUID(),
             "country": (Locale.current.region?.identifier ?? "US").lowercased(),
             "language": Locale.preferredLanguages.first ?? "en",
-            
-            "pk": Bundle.main.bundleIdentifier ?? "com.glow.wiwave.vpn",
             // 测试服
-            //"pk": "com.bluelink.nexus.key.vpn",
+            //"pk": "admobon",
+            "pk": Bundle.main.bundleIdentifier ?? "com.glow.wiwave.vpn",
             "version": Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0",
         ]
     }

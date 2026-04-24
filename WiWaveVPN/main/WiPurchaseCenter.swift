@@ -17,6 +17,15 @@ final class WiPurchaseCenter: ObservableObject {
     @Published private(set) var activeProductID: String?
     @Published private(set) var activeExpiration: Date?
     @Published private(set) var lastErrorMessage: String?
+    @Published private var subscriptionEpoch: Int = 0
+
+    /// 实时会员态（避免仅依赖缓存布尔值造成“前台过期未回落”）。
+    var hasActiveSubscriptionNow: Bool {
+        if let expiry = activeExpiration {
+            return expiry > Date()
+        }
+        return false
+    }
 
     var isBusy: Bool {
         isLoadingProducts || isPurchasing || isRestoring
@@ -28,6 +37,7 @@ final class WiPurchaseCenter: ObservableObject {
         "com.glow.wiwave.vpn.annual",
     ]
     private var updatesTask: Task<Void, Never>?
+    private var expiryRefreshTask: Task<Void, Never>?
 
     init() {
         restoreSubscriptionSnapshotFromCache()
@@ -41,6 +51,7 @@ final class WiPurchaseCenter: ObservableObject {
 
     deinit {
         updatesTask?.cancel()
+        expiryRefreshTask?.cancel()
     }
 
     func prepare() async {
@@ -160,6 +171,8 @@ final class WiPurchaseCenter: ObservableObject {
             WiPurchaseSnapshot.clear()
             AppLogger.log(.system, tag: "IAP", "[状态] 订阅无效 | active=false, cache=cleared")
         }
+        subscriptionEpoch &+= 1
+        scheduleExpiryRefreshIfNeeded()
     }
 
     private func restoreSubscriptionSnapshotFromCache() {
@@ -175,6 +188,23 @@ final class WiPurchaseCenter: ObservableObject {
             WiPurchaseSnapshot.clear()
             AppLogger.log(.system, tag: "IAP", "[缓存] 无有效订阅 | active=false")
         }
+        subscriptionEpoch &+= 1
+        scheduleExpiryRefreshIfNeeded()
+    }
+
+    private func scheduleExpiryRefreshIfNeeded() {
+        expiryRefreshTask?.cancel()
+        guard let expiry = activeExpiration else { return }
+        let now = Date()
+        guard expiry > now else { return }
+        let waitNs = UInt64((expiry.timeIntervalSince(now) + 0.8) * 1_000_000_000)
+        expiryRefreshTask = Task { [weak self] in
+            guard let self else { return }
+            try? await Task.sleep(nanoseconds: waitNs)
+            if Task.isCancelled { return }
+            await self.refreshSubscriptionState()
+        }
+        AppLogger.log(.system, tag: "IAP", "[状态] 已调度到期回刷 | at=\(expiry)")
     }
 
     private func observeTransactionUpdates() async {

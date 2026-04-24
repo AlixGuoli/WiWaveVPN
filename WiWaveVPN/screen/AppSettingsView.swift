@@ -233,7 +233,7 @@ struct AppSettingsView: View {
     }
 
     private var membershipSubtitle: String {
-        guard purchaseCenter.hasActiveSubscription else {
+        guard purchaseCenter.hasActiveSubscriptionNow else {
             return L10n.Settings.membershipStatusNone(appLanguage)
         }
         if let expiry = purchaseCenter.activeExpiration {

@@ -94,7 +94,7 @@ struct WiMembershipScreen: View {
                 .frame(width: 60, height: 60)
                 .shadow(color: WiTheme.accent.opacity(0.2), radius: 14, y: 6)
 
-            Text(purchaseCenter.hasActiveSubscription
+            Text(purchaseCenter.hasActiveSubscriptionNow
                  ? L10n.Membership.headerActive(appLanguage)
                  : L10n.Membership.headerGetPremium(appLanguage))
                 .font(.system(size: 22, weight: .bold))
@@ -112,7 +112,7 @@ struct WiMembershipScreen: View {
     }
 
     private var headerSubtitle: String {
-        if purchaseCenter.hasActiveSubscription, let expiry = purchaseCenter.activeExpiration {
+        if purchaseCenter.hasActiveSubscriptionNow, let expiry = purchaseCenter.activeExpiration {
             return L10n.Membership.headerExpires(appLanguage, formatExpiryToSecond(expiry))
         }
         return L10n.Membership.headerDefaultSubtitle(appLanguage)

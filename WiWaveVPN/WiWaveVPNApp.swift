@@ -86,7 +86,7 @@ struct WiWaveVPNApp: App {
         Task {
             AppLogger.log(.system, tag: "IAP", "[前台] 会员策略检查开始 | step=refreshThenEnforce")
             await purchaseCenter.refreshSubscriptionState()
-            let isMember = purchaseCenter.hasActiveSubscription
+            let isMember = purchaseCenter.hasActiveSubscriptionNow
             guard !isMember else {
                 AppLogger.log(.system, tag: "IAP", "[前台] 会员策略检查完成 | member=true, noAction")
                 return

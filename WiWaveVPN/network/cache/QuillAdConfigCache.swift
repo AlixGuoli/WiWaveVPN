@@ -60,9 +60,13 @@ final class QuillAdConfigCache {
         switch group {
         case .yandexInterstitial:
             key = yandexIntKey
+            // 测试服
+            //defaultRaw = "yandex;demo-interstitial-yandex"
             defaultRaw = "R-M-19141988-1;R-M-19141988-2;R-M-19141988-3"
         case .emInterstitial:
             key = emIntKey
+            // 测试服
+            //defaultRaw = "em;demo-interstitial-yandex"
             defaultRaw = "R-M-19141610-1"
         }
         let raw = UserDefaults.standard.string(forKey: key) ?? defaultRaw

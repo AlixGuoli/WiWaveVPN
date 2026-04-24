@@ -21,10 +21,11 @@ struct NodeItemDTO: Decodable {
 
 // MARK: - 业务模型
 
-/// 单条线路。`serverNodeId == -1` 为自动（随机）；连后台时只传这个 id 即可。
+/// 单条线路。连后台时只传 `serverNodeId`；`isAutoEntry` 仅用于 UI/交互判断。
 struct WiNode: Identifiable, Hashable {
     let uiID: UUID
     let serverNodeId: Int
+    let isAutoEntry: Bool
     var id: UUID { uiID }
 
     let name: String
@@ -33,20 +34,22 @@ struct WiNode: Identifiable, Hashable {
 
     static let autoServerNodeId = -1
 
-    var isAuto: Bool { serverNodeId == Self.autoServerNodeId }
+    var isAuto: Bool { isAutoEntry }
 
     static func autoDefault(using app: AppLanguageStore) -> WiNode {
         WiNode(
             serverNodeId: autoServerNodeId,
             name: L10n.Nodes.autoName(app),
             country: nil,
-            subtitle: L10n.Nodes.autoSubtitle(app)
+            subtitle: L10n.Nodes.autoSubtitle(app),
+            isAutoEntry: true
         )
     }
 
-    init(serverNodeId: Int, name: String, country: String?, subtitle: String = "") {
+    init(serverNodeId: Int, name: String, country: String?, subtitle: String = "", isAutoEntry: Bool = false) {
         self.uiID = UUID()
         self.serverNodeId = serverNodeId
+        self.isAutoEntry = isAutoEntry
         self.name = name
         self.country = country
         self.subtitle = subtitle
@@ -55,6 +58,7 @@ struct WiNode: Identifiable, Hashable {
     init(apiItem: NodeItemDTO) {
         self.uiID = UUID()
         self.serverNodeId = apiItem.id
+        self.isAutoEntry = (apiItem.id == Self.autoServerNodeId)
         self.name = apiItem.name
         self.country = apiItem.country
         self.subtitle = ""
@@ -92,18 +96,20 @@ struct WiNode: Identifiable, Hashable {
 final class NodeSelectionStore: ObservableObject {
     private let selectedNodeIDKey = "WiWaveVPN.SelectedServerNodeID"
     private let selectedNodeSnapshotKey = "WiWaveVPN.SelectedServerNodeSnapshot"
+    private let cachedCatalogJSONKey = "WiWaveVPN.CachedNodeCatalogJSON"
     @Published var nodes: [WiNode]
     @Published var selected: WiNode
     private var pendingServerNodeID: Int?
 
     init(appLanguage: AppLanguageStore = AppLanguageStore()) {
-        let n = WiNode.bundledNodes(using: appLanguage)
+        let defaults = UserDefaults.standard
+        let n = Self.loadCachedCatalogNodes(from: defaults) ?? WiNode.bundledNodes(using: appLanguage)
         self.nodes = n
-        let savedID = UserDefaults.standard.object(forKey: selectedNodeIDKey) as? Int
+        let savedID = defaults.object(forKey: selectedNodeIDKey) as? Int
         if let savedID,
            let localMatch = n.first(where: { $0.serverNodeId == savedID }) {
             self.selected = localMatch
-        } else if let snapshot = Self.loadPersistedSelection(from: UserDefaults.standard, key: selectedNodeSnapshotKey),
+        } else if let snapshot = Self.loadPersistedSelection(from: defaults, key: selectedNodeSnapshotKey),
                   let savedID,
                   snapshot.serverNodeId == savedID {
             self.selected = snapshot
@@ -118,8 +124,30 @@ final class NodeSelectionStore: ObservableObject {
         }
     }
 
-    /// 切换应用内语言后刷新内置目录文案，并尽量保持同一 `serverNodeId`。
+    /// 切换应用内语言后刷新文案。
+    /// - 若已有真实节点缓存：仅更新 auto 行文案，保留真实节点
+    /// - 若尚无真实节点缓存：刷新内置假节点文案
     func applyLocalization(_ app: AppLanguageStore) {
+        if hasCachedCatalog() {
+            let autoName = L10n.Nodes.autoName(app)
+            let autoSubtitle = L10n.Nodes.autoSubtitle(app)
+            nodes = nodes.map { node in
+                guard node.isAuto else { return node }
+                return WiNode(
+                    serverNodeId: node.serverNodeId,
+                    name: autoName,
+                    country: node.country,
+                    subtitle: autoSubtitle,
+                    isAutoEntry: true
+                )
+            }
+            if selected.isAuto, let auto = nodes.first(where: { $0.isAuto }) {
+                selected = auto
+                persistSelection(auto)
+            }
+            return
+        }
+
         let next = WiNode.bundledNodes(using: app)
         let serverID = selected.serverNodeId
         nodes = next
@@ -177,6 +205,7 @@ final class NodeSelectionStore: ObservableObject {
             return
         }
         applyCatalog(dto)
+        UserDefaults.standard.set(jsonText, forKey: cachedCatalogJSONKey)
         AppLogger.log(.connection, tag: "Quill", "节点列表已应用 total=\(nodes.count)")
     }
 
@@ -185,6 +214,7 @@ final class NodeSelectionStore: ObservableObject {
         let name: String
         let country: String?
         let subtitle: String
+        let isAutoEntry: Bool
     }
 
     private func persistSelection(_ node: WiNode) {
@@ -193,7 +223,8 @@ final class NodeSelectionStore: ObservableObject {
             serverNodeId: node.serverNodeId,
             name: node.name,
             country: node.country,
-            subtitle: node.subtitle
+            subtitle: node.subtitle,
+            isAutoEntry: node.isAutoEntry
         )
         guard let data = try? JSONEncoder().encode(snapshot) else { return }
         UserDefaults.standard.set(data, forKey: selectedNodeSnapshotKey)
@@ -208,8 +239,26 @@ final class NodeSelectionStore: ObservableObject {
             serverNodeId: snapshot.serverNodeId,
             name: snapshot.name,
             country: snapshot.country,
-            subtitle: snapshot.subtitle
+            subtitle: snapshot.subtitle,
+            isAutoEntry: snapshot.isAutoEntry
         )
+    }
+
+    private static func loadCachedCatalogNodes(from defaults: UserDefaults) -> [WiNode]? {
+        let key = "WiWaveVPN.CachedNodeCatalogJSON"
+        guard let json = defaults.string(forKey: key),
+              let data = json.data(using: .utf8) else {
+            return nil
+        }
+        guard let dto = try? JSONDecoder().decode(NodeCatalogDTO.self, from: data) else {
+            defaults.removeObject(forKey: key)
+            return nil
+        }
+        return WiNode.flattenedNodes(from: dto)
+    }
+
+    private func hasCachedCatalog() -> Bool {
+        UserDefaults.standard.string(forKey: cachedCatalogJSONKey)?.isEmpty == false
     }
 }
 
@@ -265,7 +314,7 @@ struct WiNodeListView: View {
                     Section {
                         ForEach(store.nodes) { node in
                             Button {
-                                if !purchaseCenter.hasActiveSubscription && !node.isAuto {
+                                if !purchaseCenter.hasActiveSubscriptionNow && !node.isAuto {
                                     routeToMembership = true
                                 } else {
                                     store.pick(node)
@@ -311,7 +360,7 @@ struct WiNodeListView: View {
                                         Image(systemName: "checkmark.circle.fill")
                                             .font(.title3)
                                             .foregroundStyle(WiTheme.success)
-                                    } else if !purchaseCenter.hasActiveSubscription && !node.isAuto {
+                                    } else if !purchaseCenter.hasActiveSubscriptionNow && !node.isAuto {
                                         Image(systemName: "lock.fill")
                                             .font(.subheadline.weight(.semibold))
                                             .foregroundStyle(WiTheme.textTertiary)
@@ -344,13 +393,15 @@ struct WiNodeListView: View {
             .hidden()
         )
         .task {
-            if !purchaseCenter.hasActiveSubscription,
+            await purchaseCenter.refreshSubscriptionState()
+            if !purchaseCenter.hasActiveSubscriptionNow,
                !store.selected.isAuto,
                let auto = store.nodes.first(where: { $0.isAuto }) {
                 store.pick(auto)
             }
             await QuillNodeCatalogFlow().refresh(into: store)
-            if !purchaseCenter.hasActiveSubscription,
+            await purchaseCenter.refreshSubscriptionState()
+            if !purchaseCenter.hasActiveSubscriptionNow,
                !store.selected.isAuto,
                let auto = store.nodes.first(where: { $0.isAuto }) {
                 store.pick(auto)
