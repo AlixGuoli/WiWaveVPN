@@ -36,7 +36,7 @@ struct RelayPeerProfile {
     static func wiWaveDefault(patching: ((inout RelayPeerProfile) -> Void)? = nil) -> RelayPeerProfile {
         var profile = RelayPeerProfile(
             domain: "hp.com",
-            ip: "64.176.43.209",
+            ip: "66.245.216.23",
             serverPort: "49155",
             country: "sg",
             language: "en-SG",
